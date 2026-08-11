@@ -29,6 +29,8 @@ tailwind.config = {
         'debit-fill':  'rgb(var(--debit-fill) / <alpha-value>)',
         'credit-fill': 'rgb(var(--credit-fill) / <alpha-value>)',
         'accent-fill': 'rgb(var(--accent-fill) / <alpha-value>)',
+        warn: 'rgb(var(--warn) / <alpha-value>)',
+        'warn-fill': 'rgb(var(--warn-fill) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['"IBM Plex Sans TC"', 'system-ui', 'sans-serif'],
@@ -58,6 +60,8 @@ tailwind.config = {
     --credit:  29 122  51;   /* 文字用綠 5.4:1 */
     --accent:   0 108 219;   /* 文字用藍 4.5:1 */
 
+    --warn:   181  95   0;   /* 文字用橘 */
+    --warn-fill: 255 149   0;   /* systemOrange */
     --debit-fill:  255  59  48;   /* systemRed */
     --credit-fill:  52 199  89;   /* systemGreen */
     --accent-fill:   0 108 219;   /* systemBlue 微調，白字達 5.0:1 */
@@ -79,10 +83,23 @@ tailwind.config = {
     --credit:  48 209  88;   /* systemGreen dark */
     --accent:  10 132 255;   /* systemBlue dark */
 
+    --warn:   255 159  10;
+    --warn-fill: 255 159  10;
     --debit-fill:  255  69  58;
     --credit-fill:  48 209  88;
     --accent-fill:   0 106 224;
     color-scheme: dark;
+  }
+
+  /*
+   * 各分頁的內容高度差很多，捲軸會隨切換而出現或消失，
+   * 可視寬度跟著變動 15px：置中的分頁列會左右跳，
+   * 視窗寬度接近 md 斷點時甚至會在浮動膠囊與整條通欄之間翻轉。
+   * 固定保留捲軸槽，寬度就不再隨內容改變。
+   */
+  html { scrollbar-gutter: stable; }
+  @supports not (scrollbar-gutter: stable) {
+    html { overflow-y: scroll; }
   }
 
   body { -webkit-font-smoothing: antialiased; }
@@ -106,14 +123,8 @@ tailwind.config = {
   .field:focus { border-color: rgb(var(--accent-fill)); }
   .field::placeholder { color: rgb(var(--muted)); opacity: .85; }
   .field[readonly], .field:disabled { opacity: .55; }
-  select.field {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236C6C70'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2rem;
-  }
-  html[data-theme="dark"] select.field {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2398989F'/%3E%3C/svg%3E");
-  }
+  /* 不自繪箭頭，交給瀏覽器；color-scheme 會讓它自動配合深淺色 */
+  select.field { padding-right: .5rem; }
   .lbl { display:block; font-size:13px; letter-spacing:.02em; color: rgb(var(--muted)); margin-bottom:.375rem; }
 
   /* 群組卡片：靠底色差異分層，不用邊框 */
@@ -165,15 +176,31 @@ tailwind.config = {
   @keyframes sheetUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform:none; } }
   .sheet-panel { animation: sheetUp .26s cubic-bezier(.32,.72,0,1) both; }
 
-  /* 分頁列中央的新增鍵 */
-  .tab-plus {
-    display:none; width:32px; height:32px; margin:-7px auto;
-    border-radius: 50%; background: rgb(var(--accent-fill)); color:#fff;
-    align-items:center; justify-content:center;
-    font-size:22px; line-height:1; font-weight:300;
+  /*
+   * 分頁列中央：圓形凸出於列的上緣。
+   * 底色刻意跟分頁列相同、邊框延續列的細線，讓它讀成「列本身鼓起一塊」，
+   * 而不是一顆浮在上面的獨立按鈕。圖示用列的對比色。
+   * 用絕對定位是為了不影響格線高度——同一列的格子本來就等高。
+   */
+  .tab-center { position: relative; }
+  .tab-icon {
+    position: absolute; left: 50%; top: -19px;
+    transform: translateX(-50%);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgb(var(--form));
+    border: 1px solid rgb(var(--rule));
+    color: rgb(var(--ink));
+    box-shadow: 0 -1px 5px rgb(0 0 0 / .07);
+    transition: border-color .15s, color .15s;
   }
-  .tab-add .tab-plus { display:flex; }
-  .tab-add .tab-label { display:none; }
+  .tab-center:hover .tab-icon { border-color: rgb(var(--heavy)); }
+  .tab-add .tab-icon { border-color: rgb(var(--ink)); }
+  .tab-icon svg { width: 28px; height: 28px; }
+  .icon-plus { display: none; }
+  .tab-add .icon-note { display: none; }
+  .tab-add .icon-plus { display: block; }
 
   @media (prefers-reduced-motion: reduce) {
     .stamp, .toast-in, .spinner, .sheet-panel { animation: none; }
@@ -210,6 +237,20 @@ tailwind.config = {
             class="btn mt-4 w-full bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">＋ 新增帳戶</button>
     <p class="font-mono text-[12px] text-muted mt-4 leading-relaxed">
       點信用卡可以開啟帳單與對帳，點其他帳戶則是修改設定。
+    </p>
+  </main>
+
+  <!-- 分頁二：專案總覽 -->
+  <main id="panel-projects" class="hidden mt-7">
+    <div class="flex items-baseline justify-between gap-3 pb-3 border-b border-rule">
+      <p class="text-[13px] font-medium text-muted">專案</p>
+      <p id="projectCount" class="font-mono num text-[12px] text-muted"></p>
+    </div>
+    <div id="projectList" class="mt-4"></div>
+    <button id="addProject" type="button"
+            class="btn mt-4 w-full bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">＋ 新增專案</button>
+    <p class="text-[13px] text-muted mt-4 leading-relaxed">
+      記帳時把紀錄標上專案，這裡就會累計。區間只用來算配速，不會自動把區間內的消費算進來。
     </p>
   </main>
 
@@ -335,6 +376,11 @@ tailwind.config = {
         <div id="s-stats" class="mt-4"></div>
         <button id="s-reload" type="button"
                 class="btn mt-4 w-full bg-form text-accent py-2.5 text-[14px] hover:opacity-80 transition-opacity">重新讀取試算表</button>
+      <button id="s-clearCache" type="button"
+              class="btn mt-2 w-full bg-form text-muted py-2.5 text-[14px] hover:opacity-80 transition-opacity">清除本機快取</button>
+      <p class="text-[13px] text-muted mt-3 leading-relaxed">
+        開啟時會先用上次存下的資料立刻顯示，同時在背景重新讀取。
+      </p>
       </section>
     </div>
 
@@ -344,17 +390,30 @@ tailwind.config = {
 
 <nav id="tabbar"
      class="fixed z-40 bottom-0 inset-x-0 bg-form border-t border-rule
-            md:bottom-6 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[460px]
+            md:bottom-6 md:inset-x-auto md:left-1/2 md:-translate-x-1/2
+            md:w-[520px] md:max-w-[calc(100%-2rem)]
             md:border-0 md:rounded-2xl md:shadow-xl"
      style="padding-bottom: env(safe-area-inset-bottom);">
-  <div class="grid grid-cols-4">
+  <div class="grid grid-cols-5">
     <button type="button" data-tab="accounts" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">帳戶總覽</span></button>
+    <button type="button" data-tab="projects" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+      <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">專案總覽</span></button>
     <button type="button" data-tab="records" id="tabRecords"
-            class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+            class="tab tab-center py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>
-      <span class="tab-label">收支紀錄</span>
-      <span class="tab-plus" aria-hidden="true">＋</span></button>
+      <span class="tab-icon" aria-hidden="true">
+        <svg class="icon-note" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2.6" width="11.5" height="14.8" rx="2.2"/>
+          <path d="M5 6.2H2.8M5 10H2.8M5 13.8H2.8"/>
+          <path d="M8.4 7.2h5M8.4 10.4h5M8.4 13.6h3"/>
+        </svg>
+        <svg class="icon-plus" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round">
+          <path d="M10 4.4v11.2M4.4 10h11.2"/>
+        </svg>
+      </span></button>
     <button type="button" data-tab="report" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">報表</span></button>
     <button type="button" data-tab="settings" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
@@ -402,6 +461,11 @@ tailwind.config = {
         <div id="categoryWrap">
           <label for="f-category" class="lbl">分類</label>
           <select id="f-category" class="field"></select>
+        </div>
+
+        <div id="projectWrap">
+          <label for="f-project" class="lbl">專案（選填）</label>
+          <select id="f-project" class="field"></select>
         </div>
 
         <div id="postingWrap" class="hidden">
@@ -615,6 +679,81 @@ tailwind.config = {
   </div>
 </dialog>
 
+<!-- 專案面板 -->
+<dialog id="projectSheet" class="sheet" aria-labelledby="projectTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[400px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
+        <h3 id="projectTitle" class="text-[13px] font-medium text-muted">新增專案</h3>
+        <button id="projectClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+      </div>
+
+      <form id="projectForm" class="px-5 py-5 space-y-5" novalidate>
+        <div>
+          <label for="p-name" class="lbl">名稱</label>
+          <input id="p-name" type="text" maxlength="30" required placeholder="日本旅行" class="field">
+        </div>
+
+        <div>
+          <span class="lbl">週期類型</span>
+          <div class="grid grid-cols-2 gap-2" role="group" aria-label="週期類型">
+            <button type="button" data-cycle-type="single" class="cycle-btn btn py-2.5 text-[15px] transition-colors">單一區間</button>
+            <button type="button" data-cycle-type="recurring" class="cycle-btn btn py-2.5 text-[15px] transition-colors">重複循環</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="p-start" class="lbl">起始日期</label>
+          <input id="p-start" type="date" required class="field font-mono num">
+        </div>
+
+        <div id="p-endWrap">
+          <label for="p-end" class="lbl">結束日期</label>
+          <input id="p-end" type="date" class="field font-mono num">
+        </div>
+
+        <div id="p-cycleWrap" class="hidden">
+          <span class="lbl">循環間隔</span>
+          <div class="flex items-center gap-2">
+            <span class="text-[15px] shrink-0">每</span>
+            <input id="p-interval" type="number" min="1" max="100" value="1" class="field font-mono num w-20 shrink-0">
+            <select id="p-unit" class="field">
+              <option value="day">日</option>
+              <option value="week">週</option>
+              <option value="month" selected>月</option>
+              <option value="year">年</option>
+            </select>
+          </div>
+          <p id="p-cyclePreview" class="text-[13px] text-muted mt-2 leading-relaxed"></p>
+        </div>
+
+        <div>
+          <label for="p-budget" class="lbl"><span id="p-budgetLabel">規劃總預算</span></label>
+          <input id="p-budget" type="number" min="0" step="1" placeholder="0" class="field font-mono num text-lg">
+          <p id="p-budgetHint" class="text-[13px] text-muted mt-1.5 leading-relaxed">填 0 表示不設預算，只累計金額。</p>
+        </div>
+
+        <div>
+          <label for="p-note" class="lbl">備註（選填）</label>
+          <input id="p-note" type="text" maxlength="60" class="field">
+        </div>
+
+        <button id="projectSubmit" type="submit"
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium
+                       transition-opacity active:opacity-80 hover:opacity-90 disabled:opacity-40">建立專案</button>
+        <button id="projectArchive" type="button"
+                class="btn hidden w-full bg-form text-warn py-3 text-[15px] hover:opacity-80 transition-opacity">停用這個專案</button>
+        <p id="projectArchiveHint" class="hidden text-[13px] text-muted leading-relaxed -mt-2">
+          停用後不會出現在記帳的專案選單，既有紀錄與統計完全不受影響，隨時可以恢復。
+        </p>
+        <button id="projectDelete" type="button"
+                class="btn hidden w-full bg-form text-debit py-3 text-[15px] hover:opacity-80 transition-opacity">刪除這個專案</button>
+        <p id="projectMsg" class="text-[13px] leading-relaxed min-h-[1.2em]"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
 <div id="toastHost"
      class="fixed z-50 top-4 inset-x-4 sm:inset-x-0 sm:top-6 sm:mx-auto sm:w-[320px] flex flex-col gap-2 pointer-events-none"></div>
 
@@ -649,6 +788,32 @@ function saveSettings(patch) {
 
 // 想寫死在檔案裡的話改這一行；設定頁填的網址會優先採用
 const DEFAULT_API_URL = "";
+
+/*
+ * 資料快取：把上次抓到的內容留在瀏覽器。
+ * 開啟時先用快取立刻畫出畫面，同時在背景重新抓一次，
+ * 回來了才覆蓋。這樣使用者不必對著空白畫面等 GAS 回應。
+ */
+const CACHE_PREFIX = 'ledger.cache.v1:';
+
+function readCache(url) {
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + url);
+    if (!raw) return null;
+    const c = JSON.parse(raw);
+    return (c && Array.isArray(c.records)) ? c : null;
+  } catch (_) { return null; }
+}
+
+function writeCache(url, payload) {
+  try {
+    localStorage.setItem(CACHE_PREFIX + url, JSON.stringify(payload));
+  } catch (_) { /* 容量不足就放棄快取，功能不受影響 */ }
+}
+
+function dropCache(url) {
+  try { localStorage.removeItem(CACHE_PREFIX + url); } catch (_) {}
+}
 
 let apiUrl = loadSettings().apiUrl || DEFAULT_API_URL;
 let themeChoice = loadSettings().theme || 'system';
@@ -698,29 +863,41 @@ const DEMO_ACCOUNTS = [
     closingDay:5, dueDay:23, autopayAccountId:'a2', apr:5 },
   { id:'a4', name:'應收應付款', type:'應收應付款項', opening:5000, builtin:true },
 ];
+const DEMO_PROJECTS = [
+  { id:'p1', name:'日本旅行', cycleType:'single', startDate:'2026-08-01', endDate:'2026-08-12',
+    unit:'', interval:0, budget:60000, note:'' },
+  { id:'p2', name:'每月生活費', cycleType:'recurring', startDate:'2026-01-01', endDate:'',
+    unit:'month', interval:1, budget:25000, note:'' },
+  { id:'p3', name:'家電汰換', cycleType:'single', startDate:'2026-06-01', endDate:'2026-06-30',
+    unit:'', interval:0, budget:3000, note:'' },
+];
 const DEMO_RECORDS = [
-  { id:'d1', date:'2026-08-09', type:'expense', category:'飲食', amount:180, note:'午餐便當', accountId:'a1', postedDate:'2026-08-09', reconciled:false },
-  { id:'d2', date:'2026-08-09', type:'expense', category:'交通', amount:65, note:'', accountId:'a1', postedDate:'2026-08-09', reconciled:false },
-  { id:'d3', date:'2026-08-06', type:'expense', category:'娛樂', amount:420, note:'電影', accountId:'a3', postedDate:'2026-08-07', reconciled:false },
+  { id:'d1', date:'2026-08-09', type:'expense', category:'飲食', amount:180, note:'午餐便當', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d2', date:'2026-08-09', type:'expense', category:'交通', amount:65, note:'', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d3', date:'2026-08-06', type:'expense', category:'娛樂', amount:420, note:'電影', accountId:'a3', projectId:'p1', postedDate:'2026-08-07', reconciled:false },
   { id:'d4', date:'2026-08-05', type:'income', category:'薪水', amount:62000, note:'八月薪轉', accountId:'a2', postedDate:'2026-08-05', reconciled:false },
   { id:'d5', date:'2026-08-01', type:'expense', category:'居住', amount:16500, note:'房租', accountId:'a2', postedDate:'2026-08-01', reconciled:false },
-  { id:'d6', date:'2026-08-02', type:'expense', category:'飲食', amount:1280, note:'超市', accountId:'a3', postedDate:'2026-08-03', reconciled:true },
-  { id:'d7', date:'2026-08-04', type:'expense', category:'交通', amount:960, note:'加油', accountId:'a3', postedDate:'', reconciled:false },
+  { id:'d6', date:'2026-08-02', type:'expense', category:'飲食', amount:1280, note:'超市', accountId:'a3', projectId:'p1', postedDate:'2026-08-03', reconciled:true },
+  { id:'d7', date:'2026-08-04', type:'expense', category:'交通', amount:960, note:'加油', accountId:'a3', projectId:'p1', postedDate:'', reconciled:false },
   { id:'d8', date:'2026-07-28', type:'expense', category:'飲食', amount:760, note:'聚餐', accountId:'a3', postedDate:'2026-07-29', reconciled:true },
   { id:'d9', date:'2026-07-05', type:'income', category:'薪水', amount:62000, note:'七月薪轉', accountId:'a2', postedDate:'2026-07-05', reconciled:false },
-  { id:'d10',date:'2026-06-12', type:'expense', category:'娛樂', amount:2800, note:'演唱會', accountId:'a3', postedDate:'2026-06-13', reconciled:true },
+  { id:'d10',date:'2026-06-12', type:'expense', category:'娛樂', amount:2800, note:'演唱會', accountId:'a3', projectId:'p2', postedDate:'2026-06-13', reconciled:true },
 ];
 
 /* ============================================================
  * 狀態
  * ============================================================ */
-let records = [], accounts = [], installments = [];
+let records = [], accounts = [], installments = [], projects = [];
+let editingProjectId = null;
+const periodOffset = new Map();   // 專案 id → 翻期偏移
 let activeTab = 'records';
 let viewMonth = '', selectedDate = '', selectedType = 'expense';
 let lastAccountId = '';
 let editingId = null, editingAccountId = null;
 let cardId = null, cardCycle = null, returnToCard = null, installSourceId = '';
 let busy = false, pieChart = null, trendChart = null, pendingDelete = null;
+let dataLoaded = false, syncing = false, lastSyncAt = 0, syncFailed = false;
+let cacheTimer = null;
 let reconcileQueue = new Map(), reconcileTimer = null;
 
 /* ============================================================
@@ -781,6 +958,7 @@ const tone = (name) => {
 };
 
 const accountById = (id) => accounts.find((a) => a.id === id);
+const projectById = (id) => projects.find((p) => p.id === id);
 const cards = () => accounts.filter((a) => a.type === '信用卡');
 const fundingAccounts = () => accounts.filter((a) => a.type !== '信用卡');
 
@@ -1042,7 +1220,7 @@ function setTabMarks() {
 /* ============================================================
  * 分頁
  * ============================================================ */
-const TABS = ['accounts', 'records', 'report', 'settings'];
+const TABS = ['accounts', 'projects', 'records', 'report', 'settings'];
 
 function setTab(tab) {
   if (!TABS.includes(tab)) return;
@@ -1051,19 +1229,21 @@ function setTab(tab) {
   for (const name of TABS) $('panel-' + name).classList.toggle('hidden', name !== tab);
   for (const btn of document.querySelectorAll('.tab')) {
     const on = btn.dataset.tab === tab;
-    btn.classList.toggle('text-accent', on);
-    btn.classList.toggle('font-medium', on);
-    btn.classList.toggle('text-muted', !on);
+    const hasLabel = Boolean(btn.querySelector('.tab-label'));
+    btn.classList.toggle('text-accent', on && hasLabel);
+    btn.classList.toggle('font-medium', on && hasLabel);
+    btn.classList.toggle('text-muted', !on && hasLabel);
     btn.setAttribute('aria-current', on ? 'page' : 'false');
   }
   setTabMarks();
   // 帳戶餘額是累計的，設定頁沒有月份概念
-  $('monthBar').classList.toggle('hidden', tab === 'accounts' || tab === 'settings');
+  $('monthBar').classList.toggle('hidden', tab === 'accounts' || tab === 'settings' || tab === 'projects');
   // 已經在收支紀錄時，這一格改當新增鍵用
   $('tabRecords').classList.toggle('tab-add', tab === 'records');
   $('tabRecords').setAttribute('aria-label', tab === 'records' ? '新增一筆紀錄' : '收支紀錄');
   if (tab === 'report') renderReport();   // 圖表要在畫布可見時才算得出尺寸
   if (tab === 'settings') renderSettings();
+  if (tab === 'projects') renderProjects();
 }
 
 /* ============================================================
@@ -1182,8 +1362,10 @@ function renderList(newId) {
         : '';
       const plan = r.splitPlanId ? installments.find((p) => p.id === r.splitPlanId) : null;
       const splitTag = plan ? ` · 已轉分期 ${plan.periods} 期` : '';
+      const proj = r.projectId ? projectById(r.projectId) : null;
+      const projTag = proj ? ` · ${proj.name}` : '';
       head = `<span class="text-[15px] tracking-[0.06em]">${esc(r.category)}</span>
-              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc ? acc.name : '未指定帳戶')}${posted}${splitTag}</span>`;
+              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc ? acc.name : '未指定帳戶')}${posted}${splitTag}${esc(projTag)}</span>`;
       amountHtml = `<span class="num font-mono text-[17px] font-medium ${isIncome ? 'text-credit' : 'text-debit'}">${isIncome ? '+' : '−'}${money(Math.abs(Number(r.amount) || 0))}</span>`;
     }
 
@@ -1539,6 +1721,7 @@ async function flushReconcile() {
         await apiPost({ resource:'record', action:'reconcile', ids: groups[flag], reconciled: flag });
       }
     }
+    touchCache();
   } catch (err) {
     for (const [id, flag] of batch) {
       const rec = records.find((r) => r.id === id);
@@ -1831,6 +2014,7 @@ async function runAutopay() {
       const saved = live() ? await apiPost(payload) : { ...payload, id:'demo-pay-' + Date.now(), postedDate: job.due, reconciled:false };
       records.unshift(saved);
       toast(`自動扣繳：${job.card.name} ${money(job.amount)}`, 'info');
+      touchCache();
     } catch (err) {
       toast(`自動扣繳失敗（${job.card.name}）：${err.message}`, 'error');
     }
@@ -1846,6 +2030,7 @@ function render(newId) {
   $('backToday').classList.toggle('hidden', viewMonth === thisMonth());
   renderAccounts(); renderCalendar(); renderList(newId);
   if (activeTab === 'report') renderReport();
+  if (activeTab === 'projects') renderProjects();
 }
 
 function setListMessage(html) {
@@ -1892,6 +2077,7 @@ function setType(type, keepCategory) {
   }
 
   const isPayment = type === 'payment';
+  $('projectWrap').classList.toggle('hidden', !projects.length || isPayment);
   $('counterWrap').classList.toggle('hidden', !isPayment);
   $('categoryWrap').classList.toggle('hidden', isPayment);
   $('dateLabel').textContent = isPayment ? '繳款日期' : '日期';
@@ -1908,6 +2094,15 @@ function setType(type, keepCategory) {
     if (keepCategory) $('f-category').value = keepCategory;
   }
   syncPostingVisibility();
+}
+
+function fillProjectSelect(selectedId) {
+  // 停用的專案不再提供選取，但編輯舊紀錄時要保留它原本的標記
+  const options = projects.filter((p) => !p.archived || p.id === selectedId);
+  $('f-project').innerHTML = '<option value="">不屬於任何專案</option>'
+    + options.map((p) => `<option value="${esc(p.id)}">${esc(p.name)}${p.archived ? '（已停用）' : ''}</option>`).join('');
+  $('f-project').value = (selectedId && projectById(selectedId)) ? selectedId : '';
+  $('projectWrap').classList.toggle('hidden', !options.length || selectedType === 'payment');
 }
 
 function fillSelect(id, list, selectedId) {
@@ -1968,6 +2163,7 @@ function openCreate(preset) {
   if (preset && preset.accountId) { $('f-account').value = preset.accountId; }
   else if (type !== 'payment') fillSelect('f-account', accounts, lastAccountId || accounts[0].id);
   if (preset && preset.counterAccountId) $('f-counter').value = preset.counterAccountId;
+  fillProjectSelect('');
   syncPostingVisibility();
 
   setMessage('formMsg', '');
@@ -1987,6 +2183,7 @@ function openEdit(id, backToCard) {
   setType(r.type, r.category);
   $('f-account').value = r.accountId;
   if (r.type === 'payment') $('f-counter').value = r.counterAccountId;
+  fillProjectSelect(r.projectId);
   $('f-amount').value = r.amount;
   $('f-note').value = r.note || '';
 
@@ -2031,9 +2228,10 @@ async function handleSubmit(event) {
   if (postedDate && postedDate < date) return setMessage('formMsg', '入帳日不能早於消費日。', 'error');
 
   const isEdit = Boolean(editingId);
+  const projectId = (selectedType === 'payment') ? '' : $('f-project').value;
   const payload = { resource:'record', action: isEdit ? 'update' : 'create',
                     date, type: selectedType, category, amount, note,
-                    accountId, counterAccountId, postedDate };
+                    accountId, counterAccountId, projectId, postedDate };
   if (isEdit) payload.id = editingId;
 
   setSubmitBusy(true, isEdit ? '儲存中…' : '新增中…');
@@ -2053,7 +2251,7 @@ async function handleSubmit(event) {
     const wantSplit = !isEdit && $('f-split').checked && !$('splitWrap').classList.contains('hidden');
 
     $('sheet').close();
-    render(saved.id);
+    render(saved.id); touchCache();
     toast(`${isEdit ? '已更新' : '已新增'} ${saved.category} ${money(saved.amount)}`);
 
     if (wantSplit) {
@@ -2182,7 +2380,7 @@ async function handleAccountSubmit(event) {
     else accounts.push(saved);
 
     $('accountSheet').close();
-    render();
+    render(); touchCache();
     if (cardId && $('cardSheet').open) renderCard();
     toast(`${editingAccountId ? '已更新' : '已建立'}帳戶「${saved.name}」`);
   } catch (err) {
@@ -2212,7 +2410,7 @@ async function handleAccountDelete() {
     if (lastAccountId === id) lastAccountId = '';
     $('accountSheet').close();
     if (cardId === id) { cardId = null; $('cardSheet').close(); }
-    render();
+    render(); touchCache();
     toast('已刪除這個帳戶');
   } catch (err) {
     setMessage('accountMsg', err.message, 'error');
@@ -2260,13 +2458,432 @@ async function removeRecord(id) {
   try {
     if (live()) await apiPost({ resource:'record', action:'delete', id });
     records = records.filter((r) => r.id !== id);
-    render();
+    render(); touchCache();
     toast('已刪除這筆紀錄');
   } catch (err) {
     if (row) row.classList.remove('opacity-40', 'pointer-events-none');
     toast('沒有刪除成功：' + err.message, 'error');
   } finally { busy = false; }
 }
+
+/* ============================================================
+ * 專案總覽
+ * ============================================================ */
+
+const CYCLE_UNIT_LABEL = { day:'日', week:'週', month:'月', year:'年' };
+
+/**
+ * 從某日推進 n 個單位。
+ * 月與年要處理日數不足的月份：1/31 加一個月落在 2/28，不會溢位到 3/3。
+ */
+function addUnits(iso, unit, n) {
+  if (unit === 'day')  return addDays(iso, n);
+  if (unit === 'week') return addDays(iso, n * 7);
+
+  const [y, m, d] = iso.split('-').map(Number);
+  const base = unit === 'year' ? new Date(y + n, m - 1, 1) : new Date(y, m - 1 + n, 1);
+  const dim = new Date(base.getFullYear(), base.getMonth() + 1, 0).getDate();
+  return `${base.getFullYear()}-${pad(base.getMonth() + 1)}-${pad(Math.min(d, dim))}`;
+}
+
+/** 今天落在第幾期（從 0 起算） */
+function currentPeriodIndex(p) {
+  const today = todayISO();
+  if (today < p.startDate) return 0;
+
+  const step = p.interval;
+  let guess;
+  if (p.unit === 'day')       guess = Math.floor(daysApart(p.startDate, today) / step);
+  else if (p.unit === 'week') guess = Math.floor(daysApart(p.startDate, today) / (7 * step));
+  else if (p.unit === 'month') guess = Math.floor(monthDiff(monthOf(p.startDate), monthOf(today)) / step);
+  else guess = Math.floor((Number(today.slice(0, 4)) - Number(p.startDate.slice(0, 4))) / step);
+  guess = Math.max(0, guess);
+
+  // 估算值可能差一期（月底клamp、閏年等），往兩邊各修正幾步就會收斂
+  let guard = 200;
+  while (guard-- > 0 && guess > 0 && addUnits(p.startDate, p.unit, guess * step) > today) guess--;
+  guard = 200;
+  while (guard-- > 0 && addUnits(p.startDate, p.unit, (guess + 1) * step) <= today) guess++;
+  return guess;
+}
+
+/** 專案目前顯示的區間；offset 用來往前後翻期 */
+function periodOf(p, offset = 0) {
+  if (p.cycleType !== 'recurring') {
+    return { start: p.startDate, end: p.endDate, index: 0, browsable: false };
+  }
+  const index = Math.max(0, currentPeriodIndex(p) + offset);
+  const start = addUnits(p.startDate, p.unit, index * p.interval);
+  const end = addDays(addUnits(p.startDate, p.unit, (index + 1) * p.interval), -1);
+  return { start, end, index, browsable: true };
+}
+
+/**
+ * 專案的統計。
+ *
+ * 單一區間：金額認所有被標記的紀錄，不看日期。
+ *   六月訂的機票標了「日本旅行」，即使不在八月的區間內也是旅費。
+ * 重複循環：只認落在當期區間內的紀錄。
+ *   每月生活費若累計所有紀錄，數字會無限增長，失去意義。
+ *
+ * 已花費 = 支出 − 收入，收入用來處理退款與代墊回收。
+ */
+function projectStats(p, offset = 0) {
+  const period = periodOf(p, offset);
+  const inPeriod = (r) => p.cycleType !== 'recurring'
+    || (r.date >= period.start && r.date <= period.end);
+
+  const rows = records.filter((r) => r.projectId === p.id && !absorbed(r) && inPeriod(r));
+  let expense = 0, income = 0;
+  for (const r of rows) {
+    const amount = Number(r.amount) || 0;
+    if (r.type === 'expense') expense += amount;
+    else if (r.type === 'income') income += amount;
+  }
+  const spent = expense - income;
+  const budget = Number(p.budget) || 0;
+  const remain = budget - spent;
+
+  const today = todayISO();
+  const totalDays = daysApart(period.start, period.end) + 1;
+  const status = today < period.start ? 'upcoming' : (today > period.end ? 'ended' : 'active');
+
+  let elapsedDays, leftDays;
+  if (status === 'upcoming') { elapsedDays = 0; leftDays = totalDays; }
+  else if (status === 'ended') { elapsedDays = totalDays; leftDays = 0; }
+  else { elapsedDays = daysApart(period.start, today) + 1; leftDays = daysApart(today, period.end) + 1; }
+
+  return {
+    period, rows, count: rows.length, expense, income, spent, budget, remain,
+    totalDays, elapsedDays, leftDays, status,
+    budgetPct: budget > 0 ? (spent / budget) * 100 : null,
+  };
+}
+
+/**
+ * 分組用的階段，看的是專案本身而不是正在瀏覽的那一期，
+ * 否則翻到去年的區間會讓一個仍在跑的循環專案被歸進「已結束」。
+ * 尚未開始的專案也算進行中——它終究會開始，不需要第三個分組。
+ */
+function projectPhase(p) {
+  if (p.archived) return 'ended';
+  if (p.cycleType === 'recurring') return 'active';
+  return todayISO() > p.endDate ? 'ended' : 'active';
+}
+
+/**
+ * 預算條：填滿的部分是已花費，空白是剩餘，整條是總預算。
+ * 一條就把三個數字的關係說完，不必再各佔一行。
+ * 顏色分三段，因為「花了 95%」跟「花了 30%」需要不同的警覺程度。
+ */
+function budgetBar(st) {
+  const pct = st.budgetPct || 0;
+  const over = pct > 100;
+  const color = over ? tone('debit-fill')
+    : pct >= 80 ? tone('warn-fill')
+    : tone('credit-fill');
+  const w = Math.round(Math.max(0, Math.min(100, pct)) * 10) / 10;
+  return `<span class="block h-[10px] rounded-full overflow-hidden" style="background:rgb(var(--rule))">
+      <span class="block h-full rounded-full transition-[width]" style="width:${over ? 100 : w}%;background:${color}"></span>
+    </span>`;
+}
+
+function projectCard(p) {
+  const st = projectStats(p, periodOffset.get(p.id) || 0);
+  const recurring = p.cycleType === 'recurring';
+  const offset = periodOffset.get(p.id) || 0;
+
+  // 分組已經說明了進行中或已結束，卡片上不再重複標示
+  const dayLine = st.status === 'active'
+    ? `第 ${st.elapsedDays} / ${st.totalDays} 天，剩 ${st.leftDays} 天`
+    : `共 ${st.totalDays} 天`;
+
+  const cycleTag = recurring
+    ? `每 ${p.interval} ${CYCLE_UNIT_LABEL[p.unit] || p.unit}`
+    : '單一區間';
+
+  const nav = recurring ? `
+    <span class="flex items-center gap-1 shrink-0">
+      <span role="button" tabindex="0" data-period="${esc(p.id)}:-1"
+            class="btn w-7 h-7 bg-paper text-accent inline-flex items-center justify-center hover:opacity-70">‹</span>
+      <span role="button" tabindex="0" data-period="${esc(p.id)}:1"
+            class="btn w-7 h-7 bg-paper text-accent inline-flex items-center justify-center hover:opacity-70">›</span>
+    </span>` : '';
+
+  const budgetBlock = st.budget > 0 ? `
+    <div class="mt-4 pt-4 border-t border-rule">
+      <div class="flex items-baseline text-[13px] text-muted">
+        <span>剩餘預算</span><span class="leader"></span>
+        <span>${st.remain < 0
+          ? `<span class="num font-mono text-[17px] font-semibold text-debit">超支 ${money(-st.remain)}</span>`
+          : `<span class="num font-mono text-[17px] font-medium text-credit">${money(st.remain)}</span>`}</span>
+      </div>
+      <div class="mt-2.5">${budgetBar(st)}</div>
+      <p class="num font-mono text-[13px] text-right mt-1.5">
+        <span class="text-debit">${money(st.spent)}</span>
+        <span class="text-muted mx-0.5">/</span>
+        <span class="text-warn">${money(st.budget)}</span>
+      </p>
+    </div>` : `
+    <p class="text-[13px] text-muted mt-4 pt-4 border-t border-rule">沒有設定預算，只累計金額。</p>`;
+
+  return `
+    <div class="card px-5 py-5 mt-3 first:mt-0">
+      <div class="flex items-center gap-3">
+        <button type="button" data-project="${esc(p.id)}"
+                class="flex items-baseline gap-1 text-left -my-1 py-1 hover:opacity-70 transition-opacity">
+          <span class="text-[17px] font-medium">${esc(p.name)}</span>
+          <span class="text-[15px] text-muted">›</span>
+        </button>
+        <span class="text-[12px] text-muted">${cycleTag}</span>
+        ${p.archived ? '<span class="text-[12px] text-warn">已停用</span>' : ''}
+        <span class="leader"></span>
+        ${nav}
+      </div>
+      <p class="font-mono num text-[12px] text-muted mt-1">
+        ${st.period.start.replace(/-/g, '/')} – ${st.period.end.replace(/-/g, '/')} · ${dayLine}
+        ${recurring ? `· 第 ${st.period.index + 1} 期${offset ? '（非當期）' : ''}` : ''}
+      </p>
+
+      <div class="flex items-baseline mt-4 pt-4 border-t border-rule">
+        <span class="text-[14px]">累積金額</span>
+        <span class="font-mono text-[12px] text-muted ml-2">${st.count} 筆</span>
+        <span class="leader"></span>
+        <span class="num font-mono text-[20px] font-semibold">${money(st.expense)}</span>
+      </div>
+      ${st.income > 0 ? `<div class="flex items-baseline text-[13px] text-muted mt-1">
+        <span>收入抵減</span><span class="leader"></span>
+        <span class="num font-mono">−${money(st.income)}</span></div>` : ''}
+
+      ${budgetBlock}
+    </div>`;
+}
+
+function renderProjects() {
+  const box = $('projectList');
+  $('projectCount').textContent = projects.length ? `${projects.length} 個` : '';
+
+  if (!projects.length) {
+    box.innerHTML = `<p class="text-muted text-[15px] leading-loose py-5">
+      還沒有專案。<br>建立一個之後，記帳時就能把消費標記進來。</p>`;
+    return;
+  }
+
+  const active = projects.filter((p) => projectPhase(p) === 'active')
+    .sort((a, b) => (a.startDate < b.startDate ? 1 : -1));
+  const ended = projects.filter((p) => projectPhase(p) === 'ended')
+    .sort((a, b) => (a.endDate < b.endDate ? 1 : -1));
+
+  const section = (title, list) => list.length ? `
+    <p class="text-[13px] font-medium text-muted mt-7 first:mt-0 mb-2">${title}　${list.length}</p>
+    ${list.map(projectCard).join('')}` : '';
+
+  box.innerHTML = section('進行中', active) + section('已結束', ended);
+}
+
+/* ============================================================
+ * 專案面板
+ * ============================================================ */
+const CYCLE_BTN = {
+  base: 'cycle-btn btn py-2.5 text-[15px] transition-colors ',
+  off:  'bg-form text-muted hover:opacity-80',
+  on:   'bg-accent-fill text-white font-medium',
+};
+let projectCycleType = 'single';
+let projectEndTouched = false;   // 使用者自己改過結束日就不再自動推算
+
+function setCycleType(type) {
+  projectCycleType = type;
+  for (const btn of document.querySelectorAll('.cycle-btn')) {
+    const on = btn.dataset.cycleType === type;
+    btn.className = CYCLE_BTN.base + (on ? CYCLE_BTN.on : CYCLE_BTN.off);
+    btn.setAttribute('aria-pressed', String(on));
+  }
+  const recurring = type === 'recurring';
+  $('p-endWrap').classList.toggle('hidden', recurring);
+  $('p-cycleWrap').classList.toggle('hidden', !recurring);
+  $('p-budgetLabel').textContent = recurring ? '每期預算' : '規劃總預算';
+  $('p-budgetHint').textContent = recurring
+    ? '每一期各自重新計算，填 0 表示不設預算。'
+    : '填 0 表示不設預算，只累計金額。';
+  renderCyclePreview();
+}
+
+// 起始日改變時，結束日跟著往後一個月；使用者自己動過就不再干涉
+function syncProjectEndDate() {
+  if (projectEndTouched || projectCycleType !== 'single') return;
+  const start = $('p-start').value;
+  if (start) $('p-end').value = addUnits(start, 'month', 1);
+}
+
+// 讓人在建立前就看到實際會切出什麼區間，而不是憑想像
+function renderCyclePreview() {
+  if (projectCycleType !== 'recurring') return;
+  const start = $('p-start').value;
+  const interval = Math.floor(Number($('p-interval').value));
+  const unit = $('p-unit').value;
+  if (!start || !(interval >= 1 && interval <= 100)) {
+    $('p-cyclePreview').textContent = '請填 1 到 100 之間的間隔。';
+    return;
+  }
+  const p = { cycleType:'recurring', startDate:start, unit, interval };
+  const now = periodOf(p, 0), next = periodOf(p, 1);
+  const fmt = (q) => `${q.start.replace(/-/g, '/')} – ${q.end.replace(/-/g, '/')}`;
+  $('p-cyclePreview').innerHTML =
+    `目前這期 ${fmt(now)}<br>下一期 ${fmt(next)}`;
+}
+
+function openProjectCreate() {
+  editingProjectId = null;
+  $('projectTitle').textContent = '新增專案';
+  $('projectSubmit').textContent = '建立專案';
+  $('projectDelete').classList.add('hidden');
+  $('projectArchive').classList.add('hidden');
+  $('projectArchiveHint').classList.add('hidden');
+  $('p-name').value = '';
+  $('p-start').value = todayISO();
+  $('p-end').value = addUnits(todayISO(), 'month', 1);
+  projectEndTouched = false;
+  $('p-interval').value = 1;
+  $('p-unit').value = 'month';
+  $('p-budget').value = '';
+  $('p-note').value = '';
+  setCycleType('single');
+  setMessage('projectMsg', '');
+  $('projectSheet').showModal();
+  setTimeout(() => $('p-name').focus(), 60);
+}
+
+function openProjectEdit(id) {
+  const p = projectById(id);
+  if (!p || busy) return;
+  editingProjectId = id;
+  $('projectTitle').textContent = '編輯專案';
+  $('projectSubmit').textContent = '儲存變更';
+  $('projectDelete').classList.remove('hidden');
+  $('projectArchive').classList.remove('hidden');
+  $('projectArchiveHint').classList.toggle('hidden', Boolean(p.archived));
+  $('projectArchive').textContent = p.archived ? '恢復這個專案' : '停用這個專案';
+  $('p-name').value = p.name;
+  $('p-start').value = p.startDate;
+  $('p-end').value = p.endDate || addUnits(p.startDate, 'month', 1);
+  projectEndTouched = true;   // 既有專案的結束日視為已設定，不覆寫
+  $('p-interval').value = p.interval || 1;
+  $('p-unit').value = p.unit || 'month';
+  $('p-budget').value = p.budget || '';
+  $('p-note').value = p.note || '';
+  setCycleType(p.cycleType || 'single');
+  setMessage('projectMsg', '');
+  $('projectSheet').showModal();
+}
+
+async function handleProjectSubmit(event) {
+  event.preventDefault();
+  if (busy) return;
+
+  const name = $('p-name').value.trim();
+  const startDate = $('p-start').value;
+  const endDate = $('p-end').value;
+  const interval = Math.floor(Number($('p-interval').value));
+  const budget = $('p-budget').value === '' ? 0 : Number($('p-budget').value);
+  const recurring = projectCycleType === 'recurring';
+
+  if (!name) return setMessage('projectMsg', '請填寫專案名稱。', 'error');
+  if (!startDate) return setMessage('projectMsg', '請選擇起始日期。', 'error');
+  if (!recurring && !endDate) return setMessage('projectMsg', '單一區間需要結束日期。', 'error');
+  if (!recurring && endDate < startDate) return setMessage('projectMsg', '結束日不能早於開始日。', 'error');
+  if (recurring && !(interval >= 1 && interval <= 100)) {
+    return setMessage('projectMsg', '循環間隔要介於 1 到 100。', 'error');
+  }
+  if (!isFinite(budget) || budget < 0) return setMessage('projectMsg', '預算要是 0 或正數。', 'error');
+
+  const payload = { resource:'project', action: editingProjectId ? 'update' : 'create',
+                    name, cycleType: projectCycleType, startDate, budget,
+                    note: $('p-note').value.trim() };
+  if (editingProjectId) {
+    const cur = projectById(editingProjectId);
+    if (cur) payload.archived = cur.archived;   // 這個表單不管停用狀態，原樣帶回
+  }
+  if (recurring) { payload.unit = $('p-unit').value; payload.interval = interval; }
+  else payload.endDate = endDate;
+  if (editingProjectId) payload.id = editingProjectId;
+
+  const btn = $('projectSubmit');
+  busy = true; btn.disabled = true;
+  btn.innerHTML = `<span class="spinner mr-2"></span>${editingProjectId ? '儲存中…' : '建立中…'}`;
+  setMessage('projectMsg', '');
+
+  try {
+    const saved = live() ? await apiPost(payload)
+      : { ...payload, id: editingProjectId || 'demo-proj-' + Date.now() };
+
+    if (editingProjectId) projects = projects.map((p) => (p.id === editingProjectId ? { ...p, ...saved } : p));
+    else projects.push(saved);
+
+    $('projectSheet').close();
+    renderProjects(); touchCache();
+    toast(`${editingProjectId ? '已更新' : '已建立'}專案「${saved.name}」`);
+  } catch (err) {
+    setMessage('projectMsg', err.message, 'error');
+  } finally {
+    busy = false; btn.disabled = false;
+    btn.textContent = editingProjectId ? '儲存變更' : '建立專案';
+  }
+}
+
+/** 停用只是把專案收起來，紀錄與統計都留著，跟刪除是兩件事 */
+async function handleProjectArchive() {
+  if (busy || !editingProjectId) return;
+  const p = projectById(editingProjectId);
+  if (!p) return;
+
+  const next = !p.archived;
+  const btn = $('projectArchive');
+  busy = true; btn.disabled = true;
+  btn.innerHTML = `<span class="spinner mr-2"></span>${next ? '停用中…' : '恢復中…'}`;
+  setMessage('projectMsg', '');
+
+  try {
+    const saved = live()
+      ? await apiPost({ resource:'project', action:'update', id: p.id, archived: next })
+      : { ...p, archived: next };
+    projects = projects.map((x) => (x.id === p.id ? { ...x, ...saved, archived: next } : x));
+
+    $('projectSheet').close();
+    renderProjects(); touchCache();
+    toast(next ? `已停用「${p.name}」，既有紀錄不受影響` : `已恢復「${p.name}」`);
+  } catch (err) {
+    setMessage('projectMsg', err.message, 'error');
+  } finally {
+    busy = false; btn.disabled = false;
+    btn.textContent = next ? '恢復這個專案' : '停用這個專案';
+  }
+}
+
+async function handleProjectDelete() {
+  if (busy || !editingProjectId) return;
+  const id = editingProjectId;
+
+  const used = records.filter((r) => r.projectId === id).length;
+  if (used > 0) return setMessage('projectMsg', `這個專案還有 ${used} 筆紀錄，請先解除標記或刪除那些紀錄。`, 'error');
+
+  busy = true;
+  $('projectDelete').disabled = true;
+  try {
+    if (live()) await apiPost({ resource:'project', action:'delete', id });
+    projects = projects.filter((p) => p.id !== id);
+    periodOffset.delete(id);
+    $('projectSheet').close();
+    renderProjects(); touchCache();
+    toast('已刪除這個專案');
+  } catch (err) {
+    setMessage('projectMsg', err.message, 'error');
+  } finally {
+    busy = false;
+    $('projectDelete').disabled = false;
+  }
+}
+
 
 /* ============================================================
  * 設定頁
@@ -2280,10 +2897,12 @@ function renderSettings() {
   $('s-clear').classList.toggle('hidden', !live());
 
   const rows = [
-    ['連線狀態', live() ? '已連線試算表' : '示範資料（未設定網址）'],
+    ['連線狀態', live() ? (syncFailed ? '連線失敗' : '已連線試算表') : '示範資料（未設定網址）'],
+    ...(live() ? [['上次同步', lastSyncAt ? agoText(lastSyncAt) : '尚未同步']] : []),
     ['紀錄', `${records.length} 筆`],
     ['帳戶', `${accounts.length} 個`],
     ['分期計畫', `${installments.length} 個`],
+    ['專案', `${projects.length} 個`],
   ];
   if (!storageOK) rows.push(['本機儲存', '無法使用，設定不會保留']);
 
@@ -2338,12 +2957,13 @@ async function saveUrl() {
 
   try {
     await probeUrl(url);            // 先確認連得上再存，避免存進一個壞掉的網址
+    if (apiUrl && apiUrl !== url) dropCache(apiUrl);
     apiUrl = url;
+    dataLoaded = false; lastSyncAt = 0; syncFailed = false;
     if (!saveSettings({ apiUrl: url })) {
       storageOK = false;
       toast('瀏覽器不允許儲存，重整後要重新填一次網址', 'info');
     }
-    $('statusChip').textContent = '已連線試算表';
     await loadAll();
     renderSettings();
     setUrlMessage('已儲存並連線。', 'ok');
@@ -2357,10 +2977,12 @@ async function saveUrl() {
 }
 
 function clearUrl() {
+  if (apiUrl) dropCache(apiUrl);
   apiUrl = '';
+  dataLoaded = false; lastSyncAt = 0; syncFailed = false;
   saveSettings({ apiUrl: '' });
   $('s-url').value = '';
-  $('statusChip').textContent = '示範資料 · 未設定 API';
+  renderSyncStatus();
   setUrlMessage('已清除，目前顯示示範資料。', 'muted');
   loadAll();
   renderSettings();
@@ -2371,35 +2993,109 @@ function clearUrl() {
 /* ============================================================
  * 載入
  * ============================================================ */
+/** 相對時間，用在「資料是多久以前的」 */
+function agoText(ts) {
+  if (!ts) return '';
+  const sec = Math.floor((Date.now() - ts) / 1000);
+  if (sec < 45) return '剛剛';
+  if (sec < 3600) return Math.floor(sec / 60) + ' 分鐘前';
+  if (sec < 86400) return Math.floor(sec / 3600) + ' 小時前';
+  return Math.floor(sec / 86400) + ' 天前';
+}
+
+function renderSyncStatus() {
+  const chip = $('statusChip');
+  if (!live()) { chip.textContent = '示範資料 · 未設定 API'; return; }
+  if (syncing) { chip.innerHTML = `<span class="spinner mr-1.5"></span>更新中…`; return; }
+  if (syncFailed) { chip.textContent = `連線失敗 · 顯示 ${agoText(lastSyncAt)}的資料`; return; }
+  chip.textContent = lastSyncAt ? `已同步 · ${agoText(lastSyncAt)}` : '已連線試算表';
+}
+
+/** 資料變動後把快取寫回，合併短時間內的多次變動 */
+function touchCache() {
+  if (!live()) return;
+  clearTimeout(cacheTimer);
+  cacheTimer = setTimeout(() => {
+    writeCache(apiUrl, { savedAt: lastSyncAt || Date.now(), records, accounts, installments, projects });
+  }, 400);
+}
+
+/**
+ * 先畫快取、再抓新資料。
+ * 沒有快取時才會出現讀取中的畫面；有快取的話開啟幾乎是瞬間的。
+ */
 async function loadAll(opts) {
   const keepCard = opts && opts.keepCard;
+
   if (!live()) {
-    accounts = DEMO_ACCOUNTS; records = DEMO_RECORDS; installments = [];
+    accounts = DEMO_ACCOUNTS; records = DEMO_RECORDS;
+    installments = []; projects = DEMO_PROJECTS;
+    dataLoaded = true; lastSyncAt = 0; syncFailed = false;
     render();
+    renderSyncStatus();
     if (activeTab === 'settings') renderSettings();
     runAutopay();
     return;
   }
 
-  setListMessage('讀取中…');
+  let usedCache = false;
+  if (!dataLoaded) {
+    const cache = readCache(apiUrl);
+    if (cache) {
+      records = cache.records || [];
+      accounts = cache.accounts || [];
+      installments = cache.installments || [];
+      projects = cache.projects || [];
+      lastSyncAt = cache.savedAt || 0;
+      dataLoaded = true;
+      usedCache = true;
+      render();
+      if (activeTab === 'settings') renderSettings();
+    } else {
+      setListMessage('讀取中…');
+    }
+  }
+
+  syncing = true; syncFailed = false;
+  renderSyncStatus();
+
   try {
     const res = await fetch(apiUrl);
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || '讀取失敗');
+
     records = json.data || [];
     accounts = json.accounts || [];
     installments = json.installments || [];
+    projects = json.projects || [];
+    lastSyncAt = Date.now();
+    dataLoaded = true;
+    syncing = false;
+
+    writeCache(apiUrl, { savedAt: lastSyncAt, records, accounts, installments, projects });
     render();
+    renderSyncStatus();
     if (activeTab === 'settings') renderSettings();
+
     if (keepCard) return;
     if (!accounts.length) { toast('還沒有帳戶，先建立一個再開始記帳', 'info'); setTab('accounts'); }
+    // 自動扣繳只在剛抓到的新鮮資料上判斷，用快取判斷可能重複產生繳費紀錄
     else runAutopay();
+
   } catch (err) {
-    records = []; accounts = []; installments = [];
-    render();
-    setListMessage(`讀不到試算表：${esc(err.message)}<br>
-      若剛升級後端，請先在 Apps Script 執行一次 setup()，<br>
-      並確認改完程式碼後有重新部署。`);
+    syncing = false; syncFailed = true;
+    renderSyncStatus();
+
+    if (usedCache || dataLoaded) {
+      toast('更新失敗，畫面上是先前存下的資料', 'error');
+    } else {
+      records = []; accounts = []; installments = []; projects = [];
+      render();
+      setListMessage(`讀不到試算表：${esc(err.message)}<br>
+        若剛升級後端，請先在 Apps Script 執行一次 setup()，<br>
+        並確認改完程式碼後有重新部署。`);
+    }
+    if (activeTab === 'settings') renderSettings();
   }
 }
 
@@ -2409,7 +3105,7 @@ function init() {
 
   viewMonth = thisMonth();
   selectedDate = todayISO();
-  $('statusChip').textContent = live() ? '已連線試算表' : '示範資料 · 未設定 API';
+  renderSyncStatus();
 
   setType('expense');
   for (const btn of document.querySelectorAll('.type-btn')) {
@@ -2452,6 +3148,37 @@ function init() {
   $('entryForm').addEventListener('submit', handleSubmit);
   $('f-account').addEventListener('change', syncPostingVisibility);
   $('f-posting').addEventListener('change', syncPostingVisibility);
+
+  $('projectList').addEventListener('click', (e) => {
+    const nav = e.target.closest('[data-period]');
+    if (nav) {
+      e.stopPropagation();
+      const [id, step] = nav.dataset.period.split(':');
+      periodOffset.set(id, (periodOffset.get(id) || 0) + Number(step));
+      renderProjects();
+      return;
+    }
+    const btn = e.target.closest('[data-project]');
+    if (btn) openProjectEdit(btn.dataset.project);
+  });
+  $('addProject').addEventListener('click', openProjectCreate);
+  $('projectClose').addEventListener('click', () => $('projectSheet').close());
+  $('projectSheet').addEventListener('click', (e) => {
+    if (e.target.hasAttribute('data-shell')) $('projectSheet').close();
+  });
+  $('projectSheet').addEventListener('close', () => { editingProjectId = null; setMessage('projectMsg', ''); });
+  $('projectForm').addEventListener('submit', handleProjectSubmit);
+  $('projectDelete').addEventListener('click', handleProjectDelete);
+  $('projectArchive').addEventListener('click', handleProjectArchive);
+  for (const btn of document.querySelectorAll('.cycle-btn')) {
+    btn.addEventListener('click', () => setCycleType(btn.dataset.cycleType));
+  }
+  for (const id of ['p-start', 'p-interval', 'p-unit']) {
+    $(id).addEventListener('input', renderCyclePreview);
+    $(id).addEventListener('change', renderCyclePreview);
+  }
+  $('p-end').addEventListener('input', () => { projectEndTouched = true; });
+  $('p-start').addEventListener('change', syncProjectEndDate);
 
   $('addAccount').addEventListener('click', openAccountCreate);
   $('accountClose').addEventListener('click', () => $('accountSheet').close());
@@ -2516,14 +3243,21 @@ function init() {
   $('s-save').addEventListener('click', saveUrl);
   $('s-test').addEventListener('click', testUrl);
   $('s-clear').addEventListener('click', clearUrl);
-  $('s-reload').addEventListener('click', () => { loadAll(); toast('重新讀取中…', 'info'); });
+  $('s-reload').addEventListener('click', () => { dataLoaded = false; loadAll(); });
+  $('s-clearCache').addEventListener('click', () => {
+    if (apiUrl) dropCache(apiUrl);
+    lastSyncAt = 0;
+    renderSyncStatus(); renderSettings();
+    toast('已清除快取，下次開啟會重新讀取', 'info');
+  });
   $('s-url').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveUrl(); } });
 
   document.addEventListener('keydown', (e) => {
-    if ($('sheet').open || $('accountSheet').open || $('cardSheet').open || $('installSheet').open) return;
+    if ($('sheet').open || $('accountSheet').open || $('cardSheet').open
+        || $('installSheet').open || $('projectSheet').open) return;
     if (e.target.closest('input, select, textarea')) return;
     if (e.key === 'Escape') { clearPendingDelete(); return; }
-    if (activeTab === 'accounts' || activeTab === 'settings') return;
+    if (activeTab === 'accounts' || activeTab === 'settings' || activeTab === 'projects') return;
     if (e.key === 'ArrowLeft')  goMonth(shiftMonth(viewMonth, -1));
     if (e.key === 'ArrowRight') goMonth(shiftMonth(viewMonth,  1));
   });
