@@ -1,801 +1,2496 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
-    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
-            <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_e623ac16f6c3309276a3ccdb59bd3853 {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-            </style>
-        
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
-</head>
-<body>
-    
-    
-            <div class="folium-map" id="map_e623ac16f6c3309276a3ccdb59bd3853" ></div>
-        
-</body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>記帳本</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-    
-    
-            var map_e623ac16f6c3309276a3ccdb59bd3853 = L.map(
-                "map_e623ac16f6c3309276a3ccdb59bd3853",
-                {
-                    center: [38.5, 140.5],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 7,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
-
-            
-
-        
-    
-            var tile_layer_2aba6ffe72545ecb5d475e86468593a1 = L.tileLayer(
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var marker_6b7c42f5e975f7ee05b78f75174a8319 = L.marker(
-                [25.0797, 121.2328],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_20252c9861ac3e6c3f0e6c04c53e07cd = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_6b7c42f5e975f7ee05b78f75174a8319.setIcon(icon_20252c9861ac3e6c3f0e6c04c53e07cd);
-        
-    
-        var popup_bcef0efc62008614d7c42b43a0e7e167 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_e277596d5fcd7bc4abc60b23ace8cc47 = $(`<div id="html_e277596d5fcd7bc4abc60b23ace8cc47" style="width: 100.0%; height: 100.0%;">桃園國際機場</div>`)[0];
-            popup_bcef0efc62008614d7c42b43a0e7e167.setContent(html_e277596d5fcd7bc4abc60b23ace8cc47);
-        
-
-        marker_6b7c42f5e975f7ee05b78f75174a8319.bindPopup(popup_bcef0efc62008614d7c42b43a0e7e167)
-        ;
-
-        
-    
-    
-            marker_6b7c42f5e975f7ee05b78f75174a8319.bindTooltip(
-                `<div>
-                     桃園國際機場
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_0f838e6be4fcf62e13490dcb5016e141 = L.marker(
-                [40.7347, 140.6908],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_7cdf93613283e8b4e24f461c4c1cdc9b = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_0f838e6be4fcf62e13490dcb5016e141.setIcon(icon_7cdf93613283e8b4e24f461c4c1cdc9b);
-        
-    
-        var popup_e04d449a79ce289f60284793eb546d61 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_26ef10309d79067c6f092f6a1fc38c6a = $(`<div id="html_26ef10309d79067c6f092f6a1fc38c6a" style="width: 100.0%; height: 100.0%;">青森機場</div>`)[0];
-            popup_e04d449a79ce289f60284793eb546d61.setContent(html_26ef10309d79067c6f092f6a1fc38c6a);
-        
-
-        marker_0f838e6be4fcf62e13490dcb5016e141.bindPopup(popup_e04d449a79ce289f60284793eb546d61)
-        ;
-
-        
-    
-    
-            marker_0f838e6be4fcf62e13490dcb5016e141.bindTooltip(
-                `<div>
-                     青森機場
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_5d7c2f4bbcbe004692892c4014ad13f0 = L.marker(
-                [40.8257, 140.7342],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_ba1cd1f2f8f054515b45fce1e832f3fe = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_5d7c2f4bbcbe004692892c4014ad13f0.setIcon(icon_ba1cd1f2f8f054515b45fce1e832f3fe);
-        
-    
-        var popup_f7ed087b1f25ccf02770e04cf1cbdeab = L.popup({"maxWidth": "100%"});
-
-        
-            var html_378d9755cc5f469706b21b93731f86bc = $(`<div id="html_378d9755cc5f469706b21b93731f86bc" style="width: 100.0%; height: 100.0%;">A-Factory</div>`)[0];
-            popup_f7ed087b1f25ccf02770e04cf1cbdeab.setContent(html_378d9755cc5f469706b21b93731f86bc);
-        
-
-        marker_5d7c2f4bbcbe004692892c4014ad13f0.bindPopup(popup_f7ed087b1f25ccf02770e04cf1cbdeab)
-        ;
-
-        
-    
-    
-            marker_5d7c2f4bbcbe004692892c4014ad13f0.bindTooltip(
-                `<div>
-                     A-Factory
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_33b46d436ef05c82b240553f0dbbbb84 = L.marker(
-                [40.9477, 140.5764],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_4afc442c532942ab12d9563c98f3c52c = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_33b46d436ef05c82b240553f0dbbbb84.setIcon(icon_4afc442c532942ab12d9563c98f3c52c);
-        
-    
-        var popup_feb4bde940543e74c5109e76e5cdfac2 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_dad53062fbc1808481a8e2f8077f724a = $(`<div id="html_dad53062fbc1808481a8e2f8077f724a" style="width: 100.0%; height: 100.0%;">高山稻荷神社</div>`)[0];
-            popup_feb4bde940543e74c5109e76e5cdfac2.setContent(html_dad53062fbc1808481a8e2f8077f724a);
-        
-
-        marker_33b46d436ef05c82b240553f0dbbbb84.bindPopup(popup_feb4bde940543e74c5109e76e5cdfac2)
-        ;
-
-        
-    
-    
-            marker_33b46d436ef05c82b240553f0dbbbb84.bindTooltip(
-                `<div>
-                     高山稻荷神社
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_798b475ed360df28ad41c23eef2ae2b1 = L.marker(
-                [40.8089, 140.4432],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_80af2a6c0933bba4681dbde7e054d822 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_798b475ed360df28ad41c23eef2ae2b1.setIcon(icon_80af2a6c0933bba4681dbde7e054d822);
-        
-    
-        var popup_91fc4a1492c5310deb1afdee9efcfa4c = L.popup({"maxWidth": "100%"});
-
-        
-            var html_180623590bbe48303a3da2dca3205ea0 = $(`<div id="html_180623590bbe48303a3da2dca3205ea0" style="width: 100.0%; height: 100.0%;">五所川原</div>`)[0];
-            popup_91fc4a1492c5310deb1afdee9efcfa4c.setContent(html_180623590bbe48303a3da2dca3205ea0);
-        
-
-        marker_798b475ed360df28ad41c23eef2ae2b1.bindPopup(popup_91fc4a1492c5310deb1afdee9efcfa4c)
-        ;
-
-        
-    
-    
-            marker_798b475ed360df28ad41c23eef2ae2b1.bindTooltip(
-                `<div>
-                     五所川原
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_c9137cf536fcdcb404d1a6609e819415 = L.marker(
-                [40.8788, 140.465],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_c8eb98aeb95647b632a2e7d15ef45567 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_c9137cf536fcdcb404d1a6609e819415.setIcon(icon_c8eb98aeb95647b632a2e7d15ef45567);
-        
-    
-        var popup_80996fb682787edf9b86f1150bbde342 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_c0039ddc526b88c7cfe82bc420757242 = $(`<div id="html_c0039ddc526b88c7cfe82bc420757242" style="width: 100.0%; height: 100.0%;">金木町</div>`)[0];
-            popup_80996fb682787edf9b86f1150bbde342.setContent(html_c0039ddc526b88c7cfe82bc420757242);
-        
-
-        marker_c9137cf536fcdcb404d1a6609e819415.bindPopup(popup_80996fb682787edf9b86f1150bbde342)
-        ;
-
-        
-    
-    
-            marker_c9137cf536fcdcb404d1a6609e819415.bindTooltip(
-                `<div>
-                     金木町
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_fe30d68a5dc8fa2f14dc27d0d0a93061 = L.marker(
-                [40.5934, 140.4656],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_014cd30ed4f9243420915a6c24981333 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_fe30d68a5dc8fa2f14dc27d0d0a93061.setIcon(icon_014cd30ed4f9243420915a6c24981333);
-        
-    
-        var popup_be99650b8416212bc91a0d533400d907 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_18d010160073f8343b14e9ef20074355 = $(`<div id="html_18d010160073f8343b14e9ef20074355" style="width: 100.0%; height: 100.0%;">津輕藩睡魔村</div>`)[0];
-            popup_be99650b8416212bc91a0d533400d907.setContent(html_18d010160073f8343b14e9ef20074355);
-        
-
-        marker_fe30d68a5dc8fa2f14dc27d0d0a93061.bindPopup(popup_be99650b8416212bc91a0d533400d907)
-        ;
-
-        
-    
-    
-            marker_fe30d68a5dc8fa2f14dc27d0d0a93061.bindTooltip(
-                `<div>
-                     津輕藩睡魔村
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_4a7295ca31486b57c522b9a7ab752c1e = L.marker(
-                [40.607, 140.4638],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_30a6f18e095e884d496b4779d80dcbe8 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_4a7295ca31486b57c522b9a7ab752c1e.setIcon(icon_30a6f18e095e884d496b4779d80dcbe8);
-        
-    
-        var popup_2743f5d8e59d57d49b7dcd81e535c9bb = L.popup({"maxWidth": "100%"});
-
-        
-            var html_4ff3a9ec6ee4a97986fe878bc308e565 = $(`<div id="html_4ff3a9ec6ee4a97986fe878bc308e565" style="width: 100.0%; height: 100.0%;">弘前城</div>`)[0];
-            popup_2743f5d8e59d57d49b7dcd81e535c9bb.setContent(html_4ff3a9ec6ee4a97986fe878bc308e565);
-        
-
-        marker_4a7295ca31486b57c522b9a7ab752c1e.bindPopup(popup_2743f5d8e59d57d49b7dcd81e535c9bb)
-        ;
-
-        
-    
-    
-            marker_4a7295ca31486b57c522b9a7ab752c1e.bindTooltip(
-                `<div>
-                     弘前城
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_851ebcedb1caff7f5f79c23e57455e7c = L.marker(
-                [40.6461, 140.8552],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_6a44cb30bf3c4f6fc3c4e86b48632e5f = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_851ebcedb1caff7f5f79c23e57455e7c.setIcon(icon_6a44cb30bf3c4f6fc3c4e86b48632e5f);
-        
-    
-        var popup_953146d21be9ea353a8ae5f7162f895b = L.popup({"maxWidth": "100%"});
-
-        
-            var html_956a76c9dcf67c23249cc987c59e7aef = $(`<div id="html_956a76c9dcf67c23249cc987c59e7aef" style="width: 100.0%; height: 100.0%;">八甲田山</div>`)[0];
-            popup_953146d21be9ea353a8ae5f7162f895b.setContent(html_956a76c9dcf67c23249cc987c59e7aef);
-        
-
-        marker_851ebcedb1caff7f5f79c23e57455e7c.bindPopup(popup_953146d21be9ea353a8ae5f7162f895b)
-        ;
-
-        
-    
-    
-            marker_851ebcedb1caff7f5f79c23e57455e7c.bindTooltip(
-                `<div>
-                     八甲田山
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_6e88308bf1391e1760a81c6e8fa6f104 = L.marker(
-                [39.72, 140.1035],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_00d77e9b2ad2d0abc3c3d85d02a1399a = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_6e88308bf1391e1760a81c6e8fa6f104.setIcon(icon_00d77e9b2ad2d0abc3c3d85d02a1399a);
-        
-    
-        var popup_aa0cbabeafd0b19bbadb5662189d50ab = L.popup({"maxWidth": "100%"});
-
-        
-            var html_5d62557217910218dfc7fa352f17d870 = $(`<div id="html_5d62557217910218dfc7fa352f17d870" style="width: 100.0%; height: 100.0%;">秋田烤米棒體驗</div>`)[0];
-            popup_aa0cbabeafd0b19bbadb5662189d50ab.setContent(html_5d62557217910218dfc7fa352f17d870);
-        
-
-        marker_6e88308bf1391e1760a81c6e8fa6f104.bindPopup(popup_aa0cbabeafd0b19bbadb5662189d50ab)
-        ;
-
-        
-    
-    
-            marker_6e88308bf1391e1760a81c6e8fa6f104.bindTooltip(
-                `<div>
-                     秋田烤米棒體驗
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_9f01622f8e543040576f063faf6e10b8 = L.marker(
-                [39.7036, 141.1527],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_b17b4d03c939d07deca957ab4926e892 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_9f01622f8e543040576f063faf6e10b8.setIcon(icon_b17b4d03c939d07deca957ab4926e892);
-        
-    
-        var popup_5e3f88795a4527fcd54858f3a822eb0f = L.popup({"maxWidth": "100%"});
-
-        
-            var html_aa3736a722e6131d5ba2149024f9e827 = $(`<div id="html_aa3736a722e6131d5ba2149024f9e827" style="width: 100.0%; height: 100.0%;">盛岡</div>`)[0];
-            popup_5e3f88795a4527fcd54858f3a822eb0f.setContent(html_aa3736a722e6131d5ba2149024f9e827);
-        
-
-        marker_9f01622f8e543040576f063faf6e10b8.bindPopup(popup_5e3f88795a4527fcd54858f3a822eb0f)
-        ;
-
-        
-    
-    
-            marker_9f01622f8e543040576f063faf6e10b8.bindTooltip(
-                `<div>
-                     盛岡
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_ca092eaacc8613de154cdbd58f177572 = L.marker(
-                [39.5905, 140.5614],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_a02fb3a03f7b4de61dda690ed0618c33 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_ca092eaacc8613de154cdbd58f177572.setIcon(icon_a02fb3a03f7b4de61dda690ed0618c33);
-        
-    
-        var popup_0360035d441a26551144678aede1bab6 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_41ff9991d86955b55b3e73924db30f08 = $(`<div id="html_41ff9991d86955b55b3e73924db30f08" style="width: 100.0%; height: 100.0%;">角館武家屋敷</div>`)[0];
-            popup_0360035d441a26551144678aede1bab6.setContent(html_41ff9991d86955b55b3e73924db30f08);
-        
-
-        marker_ca092eaacc8613de154cdbd58f177572.bindPopup(popup_0360035d441a26551144678aede1bab6)
-        ;
-
-        
-    
-    
-            marker_ca092eaacc8613de154cdbd58f177572.bindTooltip(
-                `<div>
-                     角館武家屋敷
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_a46d8332b140eca1c7fbe744c1ddb7b1 = L.marker(
-                [38.7192, 140.0439],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_2dc037336db006f56c32dacea56d8174 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_a46d8332b140eca1c7fbe744c1ddb7b1.setIcon(icon_2dc037336db006f56c32dacea56d8174);
-        
-    
-        var popup_82dd07c21d8785ab5a3cbfb9f514fac0 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_2910c2e289b25c2872a037e89ee47c55 = $(`<div id="html_2910c2e289b25c2872a037e89ee47c55" style="width: 100.0%; height: 100.0%;">最上川舟遊</div>`)[0];
-            popup_82dd07c21d8785ab5a3cbfb9f514fac0.setContent(html_2910c2e289b25c2872a037e89ee47c55);
-        
-
-        marker_a46d8332b140eca1c7fbe744c1ddb7b1.bindPopup(popup_82dd07c21d8785ab5a3cbfb9f514fac0)
-        ;
-
-        
-    
-    
-            marker_a46d8332b140eca1c7fbe744c1ddb7b1.bindTooltip(
-                `<div>
-                     最上川舟遊
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_c9d2726aa5eae99c6deda1fbf4da2e7b = L.marker(
-                [38.3531, 140.3916],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_131a0fabfaef7c0559e675012fbf09d8 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_c9d2726aa5eae99c6deda1fbf4da2e7b.setIcon(icon_131a0fabfaef7c0559e675012fbf09d8);
-        
-    
-        var popup_a5d7602f8150a9519edb27cb16f7e766 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_ebba21c913b8a003c2a0c66632417fd4 = $(`<div id="html_ebba21c913b8a003c2a0c66632417fd4" style="width: 100.0%; height: 100.0%;">天童溫泉</div>`)[0];
-            popup_a5d7602f8150a9519edb27cb16f7e766.setContent(html_ebba21c913b8a003c2a0c66632417fd4);
-        
-
-        marker_c9d2726aa5eae99c6deda1fbf4da2e7b.bindPopup(popup_a5d7602f8150a9519edb27cb16f7e766)
-        ;
-
-        
-    
-    
-            marker_c9d2726aa5eae99c6deda1fbf4da2e7b.bindTooltip(
-                `<div>
-                     天童溫泉
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_5ccb5d1d931ba0022f334bda7851fb8b = L.marker(
-                [38.6157, 140.4233],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_48490c627ebf0d8408599a1fccba7d44 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_5ccb5d1d931ba0022f334bda7851fb8b.setIcon(icon_48490c627ebf0d8408599a1fccba7d44);
-        
-    
-        var popup_5e2a112ce4293b2ad1a552acd23195f6 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_6aed07fdfb6d9b68c0a2ac54759653aa = $(`<div id="html_6aed07fdfb6d9b68c0a2ac54759653aa" style="width: 100.0%; height: 100.0%;">銀山溫泉</div>`)[0];
-            popup_5e2a112ce4293b2ad1a552acd23195f6.setContent(html_6aed07fdfb6d9b68c0a2ac54759653aa);
-        
-
-        marker_5ccb5d1d931ba0022f334bda7851fb8b.bindPopup(popup_5e2a112ce4293b2ad1a552acd23195f6)
-        ;
-
-        
-    
-    
-            marker_5ccb5d1d931ba0022f334bda7851fb8b.bindTooltip(
-                `<div>
-                     銀山溫泉
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_8ac5cb66098623316b1e9c3a20282a60 = L.marker(
-                [38.3424, 140.862],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_bac6fbf883d3f0a2b391d0aa4b174b65 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_8ac5cb66098623316b1e9c3a20282a60.setIcon(icon_bac6fbf883d3f0a2b391d0aa4b174b65);
-        
-    
-        var popup_a71ac33d85d3ce4c3365cc0c3e355eba = L.popup({"maxWidth": "100%"});
-
-        
-            var html_287c8da54eb6518092624a7314ca17bd = $(`<div id="html_287c8da54eb6518092624a7314ca17bd" style="width: 100.0%; height: 100.0%;">草莓園</div>`)[0];
-            popup_a71ac33d85d3ce4c3365cc0c3e355eba.setContent(html_287c8da54eb6518092624a7314ca17bd);
-        
-
-        marker_8ac5cb66098623316b1e9c3a20282a60.bindPopup(popup_a71ac33d85d3ce4c3365cc0c3e355eba)
-        ;
-
-        
-    
-    
-            marker_8ac5cb66098623316b1e9c3a20282a60.bindTooltip(
-                `<div>
-                     草莓園
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_9177a17e537e69d204645c7246a86311 = L.marker(
-                [38.2459, 140.8694],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_f01aaec8fbc3072c644e0d00523e5f9d = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_9177a17e537e69d204645c7246a86311.setIcon(icon_f01aaec8fbc3072c644e0d00523e5f9d);
-        
-    
-        var popup_ac7fe834080b6d0378a697d168c8b8eb = L.popup({"maxWidth": "100%"});
-
-        
-            var html_92e348318830652f752436fd0ed23dfb = $(`<div id="html_92e348318830652f752436fd0ed23dfb" style="width: 100.0%; height: 100.0%;">仙台城址</div>`)[0];
-            popup_ac7fe834080b6d0378a697d168c8b8eb.setContent(html_92e348318830652f752436fd0ed23dfb);
-        
-
-        marker_9177a17e537e69d204645c7246a86311.bindPopup(popup_ac7fe834080b6d0378a697d168c8b8eb)
-        ;
-
-        
-    
-    
-            marker_9177a17e537e69d204645c7246a86311.bindTooltip(
-                `<div>
-                     仙台城址
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_1173cda2c3f8df9c18ae94d98e282974 = L.marker(
-                [38.2682, 140.8694],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_47063e39b4a9cb3c546d26ae80b88eea = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_1173cda2c3f8df9c18ae94d98e282974.setIcon(icon_47063e39b4a9cb3c546d26ae80b88eea);
-        
-    
-        var popup_1ea8a9481d232ccf8aca59559c30f752 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_fcad7f6c516b37d9ab79e1d61009fbd9 = $(`<div id="html_fcad7f6c516b37d9ab79e1d61009fbd9" style="width: 100.0%; height: 100.0%;">仙台市區</div>`)[0];
-            popup_1ea8a9481d232ccf8aca59559c30f752.setContent(html_fcad7f6c516b37d9ab79e1d61009fbd9);
-        
-
-        marker_1173cda2c3f8df9c18ae94d98e282974.bindPopup(popup_1ea8a9481d232ccf8aca59559c30f752)
-        ;
-
-        
-    
-    
-            marker_1173cda2c3f8df9c18ae94d98e282974.bindTooltip(
-                `<div>
-                     仙台市區
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_7e51651d98e48a0e65af124dce2f39c1 = L.marker(
-                [38.3704, 141.0613],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_89b02899bf7501f3150746025044b2ef = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_7e51651d98e48a0e65af124dce2f39c1.setIcon(icon_89b02899bf7501f3150746025044b2ef);
-        
-    
-        var popup_36ce705a817966ff529240c370fffd25 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_b1bf75105e0c85bf2d53c4c127073290 = $(`<div id="html_b1bf75105e0c85bf2d53c4c127073290" style="width: 100.0%; height: 100.0%;">松島</div>`)[0];
-            popup_36ce705a817966ff529240c370fffd25.setContent(html_b1bf75105e0c85bf2d53c4c127073290);
-        
-
-        marker_7e51651d98e48a0e65af124dce2f39c1.bindPopup(popup_36ce705a817966ff529240c370fffd25)
-        ;
-
-        
-    
-    
-            marker_7e51651d98e48a0e65af124dce2f39c1.bindTooltip(
-                `<div>
-                     松島
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_b00c865161155003dceb631c02a8438c = L.marker(
-                [38.3731, 141.0613],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_b869e860fb81d035745573f520cef905 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_b00c865161155003dceb631c02a8438c.setIcon(icon_b869e860fb81d035745573f520cef905);
-        
-    
-        var popup_62b45318384407a882d0efc1ea6b4b4a = L.popup({"maxWidth": "100%"});
-
-        
-            var html_cd9936ab5172200a8f159a18944e4d2d = $(`<div id="html_cd9936ab5172200a8f159a18944e4d2d" style="width: 100.0%; height: 100.0%;">五大堂</div>`)[0];
-            popup_62b45318384407a882d0efc1ea6b4b4a.setContent(html_cd9936ab5172200a8f159a18944e4d2d);
-        
-
-        marker_b00c865161155003dceb631c02a8438c.bindPopup(popup_62b45318384407a882d0efc1ea6b4b4a)
-        ;
-
-        
-    
-    
-            marker_b00c865161155003dceb631c02a8438c.bindTooltip(
-                `<div>
-                     五大堂
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_cf5a811fe64320586d8faa8f7113f39b = L.marker(
-                [38.3003, 141.0228],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_fa1e4d525b49b12cb2ab8b5a1d6c0afb = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_cf5a811fe64320586d8faa8f7113f39b.setIcon(icon_fa1e4d525b49b12cb2ab8b5a1d6c0afb);
-        
-    
-        var popup_a26747428d0faac5ecf07fb6fe898bd2 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_28ce27fff9d154363a5f9bf2f6a25383 = $(`<div id="html_28ce27fff9d154363a5f9bf2f6a25383" style="width: 100.0%; height: 100.0%;">三井Outlet</div>`)[0];
-            popup_a26747428d0faac5ecf07fb6fe898bd2.setContent(html_28ce27fff9d154363a5f9bf2f6a25383);
-        
-
-        marker_cf5a811fe64320586d8faa8f7113f39b.bindPopup(popup_a26747428d0faac5ecf07fb6fe898bd2)
-        ;
-
-        
-    
-    
-            marker_cf5a811fe64320586d8faa8f7113f39b.bindTooltip(
-                `<div>
-                     三井Outlet
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            var marker_8c9699490b599acf165d7ce91af0c62e = L.marker(
-                [38.14, 140.9171],
-                {}
-            ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
-    
-            var icon_404efdf83f50e63168ab4ad8f272ed54 = L.AwesomeMarkers.icon(
-                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
-            );
-            marker_8c9699490b599acf165d7ce91af0c62e.setIcon(icon_404efdf83f50e63168ab4ad8f272ed54);
-        
-    
-        var popup_272c6ec50d2bf00eb03ee99e3f055619 = L.popup({"maxWidth": "100%"});
-
-        
-            var html_ec4d7ad07b3d6d8090c140301bc5a172 = $(`<div id="html_ec4d7ad07b3d6d8090c140301bc5a172" style="width: 100.0%; height: 100.0%;">仙台機場</div>`)[0];
-            popup_272c6ec50d2bf00eb03ee99e3f055619.setContent(html_ec4d7ad07b3d6d8090c140301bc5a172);
-        
-
-        marker_8c9699490b599acf165d7ce91af0c62e.bindPopup(popup_272c6ec50d2bf00eb03ee99e3f055619)
-        ;
-
-        
-    
-    
-            marker_8c9699490b599acf165d7ce91af0c62e.bindTooltip(
-                `<div>
-                     仙台機場
-                 </div>`,
-                {"sticky": true}
-            );
-        
-    
-            ant_path_8dfd12d5f5d24a884fc9840df544d05d = L.polyline.antPath(
-              [[25.0797, 121.2328], [40.7347, 140.6908], [40.8257, 140.7342], [40.9477, 140.5764], [40.8089, 140.4432], [40.8788, 140.465], [40.5934, 140.4656], [40.607, 140.4638], [40.6461, 140.8552], [39.72, 140.1035], [39.7036, 141.1527], [39.5905, 140.5614], [38.7192, 140.0439], [38.3531, 140.3916], [38.6157, 140.4233], [38.3424, 140.862], [38.2459, 140.8694], [38.2682, 140.8694], [38.3704, 141.0613], [38.3731, 141.0613], [38.3003, 141.0228], [38.14, 140.9171], [25.0797, 121.2328]],
-              {"bubblingMouseEvents": true, "color": "red", "dashArray": [10, 20], "dashOffset": null, "delay": 1000, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "paused": false, "pulseColor": "#FFFFFF", "reverse": false, "smoothFactor": 1.0, "stroke": true, "weight": 4}
-        ).addTo(map_e623ac16f6c3309276a3ccdb59bd3853);
-        
+// 顏色一律走 CSS 變數，深色模式只要換一組變數值，不必改任何 class
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper:  'rgb(var(--paper) / <alpha-value>)',
+        form:   'rgb(var(--form) / <alpha-value>)',
+        rule:   'rgb(var(--rule) / <alpha-value>)',
+        heavy:  'rgb(var(--heavy) / <alpha-value>)',
+        ink:    'rgb(var(--ink) / <alpha-value>)',
+        muted:  'rgb(var(--muted) / <alpha-value>)',
+        debit:  'rgb(var(--debit) / <alpha-value>)',
+        credit: 'rgb(var(--credit) / <alpha-value>)',
+        accent: 'rgb(var(--accent) / <alpha-value>)',
+      },
+      fontFamily: {
+        sans: ['"IBM Plex Sans TC"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+      },
+    },
+  },
+};
 </script>
+
+<style>
+  /* 淺色：複寫紙 */
+  :root {
+    --paper:  230 234 225;
+    --form:   243 245 238;
+    --rule:   192 200 181;
+    --heavy:  140 150 130;
+    --ink:     34  38  30;
+    --muted:   95 102  87;
+    --debit:  166  58  46;
+    --credit:  38 101  74;
+    --accent:  31  78 107;
+    --arrow:  '%236C7364';
+    color-scheme: light;
+  }
+
+  /* 深色：複寫紙中間那張碳紙 */
+  html[data-theme="dark"] {
+    --paper:   26  29  24;
+    --form:    35  39  32;
+    --rule:    58  64  54;
+    --heavy:   90  99  85;
+    --ink:    221 226 214;
+    --muted:  141 149 133;
+    --debit:  217 112  95;
+    --credit:  95 163 126;
+    --accent: 111 163 196;
+    color-scheme: dark;
+  }
+
+  body { -webkit-font-smoothing: antialiased; }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+  .leader {
+    flex: 1 1 auto; min-width: 1.5rem; margin: 0 .5rem;
+    border-bottom: 1px dotted rgb(var(--rule)); transform: translateY(-.32em);
+  }
+  .rule-double { border-top: 3px double rgb(var(--heavy)); }
+
+  .field {
+    width: 100%; background: rgb(var(--form)); border: 0;
+    border-bottom: 1px solid rgb(var(--rule));
+    padding: .55rem .6rem; color: rgb(var(--ink)); outline: none;
+    transition: border-color .15s, background-color .15s;
+  }
+  .field:focus { border-bottom-color: rgb(var(--accent)); background: rgb(var(--paper)); }
+  .field::placeholder { color: rgb(var(--muted)); opacity: .7; }
+  .field[readonly], .field:disabled { opacity: .6; }
+  select.field {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235F6657'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right .7rem center; padding-right: 2rem;
+  }
+  html[data-theme="dark"] select.field {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238D9585'/%3E%3C/svg%3E");
+  }
+  .lbl { display:block; font-size:13px; letter-spacing:.1em; color: rgb(var(--muted)); margin-bottom:.375rem; }
+
+  :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; }
+
+  .spinner {
+    display:inline-block; width:13px; height:13px; border:2px solid currentColor;
+    border-right-color: transparent; border-radius:50%; vertical-align:-2px;
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @keyframes stamp { 0% { background: rgb(var(--accent) / .18); } 100% { background: transparent; } }
+  .stamp { animation: stamp 1.4s ease-out both; }
+
+  @keyframes toastIn { from { opacity:0; transform: translateY(-10px); } to { opacity:1; transform:none; } }
+  .toast-in  { animation: toastIn .22s ease-out both; }
+  .toast-out { opacity:0; transform: translateY(-6px); transition: opacity .25s, transform .25s; }
+
+  .day {
+    position:relative; min-height:46px; padding:.3rem .2rem .35rem;
+    border:1px solid transparent; transition: background-color .12s, border-color .12s;
+  }
+  .day:hover:not(.day-on) { background: rgb(var(--form)); }
+  .day-on { background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .day-today { border-color: rgb(var(--heavy)); }
+
+  .tick {
+    width:18px; height:18px; flex:none; border:1px solid rgb(var(--heavy));
+    background: transparent; display:flex; align-items:center; justify-content:center;
+    font-size:12px; line-height:1; color: rgb(var(--paper)); transition: background-color .12s;
+  }
+  .tick-on { background: rgb(var(--credit)); border-color: rgb(var(--credit)); }
+
+  dialog.sheet {
+    position:fixed; inset:0; width:100%; max-width:100%; height:100%; max-height:100%;
+    margin:0; padding:0; border:0; background:transparent; overflow:hidden;
+  }
+  dialog.sheet::backdrop { background: rgb(0 0 0 / .55); }
+  .sheet-shell { min-height:100%; display:flex; align-items:flex-end; justify-content:center; }
+  @media (min-width:640px) { .sheet-shell { align-items:center; padding:1.5rem; } }
+  @keyframes sheetUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform:none; } }
+  .sheet-panel { animation: sheetUp .22s ease-out both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stamp, .toast-in, .spinner, .sheet-panel { animation: none; }
+  }
+</style>
+</head>
+
+<body class="bg-paper text-ink font-sans">
+<div class="mx-auto max-w-5xl px-5 pt-8 pb-32 md:pt-12 md:pb-32">
+
+  <header class="flex items-end justify-between gap-4 pb-5 border-b border-rule">
+    <div>
+      <p class="font-mono text-[11px] tracking-[0.28em] text-muted">個人收支</p>
+      <h1 class="text-2xl md:text-3xl font-semibold tracking-[0.06em] mt-1">記帳本</h1>
+    </div>
+    <p id="statusChip" class="font-mono text-[11px] text-muted whitespace-nowrap"></p>
+  </header>
+
+  <div id="monthBar" class="mt-7 flex items-center gap-4">
+    <button id="prevMonth" type="button" aria-label="上個月"
+            class="w-9 h-9 border border-rule text-muted hover:border-ink hover:text-ink transition-colors leading-none">‹</button>
+    <h2 id="monthLabel" class="font-mono num text-lg md:text-xl tracking-[0.1em] min-w-[8.5rem] text-center"></h2>
+    <button id="nextMonth" type="button" aria-label="下個月"
+            class="w-9 h-9 border border-rule text-muted hover:border-ink hover:text-ink transition-colors leading-none">›</button>
+    <button id="backToday" type="button"
+            class="hidden font-mono text-[11px] text-muted hover:text-accent underline underline-offset-4 ml-auto">回到本月</button>
+  </div>
+
+  <!-- 分頁一：帳戶總覽 -->
+  <main id="panel-accounts" class="hidden mt-7">
+    <p class="font-mono text-[11px] tracking-[0.28em] text-muted mb-3">資產負債 · 累計至今</p>
+    <div id="accountsBox" class="bg-form border border-rule px-5 py-6 md:px-8 md:py-8"></div>
+    <button id="addAccount" type="button"
+            class="mt-4 w-full border border-rule text-muted py-3 text-[14px] tracking-[0.18em]
+                   hover:border-ink hover:text-ink transition-colors">＋ 新增帳戶</button>
+    <p class="font-mono text-[11px] text-muted mt-4 leading-relaxed">
+      點信用卡可以開啟帳單與對帳，點其他帳戶則是修改設定。
+    </p>
+  </main>
+
+  <!-- 分頁二：收支紀錄 -->
+  <main id="panel-records" class="hidden mt-7 grid gap-9 md:gap-x-12 md:grid-cols-2">
+    <section>
+      <p class="font-mono text-[11px] tracking-[0.28em] text-muted pb-3 border-b border-rule">月曆</p>
+      <div class="grid grid-cols-7 mt-4 mb-1">
+        <div class="text-center font-mono text-[11px] text-muted py-1">日</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">一</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">二</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">三</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">四</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">五</div>
+        <div class="text-center font-mono text-[11px] text-muted py-1">六</div>
+      </div>
+      <div id="calendar" class="grid grid-cols-7 gap-px bg-rule/50 border border-rule/50"></div>
+      <p class="font-mono text-[11px] text-muted mt-3 leading-relaxed">
+        紅條表示當天支出多寡，綠點表示當天有收入。繳卡費不計入。
+      </p>
+    </section>
+
+    <section>
+      <div class="flex items-baseline justify-between gap-4 pb-3 border-b border-rule">
+        <h2 id="dayHeading" class="font-mono num text-[13px] tracking-[0.16em]">—</h2>
+        <p id="dayMeta" class="font-mono num text-[11px] text-muted whitespace-nowrap"></p>
+      </div>
+      <div id="list" class="mt-4"></div>
+    </section>
+  </main>
+
+  <!-- 分頁三：報表 -->
+  <main id="panel-report" class="hidden mt-7 grid gap-10 md:gap-x-12 md:grid-cols-2">
+    <section>
+      <p class="font-mono text-[11px] tracking-[0.28em] text-muted mb-3">本月損益</p>
+      <div class="bg-form border border-rule px-5 py-5 md:px-6 md:py-6">
+        <div class="flex items-baseline text-[15px]">
+          <span class="tracking-[0.1em]">支出</span><span class="leader"></span>
+          <span id="sumExpense" class="num font-mono text-lg md:text-xl font-medium text-debit">—</span>
+        </div>
+        <div class="flex items-baseline text-[15px] mt-3">
+          <span class="tracking-[0.1em]">收入</span><span class="leader"></span>
+          <span id="sumIncome" class="num font-mono text-lg md:text-xl font-medium text-credit">—</span>
+        </div>
+        <div class="rule-double mt-5 pt-4 flex items-baseline">
+          <span class="tracking-[0.1em] font-medium">結餘</span><span class="leader"></span>
+          <span id="sumBalance" class="num font-mono text-2xl md:text-3xl font-semibold">—</span>
+        </div>
+      </div>
+      <p class="font-mono text-[11px] text-muted mt-3">繳卡費是帳戶間的移動，不列入收支。</p>
+    </section>
+
+    <section>
+      <p class="font-mono text-[11px] tracking-[0.28em] text-muted pb-3 border-b border-rule">支出分類</p>
+      <div id="chartWrap" class="mt-5 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-7">
+        <div class="relative w-[160px] h-[160px] shrink-0 mx-auto sm:mx-0"><canvas id="pieChart"></canvas></div>
+        <div id="chartLegend" class="flex-1 w-full min-w-0"></div>
+      </div>
+      <p id="chartEmpty" class="hidden text-muted text-[15px] leading-loose mt-4">這個月還沒有支出紀錄。</p>
+    </section>
+
+    <section class="md:col-span-2">
+      <div class="flex items-baseline justify-between gap-4 pb-3 border-b border-rule">
+        <p class="font-mono text-[11px] tracking-[0.28em] text-muted">近六個月</p>
+        <p class="font-mono text-[11px] text-muted">
+          <span id="legendExpense" class="inline-block w-2 h-2 align-middle mr-1"></span>支出
+          <span id="legendIncome" class="inline-block w-2 h-2 align-middle ml-3 mr-1"></span>收入
+        </p>
+      </div>
+      <div class="relative h-[210px] mt-5"><canvas id="trendChart"></canvas></div>
+      <p class="font-mono text-[11px] text-muted mt-3">點任一根長條可以跳到該月份。</p>
+    </section>
+  </main>
+
+  <!-- 分頁四：設定 -->
+  <main id="panel-settings" class="hidden mt-7 grid gap-10 md:gap-x-12 md:grid-cols-2 md:items-start">
+
+    <section>
+      <p class="font-mono text-[11px] tracking-[0.28em] text-muted pb-3 border-b border-rule">試算表連線</p>
+
+      <div class="mt-5">
+        <label for="s-url" class="lbl">Web App 網址</label>
+        <input id="s-url" type="url" spellcheck="false" autocomplete="off"
+               placeholder="https://script.google.com/macros/s/…/exec"
+               class="field font-mono text-[13px]">
+        <p id="s-urlMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em] mt-2"></p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 mt-3">
+        <button id="s-save" type="button"
+                class="bg-ink text-paper py-3 text-[14px] tracking-[0.18em] font-medium
+                       hover:bg-accent transition-colors active:translate-y-px
+                       disabled:opacity-45 disabled:hover:bg-ink">儲存並連線</button>
+        <button id="s-test" type="button"
+                class="border border-rule text-muted py-3 text-[14px] tracking-[0.18em]
+                       hover:border-ink hover:text-ink transition-colors">測試連線</button>
+      </div>
+      <button id="s-clear" type="button"
+              class="mt-2 w-full border border-rule text-debit py-2.5 text-[13px] tracking-[0.16em]
+                     hover:border-debit transition-colors">清除網址，改用示範資料</button>
+
+      <p class="text-[12px] text-muted mt-4 leading-relaxed">
+        網址只存在這台裝置的瀏覽器裡，不會寫進檔案，也不會傳給任何人。<br>
+        換一台電腦或清掉瀏覽器資料就要重新填。<br>
+        結尾必須是 <span class="font-mono">/exec</span>；<span class="font-mono">/dev</span> 只有你本人登入時能用。
+      </p>
+    </section>
+
+    <div class="space-y-10">
+      <section>
+        <p class="font-mono text-[11px] tracking-[0.28em] text-muted pb-3 border-b border-rule">外觀</p>
+        <span class="lbl mt-5">主題</span>
+        <div class="grid grid-cols-3 gap-2" role="group" aria-label="主題">
+          <button type="button" data-theme-choice="system" class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">跟隨系統</button>
+          <button type="button" data-theme-choice="light"  class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">淺色</button>
+          <button type="button" data-theme-choice="dark"   class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">深色</button>
+        </div>
+        <p class="text-[12px] text-muted mt-3 leading-relaxed">
+          跟隨系統會依照你作業系統目前的深淺色自動切換。
+        </p>
+      </section>
+
+      <section>
+        <p class="font-mono text-[11px] tracking-[0.28em] text-muted pb-3 border-b border-rule">目前資料</p>
+        <div id="s-stats" class="mt-4"></div>
+        <button id="s-reload" type="button"
+                class="mt-4 w-full border border-rule text-muted py-2.5 text-[13px] tracking-[0.16em]
+                       hover:border-ink hover:text-ink transition-colors">重新讀取試算表</button>
+      </section>
+    </div>
+
+  </main>
+
+</div>
+
+<button id="fab" type="button"
+        class="fixed z-40 bottom-[88px] right-5 md:bottom-8 md:right-8
+               flex items-center gap-2.5 bg-ink text-paper pl-4 pr-5 py-3.5 shadow-xl
+               hover:bg-accent transition-[background-color,transform] active:translate-y-px">
+  <span class="text-xl leading-none font-mono">＋</span>
+  <span class="text-[14px] tracking-[0.18em] font-medium">記一筆</span>
+</button>
+
+<nav id="tabbar"
+     class="fixed z-40 bottom-0 inset-x-0 bg-form border-t border-heavy
+            md:bottom-6 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[460px] md:border md:shadow-xl"
+     style="padding-bottom: env(safe-area-inset-bottom);">
+  <div class="grid grid-cols-4">
+    <button type="button" data-tab="accounts" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+      <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>帳戶總覽</button>
+    <button type="button" data-tab="records" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+      <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>收支紀錄</button>
+    <button type="button" data-tab="report" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+      <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>報表</button>
+    <button type="button" data-tab="settings" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+      <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>設定</button>
+  </div>
+</nav>
+
+<!-- 紀錄面板 -->
+<dialog id="sheet" class="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[380px] max-h-[88dvh] overflow-y-auto bg-paper border-t sm:border border-heavy">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
+        <h3 id="sheetTitle" class="font-mono text-[11px] tracking-[0.28em] text-muted">新增一筆</h3>
+        <button id="sheetClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+      </div>
+
+      <form id="entryForm" class="px-5 py-5 space-y-5" novalidate>
+        <div>
+          <span class="lbl">類型</span>
+          <div class="grid grid-cols-3 gap-2" role="group" aria-label="類型">
+            <button type="button" data-type="expense" class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">支出</button>
+            <button type="button" data-type="income"  class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">收入</button>
+            <button type="button" data-type="payment" class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">繳卡費</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="f-date" class="lbl"><span id="dateLabel">日期</span></label>
+          <input id="f-date" type="date" required class="field font-mono num">
+        </div>
+
+        <div>
+          <label for="f-account" class="lbl"><span id="accountLabel">帳戶</span></label>
+          <select id="f-account" class="field"></select>
+        </div>
+
+        <div id="counterWrap" class="hidden">
+          <label for="f-counter" class="lbl">扣款帳戶</label>
+          <select id="f-counter" class="field"></select>
+          <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+            繳卡費會同時減少扣款帳戶餘額與卡片欠款，不列入支出統計。
+          </p>
+        </div>
+
+        <div id="categoryWrap">
+          <label for="f-category" class="lbl">分類</label>
+          <select id="f-category" class="field"></select>
+        </div>
+
+        <div id="postingWrap" class="hidden">
+          <label for="f-posting" class="lbl">入帳方式</label>
+          <select id="f-posting" class="field">
+            <option value="normal">正常入帳（消費日入帳）</option>
+            <option value="deferred">延後入帳（指定日期）</option>
+            <option value="pending">尚未入帳（帳單先略過）</option>
+          </select>
+          <input id="f-posted" type="date" class="field font-mono num mt-2 hidden">
+          <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+            結算日當下店家還沒請款時，改成延後入帳，這筆就會落到下一期帳單。
+          </p>
+        </div>
+
+        <div>
+          <label for="f-amount" class="lbl">金額</label>
+          <input id="f-amount" type="number" inputmode="decimal" min="1" step="1"
+                 placeholder="0" required class="field font-mono num text-xl">
+        </div>
+
+        <div>
+          <label for="f-note" class="lbl">備註（選填）</label>
+          <input id="f-note" type="text" maxlength="60" placeholder="午餐便當" class="field">
+        </div>
+
+        <div id="splitWrap" class="hidden border-t border-rule pt-4">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="f-split" type="checkbox" class="mt-1 w-4 h-4 accent-[#1F4E6B]">
+            <span>
+              <span class="text-[15px] tracking-[0.04em]">這筆要分期付款</span>
+              <span id="splitHint" class="block text-[12px] text-muted mt-1 leading-relaxed">
+                存檔後會接著開啟分期設定，讓你先看到利息試算再確認。
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <button id="submitBtn" type="submit"
+                class="w-full bg-ink text-paper py-3.5 text-[15px] tracking-[0.24em] font-medium
+                       transition-transform active:translate-y-px hover:bg-accent
+                       disabled:opacity-45 disabled:hover:bg-ink disabled:active:translate-y-0">新增記錄</button>
+        <p id="formMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<!-- 帳戶面板 -->
+<dialog id="accountSheet" class="sheet" aria-labelledby="accountTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[380px] max-h-[88dvh] overflow-y-auto bg-paper border-t sm:border border-heavy">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
+        <h3 id="accountTitle" class="font-mono text-[11px] tracking-[0.28em] text-muted">新增帳戶</h3>
+        <button id="accountClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+      </div>
+
+      <form id="accountForm" class="px-5 py-5 space-y-5" novalidate>
+        <div>
+          <label for="a-name" class="lbl">名稱</label>
+          <input id="a-name" type="text" maxlength="30" required placeholder="台新數位帳戶" class="field">
+        </div>
+
+        <div>
+          <label for="a-type" class="lbl">類型</label>
+          <select id="a-type" class="field">
+            <option value="現金">現金</option>
+            <option value="銀行帳戶">銀行帳戶</option>
+            <option value="信用卡">信用卡</option>
+          </select>
+          <p id="typeLocked" class="hidden text-[12px] text-muted mt-1.5 leading-relaxed">
+            這是內建帳戶，名稱與類型固定，只能調整初始餘額。
+          </p>
+        </div>
+
+        <div>
+          <label for="a-opening" class="lbl">初始餘額</label>
+          <input id="a-opening" type="number" inputmode="decimal" step="1" placeholder="0" class="field font-mono num text-lg">
+          <p id="openingHint" class="text-[12px] text-muted mt-1.5 leading-relaxed"></p>
+        </div>
+
+        <div id="cardSettings" class="hidden space-y-5 pt-1 border-t border-rule">
+          <p class="font-mono text-[11px] tracking-[0.2em] text-muted pt-4">信用卡設定</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="a-closing" class="lbl">結帳日</label>
+              <input id="a-closing" type="number" min="1" max="28" placeholder="5" class="field font-mono num">
+            </div>
+            <div>
+              <label for="a-due" class="lbl">繳款日</label>
+              <input id="a-due" type="number" min="1" max="28" placeholder="23" class="field font-mono num">
+            </div>
+          </div>
+          <p class="text-[12px] text-muted -mt-2 leading-relaxed">只接受 1 到 28，避開月底長短不一造成的錯期。</p>
+
+          <div>
+            <label for="a-autopay" class="lbl">自動扣繳帳戶</label>
+            <select id="a-autopay" class="field"></select>
+            <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+              設定後，繳款日一到會自動產生一筆繳費紀錄。留空表示不自動扣繳。
+            </p>
+          </div>
+
+          <div>
+            <label for="a-apr" class="lbl">分期年利率（%）</label>
+            <input id="a-apr" type="number" step="0.01" min="0" placeholder="0" class="field font-mono num">
+          </div>
+        </div>
+
+        <button id="accountSubmit" type="submit"
+                class="w-full bg-ink text-paper py-3.5 text-[15px] tracking-[0.24em] font-medium
+                       transition-transform active:translate-y-px hover:bg-accent
+                       disabled:opacity-45 disabled:hover:bg-ink disabled:active:translate-y-0">建立帳戶</button>
+        <button id="accountDelete" type="button"
+                class="hidden w-full border border-rule text-debit py-3 text-[14px] tracking-[0.18em] hover:border-debit transition-colors">
+          刪除這個帳戶</button>
+        <p id="accountMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<!-- 信用卡帳單與對帳 -->
+<dialog id="cardSheet" class="sheet" aria-labelledby="cardTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[560px] max-h-[90dvh] overflow-y-auto bg-paper border-t sm:border border-heavy">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule sticky top-0 bg-paper z-10">
+        <h3 id="cardTitle" class="text-[15px] tracking-[0.06em] font-medium">信用卡</h3>
+        <div class="flex items-center gap-3">
+          <button id="cardSettingsBtn" type="button"
+                  class="font-mono text-[11px] text-muted hover:text-accent underline underline-offset-4">設定</button>
+          <button id="cardClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+        </div>
+      </div>
+      <div id="cardBody" class="px-5 py-5"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- 建立分期計畫 -->
+<dialog id="installSheet" class="sheet" aria-labelledby="installTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[420px] max-h-[88dvh] overflow-y-auto bg-paper border-t sm:border border-heavy">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
+        <h3 id="installTitle" class="font-mono text-[11px] tracking-[0.28em] text-muted">新增分期</h3>
+        <button id="installClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+      </div>
+
+      <form id="installForm" class="px-5 py-5 space-y-5" novalidate>
+        <div id="installSource" class="hidden border border-rule bg-form px-4 py-3"></div>
+
+        <div>
+          <label for="i-name" class="lbl">名稱</label>
+          <input id="i-name" type="text" maxlength="30" placeholder="八月帳單分期" class="field">
+        </div>
+        <div>
+          <label for="i-principal" class="lbl">分期本金</label>
+          <input id="i-principal" type="number" min="1" step="1" required placeholder="0" class="field font-mono num text-lg">
+          <p id="principalHint" class="text-[12px] text-muted mt-1.5 leading-relaxed"></p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="i-periods" class="lbl">期數</label>
+            <input id="i-periods" type="number" min="2" max="60" value="6" class="field font-mono num">
+          </div>
+          <div id="aprWrap">
+            <label for="i-apr" class="lbl">年利率（%）</label>
+            <input id="i-apr" type="number" min="0" step="0.01" value="0" class="field font-mono num">
+          </div>
+        </div>
+        <div>
+          <label for="i-method" class="lbl">計息方式</label>
+          <select id="i-method" class="field">
+            <option value="none">無利息（只分攤本金）</option>
+            <option value="flat">固定利息（利息以原始本金計）</option>
+            <option value="equal_principal">本金均攤（本金固定、利息遞減）</option>
+            <option value="equal_payment">本息均攤（每期總額固定）</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="i-rounding" class="lbl">尾數處理</label>
+            <select id="i-rounding" class="field">
+              <option value="round">四捨五入</option>
+              <option value="floor">無條件捨去</option>
+              <option value="ceil">無條件進位</option>
+            </select>
+          </div>
+          <div>
+            <label for="i-residue" class="lbl">尾差歸入</label>
+            <select id="i-residue" class="field">
+              <option value="last">末期</option>
+              <option value="first">首期</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="i-first" class="lbl">首期帳單年月</label>
+          <input id="i-first" type="month" class="field font-mono num">
+        </div>
+
+        <div id="installPreview" class="border border-rule bg-form px-4 py-4"></div>
+
+        <button id="installSubmit" type="submit"
+                class="w-full bg-ink text-paper py-3.5 text-[15px] tracking-[0.24em] font-medium
+                       transition-transform active:translate-y-px hover:bg-accent
+                       disabled:opacity-45 disabled:hover:bg-ink disabled:active:translate-y-0">建立分期</button>
+        <p id="installMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<div id="toastHost"
+     class="fixed z-50 top-4 inset-x-4 sm:inset-x-0 sm:top-6 sm:mx-auto sm:w-[320px] flex flex-col gap-2 pointer-events-none"></div>
+
+<script>
+/* ============================================================
+ * 本地設定
+ * 存在使用者自己的瀏覽器，不寫進檔案，也不上傳。
+ * localStorage 可能被隱私模式或 iframe 封鎖，所以一律包 try，
+ * 失敗時退回記憶體，功能照常只是重整後會忘記。
+ * ============================================================ */
+const STORE_KEY = 'ledger.settings.v1';
+const memoryStore = {};
+
+function loadSettings() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (_) { /* 讀不到就用預設值 */ }
+  return memoryStore.settings || {};
+}
+
+function saveSettings(patch) {
+  const next = { ...loadSettings(), ...patch };
+  memoryStore.settings = next;
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(next));
+    return true;
+  } catch (_) {
+    return false;   // 呼叫端負責提醒使用者這次只會記到重整為止
+  }
+}
+
+// 想寫死在檔案裡的話改這一行；設定頁填的網址會優先採用
+const DEFAULT_API_URL = "";
+
+let apiUrl = loadSettings().apiUrl || DEFAULT_API_URL;
+let themeChoice = loadSettings().theme || 'system';
+let storageOK = true;
+
+const CATEGORIES = {
+  expense: ['飲食', '交通', '娛樂', '居住', '分期付款', '其他'],
+  income:  ['薪水', '其他'],
+};
+
+// 圓餅圖配色：深色底要提亮，否則深橄欖那幾塊會糊成一團
+const CATEGORY_COLORS_LIGHT = {
+  '飲食':'#A63A2E', '居住':'#C4705E', '交通':'#5F6657',
+  '娛樂':'#3E4A3C', '分期付款':'#7E4A3F', '其他':'#B0B8A5',
+};
+const CATEGORY_COLORS_DARK = {
+  '飲食':'#D9705F', '居住':'#E09A87', '交通':'#9AA391',
+  '娛樂':'#6E7D68', '分期付款':'#B98A76', '其他':'#7C8574',
+};
+const SPARE_LIGHT = ['#7E4A3F', '#4F5B4A', '#96A08C', '#5C3F38', '#8C9682'];
+const SPARE_DARK  = ['#C08A76', '#8B9A83', '#B6BFAA', '#A0776A', '#6E7A66'];
+
+const ASSET_TYPES = ['現金', '銀行帳戶'];
+const LIABILITY_TYPES = ['信用卡'];
+
+const OPENING_HINT = {
+  '現金':         '開始記帳當下錢包裡有多少。',
+  '銀行帳戶':     '開始記帳當下的帳戶餘額。',
+  '信用卡':       '已經刷掉還沒繳的金額請填負數，例如欠 8,100 就填 −8100。',
+  '應收應付款項': '別人欠你填正數，你欠別人填負數。',
+};
+
+const METHOD_LABEL = {
+  none: '無利息', flat: '固定利息', equal_principal: '本金均攤', equal_payment: '本息均攤',
+};
+const ROUNDING_LABEL = { round: '四捨五入', floor: '無條件捨去', ceil: '無條件進位' };
+const RESIDUE_LABEL  = { last: '尾差歸末期', first: '尾差歸首期' };
+
+// 自動扣繳只回補這段天數內到期的帳單，避免一次補出一整年的繳費紀錄
+const AUTOPAY_LOOKBACK_DAYS = 62;
+
+const DEMO_ACCOUNTS = [
+  { id:'a1', name:'錢包', type:'現金', opening:3000 },
+  { id:'a2', name:'台新數位', type:'銀行帳戶', opening:42000 },
+  { id:'a3', name:'國泰 CUBE', type:'信用卡', opening:0,
+    closingDay:5, dueDay:23, autopayAccountId:'a2', apr:5 },
+  { id:'a4', name:'應收應付款', type:'應收應付款項', opening:5000, builtin:true },
+];
+const DEMO_RECORDS = [
+  { id:'d1', date:'2026-08-09', type:'expense', category:'飲食', amount:180, note:'午餐便當', accountId:'a1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d2', date:'2026-08-09', type:'expense', category:'交通', amount:65, note:'', accountId:'a1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d3', date:'2026-08-06', type:'expense', category:'娛樂', amount:420, note:'電影', accountId:'a3', postedDate:'2026-08-07', reconciled:false },
+  { id:'d4', date:'2026-08-05', type:'income', category:'薪水', amount:62000, note:'八月薪轉', accountId:'a2', postedDate:'2026-08-05', reconciled:false },
+  { id:'d5', date:'2026-08-01', type:'expense', category:'居住', amount:16500, note:'房租', accountId:'a2', postedDate:'2026-08-01', reconciled:false },
+  { id:'d6', date:'2026-08-02', type:'expense', category:'飲食', amount:1280, note:'超市', accountId:'a3', postedDate:'2026-08-03', reconciled:true },
+  { id:'d7', date:'2026-08-04', type:'expense', category:'交通', amount:960, note:'加油', accountId:'a3', postedDate:'', reconciled:false },
+  { id:'d8', date:'2026-07-28', type:'expense', category:'飲食', amount:760, note:'聚餐', accountId:'a3', postedDate:'2026-07-29', reconciled:true },
+  { id:'d9', date:'2026-07-05', type:'income', category:'薪水', amount:62000, note:'七月薪轉', accountId:'a2', postedDate:'2026-07-05', reconciled:false },
+  { id:'d10',date:'2026-06-12', type:'expense', category:'娛樂', amount:2800, note:'演唱會', accountId:'a3', postedDate:'2026-06-13', reconciled:true },
+];
+
+/* ============================================================
+ * 狀態
+ * ============================================================ */
+let records = [], accounts = [], installments = [];
+let activeTab = 'records';
+let viewMonth = '', selectedDate = '', selectedType = 'expense';
+let lastAccountId = '';
+let editingId = null, editingAccountId = null;
+let cardId = null, cardCycle = null, returnToCard = null, installSourceId = '';
+let busy = false, pieChart = null, trendChart = null, pendingDelete = null;
+let reconcileQueue = new Map(), reconcileTimer = null;
+
+/* ============================================================
+ * 工具
+ * ============================================================ */
+const $ = (id) => document.getElementById(id);
+const live = () => Boolean(apiUrl) && apiUrl !== 'YOUR_GAS_URL_HERE';
+
+const money = (n) => new Intl.NumberFormat('zh-TW', { maximumFractionDigits: 2 }).format(n);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+const pad = (n) => String(n).padStart(2, '0');
+const todayISO = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+};
+const monthOf = (iso) => String(iso).slice(0, 7);
+const thisMonth = () => monthOf(todayISO());
+
+const shiftMonth = (mk, delta) => {
+  const [y, m] = mk.split('-').map(Number);
+  const d = new Date(y, m - 1 + delta, 1);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
+};
+const monthDiff = (a, b) => {
+  const [ya, ma] = a.split('-').map(Number), [yb, mb] = b.split('-').map(Number);
+  return (yb - ya) * 12 + (mb - ma);
+};
+const daysInMonth  = (mk) => { const [y,m] = mk.split('-').map(Number); return new Date(y, m, 0).getDate(); };
+const firstWeekday = (mk) => { const [y,m] = mk.split('-').map(Number); return new Date(y, m-1, 1).getDay(); };
+const clampDay = (mk, day) => `${mk}-${pad(Math.min(day, daysInMonth(mk)))}`;
+const addDays = (iso, n) => {
+  const [y,m,d] = iso.split('-').map(Number);
+  const t = new Date(y, m-1, d + n);
+  return `${t.getFullYear()}-${pad(t.getMonth()+1)}-${pad(t.getDate())}`;
+};
+const daysApart = (a, b) => Math.round((new Date(b) - new Date(a)) / 86400000);
+
+const WEEKDAY = ['日','一','二','三','四','五','六'];
+const dateHeading = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${y} / ${pad(m)} / ${pad(d)}　星期${WEEKDAY[new Date(y, m-1, d).getDay()]}`;
+};
+const md = (iso) => iso ? `${iso.slice(5,7)}/${iso.slice(8,10)}` : '';
+
+const isDark = () => document.documentElement.dataset.theme === 'dark';
+const colorFor = (category, index) => {
+  const map = isDark() ? CATEGORY_COLORS_DARK : CATEGORY_COLORS_LIGHT;
+  const spare = isDark() ? SPARE_DARK : SPARE_LIGHT;
+  return map[category] || spare[index % spare.length];
+};
+
+// 圖表跑在 canvas 裡，吃不到 CSS 變數，得在繪製當下把值讀出來
+const tone = (name) => {
+  const v = getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
+  return v ? `rgb(${v})` : '#000';
+};
+
+const accountById = (id) => accounts.find((a) => a.id === id);
+const cards = () => accounts.filter((a) => a.type === '信用卡');
+const fundingAccounts = () => accounts.filter((a) => a.type !== '信用卡');
+
+// 卡片消費以入帳日歸期；尚未入帳的先用消費日估算餘額
+const effDate = (r) => r.postedDate || r.date;
+
+// 被分期吸收的原始消費不計入任何統計，改由各期期款代表
+const absorbed = (r) => Boolean(r.splitPlanId);
+
+// 統計只看 expense / income，繳款不算
+const monthRecords = (mk = viewMonth) =>
+  records.filter((r) => monthOf(r.date) === mk && r.type !== 'payment' && !absorbed(r));
+
+/* ============================================================
+ * 餘額
+ * 只計算今天以前的紀錄，未來日期的分期利息不會提早灌進卡債
+ * ============================================================ */
+function balanceOf(accountId) {
+  const acc = accountById(accountId);
+  let sum = acc ? (Number(acc.opening) || 0) : 0;
+  const today = todayISO();
+
+  for (const r of records) {
+    if (absorbed(r)) continue;
+    if (effDate(r) > today) continue;
+    const amount = Number(r.amount) || 0;
+    if (r.type === 'payment') {
+      if (r.accountId === accountId) sum += amount;             // 卡片欠款減少
+      if (r.counterAccountId === accountId) sum -= amount;      // 扣款帳戶減少
+    } else if (r.accountId === accountId) {
+      sum += (r.type === 'income' ? 1 : -1) * amount;
+    }
+  }
+  return Math.round(sum * 100) / 100;
+}
+
+function balanceLabel(acc, bal) {
+  if (acc.type === '信用卡') {
+    return bal < 0 ? { text:'應付 ' + money(-bal), cls:'text-debit' } : { text: money(bal), cls:'text-ink' };
+  }
+  if (acc.type === '應收應付款項') {
+    return bal < 0 ? { text:'應付 ' + money(-bal), cls:'text-debit' } : { text:'應收 ' + money(bal), cls:'text-ink' };
+  }
+  return bal < 0 ? { text:'−' + money(-bal), cls:'text-debit' } : { text: money(bal), cls:'text-ink' };
+}
+
+function sideOf(acc, bal) {
+  if (ASSET_TYPES.includes(acc.type)) return 'asset';
+  if (LIABILITY_TYPES.includes(acc.type)) return 'liability';
+  return bal >= 0 ? 'asset' : 'liability';
+}
+
+/* ============================================================
+ * 信用卡帳期
+ * ============================================================ */
+function cycleWindow(card, cycleMk) {
+  return {
+    from: addDays(clampDay(shiftMonth(cycleMk, -1), card.closingDay), 1),
+    to:   clampDay(cycleMk, card.closingDay),
+  };
+}
+function dueDateOf(card, cycleMk) {
+  const mk = card.dueDay > card.closingDay ? cycleMk : shiftMonth(cycleMk, 1);
+  return clampDay(mk, card.dueDay);
+}
+// 某個日期落在哪一期
+function cycleOf(card, iso) {
+  const mk = monthOf(iso);
+  return iso > clampDay(mk, card.closingDay) ? shiftMonth(mk, 1) : mk;
+}
+// 目前還沒結帳的那一期
+const openCycle = (card) => cycleOf(card, todayISO());
+
+function cycleItems(card, cycleMk) {
+  const w = cycleWindow(card, cycleMk);
+  return records.filter((r) =>
+    r.accountId === card.id && r.type === 'expense' &&
+    r.postedDate && r.postedDate >= w.from && r.postedDate <= w.to
+  ).sort((a, b) => (a.postedDate < b.postedDate ? -1 : 1));
+}
+
+// 帳單真正要收的：被分期吸收的原始消費已由各期期款取代
+function statementItems(card, cycleMk) {
+  return cycleItems(card, cycleMk).filter((r) => !absorbed(r));
+}
+
+// 這一期被分期吸收掉的那幾筆，仍列在明細裡但不計入金額
+function splitItems(card, cycleMk) {
+  return cycleItems(card, cycleMk).filter(absorbed);
+}
+
+// 卡上還沒填入帳日的消費，帳單一律略過，需要逐筆補
+function unpostedItems(card) {
+  return records.filter((r) =>
+    r.accountId === card.id && r.type === 'expense' && !r.postedDate
+  ).sort((a, b) => (a.date < b.date ? -1 : 1));
+}
+
+function paymentsIn(card, cycleMk) {
+  const due = dueDateOf(card, cycleMk);
+  const prevDue = dueDateOf(card, shiftMonth(cycleMk, -1));
+  return records.filter((r) =>
+    r.type === 'payment' && r.accountId === card.id && r.date > prevDue && r.date <= due
+  );
+}
+
+// 這一期各分期計畫落在哪一期，用來在帳單上說明期款的組成
+function installmentDue(card, cycleMk) {
+  const out = [];
+  for (const plan of installments.filter((p) => p.cardId === card.id)) {
+    const k = monthDiff(plan.firstMonth, cycleMk) + 1;
+    if (k >= 1 && k <= plan.periods) {
+      const row = (plan.schedule || [])[k - 1];
+      if (row) out.push({ plan, period: k, row });
+    }
+  }
+  return out;
+}
+
+/**
+ * 本期應繳就是帳單金額。
+ * 分期的每一期期款本身已經是這張卡上的一筆消費，會自然落在對應帳期，
+ * 所以不需要再從攤還表另外加本金，也不會重複計算。
+ */
+function amountDue(card, cycleMk) {
+  const total = statementItems(card, cycleMk).reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  return Math.round(total * 100) / 100;
+}
+
+/* ============================================================
+ * 分期試算（與後端同一套公式）
+ * ============================================================ */
+function buildSchedule(principal, periods, apr, method, rounding, residue) {
+  const n = Math.floor(periods);
+  const P = Number(principal) || 0;
+  if (!(n >= 1) || !(P > 0)) return [];
+
+  // 無利息時利率一律視為 0
+  const i = method === 'none' ? 0 : (Number(apr) || 0) / 100 / 12;
+  const round = { round: Math.round, floor: Math.floor, ceil: Math.ceil }[rounding] || Math.round;
+  const toFirst = residue === 'first';
+
+  const raw = [];
+  let remaining = P;
+
+  if (method === 'equal_principal') {
+    const per = P / n;
+    for (let k = 0; k < n; k++) { raw.push({ principal: per, interest: remaining * i }); remaining -= per; }
+  } else if (method === 'equal_payment') {
+    const pay = i === 0 ? P / n : P * i * Math.pow(1+i, n) / (Math.pow(1+i, n) - 1);
+    for (let k = 0; k < n; k++) {
+      const interest = remaining * i, prin = pay - interest;
+      raw.push({ principal: prin, interest });
+      remaining -= prin;
+    }
+  } else {
+    const per = P / n, interest = P * i;
+    for (let k = 0; k < n; k++) raw.push({ principal: per, interest });
+  }
+
+  let sum = 0;
+  const out = raw.map((r, k) => {
+    const prin = round(r.principal), interest = round(r.interest);
+    sum += prin;
+    return { period: k+1, principal: prin, interest, total: prin + interest };
+  });
+
+  // 尾差一定要有地方去，否則每期本金加總不會等於原始本金
+  const diff = Math.round(P) - sum;
+  if (diff !== 0 && out.length) {
+    const target = out[toFirst ? 0 : out.length - 1];
+    target.principal += diff;
+    target.total = target.principal + target.interest;
+  }
+  return out;
+}
+
+/* ============================================================
+ * Toast / API
+ * ============================================================ */
+const TOAST_BAR = { ok:'bg-credit', error:'bg-debit', info:'bg-accent' };
+
+function toast(message, tone = 'ok') {
+  const el = document.createElement('div');
+  el.className = 'toast-in pointer-events-auto flex items-stretch bg-ink text-paper shadow-lg';
+  el.innerHTML = `<span class="w-1 shrink-0 ${TOAST_BAR[tone] || TOAST_BAR.info}"></span>
+    <span class="px-4 py-3 text-[13px] leading-snug tracking-[0.04em]">${esc(message)}</span>`;
+  $('toastHost').appendChild(el);
+  setTimeout(() => { el.classList.add('toast-out'); setTimeout(() => el.remove(), 300); }, 2600);
+}
+
+async function apiPost(payload) {
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    // 用 text/plain 避免觸發 CORS 預檢；GAS 不處理 OPTIONS 請求
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload),
+  });
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error || '操作失敗');
+  return json.data;
+}
+
+/* ============================================================
+ * 主題
+ * ============================================================ */
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+function applyTheme() {
+  const dark = themeChoice === 'dark' || (themeChoice === 'system' && prefersDark.matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+
+  let meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.name = 'theme-color';
+    document.head.appendChild(meta);
+  }
+  meta.content = dark ? '#1A1D18' : '#E6EAE1';
+
+  for (const btn of document.querySelectorAll('.theme-btn')) {
+    const on = btn.dataset.themeChoice === themeChoice;
+    btn.className = 'theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors '
+      + (on ? 'bg-ink border-ink text-paper font-medium' : 'bg-form border-rule text-muted hover:border-heavy');
+    btn.setAttribute('aria-pressed', String(on));
+  }
+
+  const le = $('legendExpense'), li = $('legendIncome');
+  if (le) le.style.background = tone('debit');
+  if (li) li.style.background = tone('credit');
+
+  // 圖表的顏色是繪製當下寫進 canvas 的，換主題必須整個重建
+  if (pieChart) { pieChart.destroy(); pieChart = null; }
+  if (trendChart) { trendChart.destroy(); trendChart = null; }
+  if (activeTab === 'report') renderReport();
+  if (activeTab === 'records') renderCalendar();
+  setTabMarks();
+}
+
+function setTheme(choice) {
+  themeChoice = choice;
+  if (!saveSettings({ theme: choice })) {
+    storageOK = false;
+    toast('瀏覽器不允許儲存設定，這次的選擇重整後會失效', 'info');
+  }
+  applyTheme();
+}
+
+function setTabMarks() {
+  for (const btn of document.querySelectorAll('.tab')) {
+    const on = btn.dataset.tab === activeTab;
+    btn.querySelector('.tab-mark').style.background = on ? tone('ink') : 'transparent';
+  }
+}
+
+
+/* ============================================================
+ * 分頁
+ * ============================================================ */
+const TABS = ['accounts', 'records', 'report', 'settings'];
+
+function setTab(tab) {
+  if (!TABS.includes(tab)) return;
+  activeTab = tab;
+  clearPendingDelete();
+  for (const name of TABS) $('panel-' + name).classList.toggle('hidden', name !== tab);
+  for (const btn of document.querySelectorAll('.tab')) {
+    const on = btn.dataset.tab === tab;
+    btn.classList.toggle('text-ink', on);
+    btn.classList.toggle('font-medium', on);
+    btn.classList.toggle('text-muted', !on);
+    btn.setAttribute('aria-current', on ? 'page' : 'false');
+  }
+  setTabMarks();
+  // 帳戶餘額是累計的，設定頁沒有月份概念
+  $('monthBar').classList.toggle('hidden', tab === 'accounts' || tab === 'settings');
+  $('fab').classList.toggle('hidden', tab === 'settings');
+  if (tab === 'report') renderReport();   // 圖表要在畫布可見時才算得出尺寸
+  if (tab === 'settings') renderSettings();
+}
+
+/* ============================================================
+ * 帳戶總覽
+ * ============================================================ */
+function renderAccounts() {
+  const box = $('accountsBox');
+  if (!accounts.length) {
+    box.innerHTML = `<p class="text-muted text-[15px] leading-loose">
+      還沒有帳戶。<br>先建立一個現金或銀行帳戶，才能開始記帳。</p>`;
+    return;
+  }
+
+  const rows = accounts.map((a) => {
+    const bal = balanceOf(a.id);
+    return { acc: a, bal, side: sideOf(a, bal) };
+  });
+
+  const group = (side, title) => {
+    const items = rows.filter((r) => r.side === side);
+    if (!items.length) return '';
+    return `<p class="font-mono text-[11px] tracking-[0.2em] text-muted mt-5 first:mt-0 mb-2">${title}</p>
+      ${items.map(({ acc, bal }) => {
+        const label = balanceLabel(acc, bal);
+        const isCard = acc.type === '信用卡';
+        const badge = isCard && acc.autopayAccountId ? ' · 自動扣繳' : '';
+        return `<button type="button" data-account="${esc(acc.id)}"
+                  class="w-full flex items-baseline py-2 text-left hover:opacity-70 transition-opacity">
+            <span class="text-[16px] tracking-[0.04em]">${esc(acc.name)}</span>
+            <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc.type)}${badge}</span>
+            <span class="leader"></span>
+            <span class="num font-mono text-[17px] font-medium ${label.cls} whitespace-nowrap">${label.text}</span>
+          </button>`;
+      }).join('')}`;
+  };
+
+  const net = rows.reduce((s, r) => s + r.bal, 0);
+  box.innerHTML = `${group('asset','資產')}${group('liability','負債')}
+    <div class="rule-double mt-6 pt-4 flex items-baseline">
+      <span class="tracking-[0.1em] font-medium">淨值</span><span class="leader"></span>
+      <span class="num font-mono text-2xl md:text-3xl font-semibold ${net < 0 ? 'text-debit' : 'text-ink'}">
+        ${net < 0 ? '−' : ''}${money(Math.abs(net))}</span>
+    </div>`;
+}
+
+/* ============================================================
+ * 月曆與當日紀錄
+ * ============================================================ */
+function dailyTotals() {
+  const map = new Map();
+  for (const r of monthRecords()) {
+    const cell = map.get(r.date) || { expense: 0, income: 0 };
+    const amount = Number(r.amount) || 0;
+    if (r.type === 'income') cell.income += amount; else cell.expense += amount;
+    map.set(r.date, cell);
+  }
+  return map;
+}
+
+function renderCalendar() {
+  const totals = dailyTotals();
+  const maxExpense = Math.max(0, ...[...totals.values()].map((t) => t.expense));
+  const total = daysInMonth(viewMonth), lead = firstWeekday(viewMonth), today = todayISO();
+
+  let html = '';
+  for (let i = 0; i < lead; i++) html += `<div class="bg-paper"></div>`;
+
+  for (let d = 1; d <= total; d++) {
+    const iso = `${viewMonth}-${pad(d)}`;
+    const cell = totals.get(iso), on = iso === selectedDate;
+    const classes = ['day','bg-paper','text-left'];
+    if (on) classes.push('day-on');
+    if (iso === today) classes.push('day-today');
+
+    let bar = '';
+    if (cell && cell.expense > 0) {
+      const pct = Math.max(18, Math.round((cell.expense / maxExpense) * 100));
+      bar = `<span class="block h-[3px] mt-1" style="width:${pct}%;background:${on ? tone('paper') : tone('debit')};opacity:${on ? .85 : 1}"></span>`;
+    }
+    const dot = (cell && cell.income > 0)
+      ? `<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5" style="background:${tone('credit')}"></span>` : '';
+    const numClass = 'font-mono num text-[13px] leading-none ' + (on ? '' : (cell ? 'text-ink' : 'text-muted/60'));
+
+    html += `<button type="button" data-day="${iso}" class="${classes.join(' ')}">${dot}<span class="${numClass}">${d}</span>${bar}</button>`;
+  }
+  const tail = (7 - ((lead + total) % 7)) % 7;
+  for (let i = 0; i < tail; i++) html += `<div class="bg-paper"></div>`;
+  $('calendar').innerHTML = html;
+}
+
+function renderList(newId) {
+  $('dayHeading').textContent = dateHeading(selectedDate);
+  const rows = records.filter((r) => r.date === selectedDate);
+  const spent = rows.filter((r) => r.type === 'expense').reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  $('dayMeta').textContent = rows.length ? `${rows.length} 筆　支出 ${money(spent)}` : '';
+
+  if (!rows.length) {
+    $('list').innerHTML = `<p class="text-muted text-[15px] leading-loose py-5">
+      這天還沒有紀錄。<br>用右下角的「記一筆」新增。</p>`;
+    return;
+  }
+
+  $('list').innerHTML = rows.map((r) => {
+    const acc = accountById(r.accountId);
+    let head, amountHtml;
+
+    if (r.type === 'payment') {
+      const from = accountById(r.counterAccountId);
+      head = `<span class="text-[15px] tracking-[0.06em]">繳卡費</span>
+              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(from ? from.name : '?')} → ${esc(acc ? acc.name : '?')}</span>`;
+      amountHtml = `<span class="num font-mono text-[17px] font-medium text-accent">${money(r.amount)}</span>`;
+    } else {
+      const isIncome = r.type === 'income';
+      const posted = (acc && acc.type === '信用卡')
+        ? (r.postedDate ? (r.postedDate !== r.date ? ` · 入帳 ${md(r.postedDate)}` : '') : ' · 尚未入帳')
+        : '';
+      const plan = r.splitPlanId ? installments.find((p) => p.id === r.splitPlanId) : null;
+      const splitTag = plan ? ` · 已轉分期 ${plan.periods} 期` : '';
+      head = `<span class="text-[15px] tracking-[0.06em]">${esc(r.category)}</span>
+              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc ? acc.name : '未指定帳戶')}${posted}${splitTag}</span>`;
+      amountHtml = `<span class="num font-mono text-[17px] font-medium ${isIncome ? 'text-credit' : 'text-debit'}">${isIncome ? '+' : '−'}${money(Math.abs(Number(r.amount) || 0))}</span>`;
+    }
+
+    const dim = absorbed(r) ? ' opacity-55' : '';
+    return `<div data-row="${esc(r.id)}" class="${r.id === newId ? 'stamp ' : ''}border-b border-rule/70 py-3 -mx-2 px-2 transition-opacity${dim}">
+        <div class="flex items-baseline">${head}<span class="leader"></span>${amountHtml}</div>
+        <div class="flex items-baseline justify-between gap-4 mt-1">
+          <p class="text-[13px] text-muted truncate">${esc(r.note || '')}</p>
+          <div class="flex gap-3 shrink-0 font-mono text-[11px]">
+            <button type="button" data-edit="${esc(r.id)}" class="text-muted hover:text-accent underline underline-offset-4 decoration-rule">編輯</button>
+            <button type="button" data-del="${esc(r.id)}" class="text-muted hover:text-debit underline underline-offset-4 decoration-rule">刪除</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ============================================================
+ * 報表
+ * ============================================================ */
+function renderTally() {
+  let income = 0, expense = 0;
+  for (const r of monthRecords()) {
+    const amount = Number(r.amount) || 0;
+    if (r.type === 'income') income += amount; else expense += amount;
+  }
+  const balance = income - expense;
+  $('sumExpense').textContent = money(expense);
+  $('sumIncome').textContent  = money(income);
+  $('sumBalance').textContent = (balance < 0 ? '−' : '') + money(Math.abs(balance));
+  $('sumBalance').className = 'num font-mono text-2xl md:text-3xl font-semibold ' + (balance < 0 ? 'text-debit' : 'text-ink');
+}
+
+function renderPie() {
+  if (typeof Chart === 'undefined') return;
+  const totals = new Map();
+  for (const r of monthRecords()) {
+    if (r.type !== 'expense') continue;
+    const key = r.category || '其他';
+    totals.set(key, (totals.get(key) || 0) + (Number(r.amount) || 0));
+  }
+  const entries = [...totals.entries()].sort((a, b) => b[1] - a[1]);
+  const hasData = entries.length > 0;
+  $('chartWrap').classList.toggle('hidden', !hasData);
+  $('chartEmpty').classList.toggle('hidden', hasData);
+
+  if (!hasData) {
+    if (pieChart) { pieChart.destroy(); pieChart = null; }
+    $('chartLegend').innerHTML = '';
+    return;
+  }
+
+  const labels = entries.map((e) => e[0]);
+  const data = entries.map((e) => e[1]);
+  const colors = labels.map(colorFor);
+  const total = data.reduce((a, b) => a + b, 0);
+
+  if (!pieChart) {
+    pieChart = new Chart($('pieChart'), {
+      type: 'pie',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderColor: tone('paper'), borderWidth:2, hoverOffset:8 }] },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:{ duration:450 },
+        plugins: {
+          legend:{ display:false },
+          tooltip:{ backgroundColor: tone('ink'), bodyColor: tone('paper'), titleColor: tone('paper'),
+            cornerRadius:0, padding:10, displayColors:false,
+            titleFont:{ family:'"IBM Plex Sans TC"', size:12, weight:'500' },
+            bodyFont:{ family:'"IBM Plex Mono"', size:13 },
+            callbacks:{ label:(ctx) => `${money(ctx.parsed)}　${Math.round((ctx.parsed/total)*100)}%` } },
+        },
+      },
+    });
+  } else {
+    pieChart.data.labels = labels;
+    pieChart.data.datasets[0].data = data;
+    pieChart.data.datasets[0].backgroundColor = colors;
+    pieChart.update(); pieChart.resize();
+  }
+
+  $('chartLegend').innerHTML = entries.map(([name, amount], i) => {
+    const pct = Math.round((amount / total) * 100);
+    return `<div class="flex items-baseline py-1.5 ${i ? 'border-t border-rule/60' : ''}">
+        <span class="w-2.5 h-2.5 shrink-0 mr-2.5 translate-y-[1px]" style="background:${colorFor(name, i)}"></span>
+        <span class="text-[14px] tracking-[0.06em]">${esc(name)}</span><span class="leader"></span>
+        <span class="num font-mono text-[14px] text-muted mr-3">${pct}%</span>
+        <span class="num font-mono text-[15px] font-medium">${money(amount)}</span>
+      </div>`;
+  }).join('');
+}
+
+function renderTrend() {
+  if (typeof Chart === 'undefined') return;
+  const series = [];
+  for (let i = 5; i >= 0; i--) {
+    const mk = shiftMonth(viewMonth, -i);
+    let income = 0, expense = 0;
+    for (const r of monthRecords(mk)) {
+      const amount = Number(r.amount) || 0;
+      if (r.type === 'income') income += amount; else expense += amount;
+    }
+    series.push({ mk, income, expense });
+  }
+
+  const config = {
+    type: 'bar',
+    data: {
+      labels: series.map((s) => `${Number(s.mk.slice(5))} 月`),
+      datasets: [
+        { label:'支出', data: series.map((s) => s.expense), backgroundColor: tone('debit'), barPercentage:.7, categoryPercentage:.7 },
+        { label:'收入', data: series.map((s) => s.income),  backgroundColor: tone('credit'), barPercentage:.7, categoryPercentage:.7 },
+      ],
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, animation:{ duration:450 },
+      onClick: (evt, els) => { if (els.length) goMonth(series[els[0].index].mk); },
+      scales: {
+        x: { grid:{ display:false }, border:{ color: tone('rule') },
+             ticks:{ color: tone('muted'), font:{ family:'"IBM Plex Mono"', size:11 } } },
+        y: { beginAtZero:true, grid:{ color: tone('rule') }, border:{ display:false },
+             ticks:{ color: tone('muted'), font:{ family:'"IBM Plex Mono"', size:11 }, maxTicksLimit:5,
+                     callback:(v) => (v >= 1000 ? (v/1000)+'k' : v) } },
+      },
+      plugins: {
+        legend:{ display:false },
+        tooltip:{ backgroundColor: tone('ink'), bodyColor: tone('paper'), titleColor: tone('paper'),
+          cornerRadius:0, padding:10,
+          titleFont:{ family:'"IBM Plex Sans TC"', size:12, weight:'500' },
+          bodyFont:{ family:'"IBM Plex Mono"', size:13 },
+          callbacks:{
+            title:(items) => { const mk = series[items[0].dataIndex].mk; return `${mk.slice(0,4)} 年 ${Number(mk.slice(5))} 月`; },
+            label:(ctx) => ` ${ctx.dataset.label}　${money(ctx.parsed.y)}`,
+          } },
+      },
+    },
+  };
+
+  if (!trendChart) trendChart = new Chart($('trendChart'), config);
+  else {
+    trendChart.data = config.data;
+    trendChart.options.onClick = config.options.onClick;
+    trendChart.options.plugins.tooltip.callbacks = config.options.plugins.tooltip.callbacks;
+    trendChart.update(); trendChart.resize();
+  }
+}
+
+function renderReport() { renderTally(); renderPie(); renderTrend(); }
+
+/* ============================================================
+ * 信用卡帳單與對帳
+ * ============================================================ */
+function openCard(id) {
+  const card = accountById(id);
+  if (!card || card.type !== '信用卡') return;
+  cardId = id;
+  cardCycle = openCycle(card);
+  $('cardTitle').textContent = card.name;
+  renderCard();
+  $('cardSheet').showModal();
+}
+
+function renderCard() {
+  const card = accountById(cardId);
+  if (!card) return;
+
+  const w = cycleWindow(card, cardCycle);
+  const due = dueDateOf(card, cardCycle);
+  const items = statementItems(card, cardCycle);
+  const splits = splitItems(card, cardCycle);
+  const unposted = unpostedItems(card);
+  const dues = installmentDue(card, cardCycle);
+  const total = items.reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  const absorbedTotal = splits.reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  const paid = paymentsIn(card, cardCycle).reduce((s, r) => s + (Number(r.amount) || 0), 0);
+  const done = items.filter((r) => r.reconciled).length;
+  const autopay = card.autopayAccountId ? accountById(card.autopayAccountId) : null;
+
+  const cycleLabel = `${cardCycle.slice(0,4)} 年 ${Number(cardCycle.slice(5))} 月`;
+
+  const head = `
+    <div class="flex items-center gap-3">
+      <button type="button" data-cycle="-1" class="w-8 h-8 border border-rule text-muted hover:border-ink hover:text-ink transition-colors leading-none">‹</button>
+      <p class="font-mono num text-[15px] tracking-[0.08em] flex-1 text-center">${cycleLabel} 帳單</p>
+      <button type="button" data-cycle="1" class="w-8 h-8 border border-rule text-muted hover:border-ink hover:text-ink transition-colors leading-none">›</button>
+    </div>
+    <p class="font-mono num text-[11px] text-muted mt-2 text-center leading-relaxed">
+      ${md(w.from)} – ${md(w.to)} · 繳款截止 ${md(due)}
+      ${autopay ? ` · 自動扣繳自「${esc(autopay.name)}」` : ' · 未設定自動扣繳'}
+    </p>`;
+
+  const summary = `
+    <div class="bg-form border border-rule px-4 py-4 mt-4">
+      ${absorbedTotal > 0 ? `<div class="flex items-baseline text-[13px] text-muted">
+        <span>已轉分期</span><span class="leader"></span>
+        <span class="num font-mono line-through">${money(absorbedTotal)}</span></div>` : ''}
+      <div class="flex items-baseline ${absorbedTotal > 0 ? 'mt-2' : ''}">
+        <span class="font-medium">本期應繳</span><span class="leader"></span>
+        <span class="num font-mono text-xl font-semibold ${total > 0 ? 'text-debit' : 'text-ink'}">${money(total)}</span>
+      </div>
+      ${dues.length ? `<p class="font-mono text-[11px] text-muted mt-2 leading-relaxed">
+        其中含分期期款 ${money(dues.reduce((s, d) => s + d.row.total, 0))}
+        （本金 ${money(dues.reduce((s, d) => s + d.row.principal, 0))}
+        ＋ 利息 ${money(dues.reduce((s, d) => s + d.row.interest, 0))}）</p>` : ''}
+      ${paid > 0 ? `<div class="flex items-baseline text-[13px] text-muted mt-2 pt-2 border-t border-rule">
+        <span>已繳</span><span class="leader"></span>
+        <span class="num font-mono">${money(paid)}</span></div>` : ''}
+    </div>`;
+
+  const rows = items.map((r) => {
+    const deferred = r.postedDate !== r.date;
+    return `<div class="flex items-start gap-3 py-2.5 border-b border-rule/70">
+        <button type="button" data-tick="${esc(r.id)}" aria-pressed="${r.reconciled}"
+                class="tick ${r.reconciled ? 'tick-on' : ''} mt-0.5">${r.reconciled ? '✓' : ''}</button>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-baseline">
+            <span class="font-mono num text-[11px] text-muted mr-2">${md(r.postedDate)}</span>
+            <span class="text-[14px]">${esc(r.category)}</span>
+            <span class="leader"></span>
+            <span class="num font-mono text-[15px] font-medium">${money(r.amount)}</span>
+          </div>
+          <div class="flex items-baseline justify-between gap-3 mt-0.5">
+            <p class="text-[12px] text-muted truncate">
+              ${esc(r.note || '')}${deferred ? `${r.note ? ' · ' : ''}消費 ${md(r.date)} 延後入帳` : ''}
+            </p>
+            <div class="flex gap-3 shrink-0 font-mono text-[11px]">
+              <button type="button" data-posting="${esc(r.id)}"
+                      class="text-muted hover:text-accent underline underline-offset-4 decoration-rule">入帳</button>
+              ${(r.installmentId || r.splitPlanId) ? '' : `<button type="button" data-split="${esc(r.id)}"
+                      class="text-muted hover:text-accent underline underline-offset-4 decoration-rule">分期</button>`}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const detail = `
+    <div class="flex items-baseline justify-between gap-3 mt-6 pb-2 border-b border-rule">
+      <p class="font-mono text-[11px] tracking-[0.24em] text-muted">交易明細</p>
+      <div class="flex items-center gap-3 font-mono text-[11px]">
+        <span class="num text-muted">已對帳 ${done} / ${items.length}</span>
+        ${items.length ? `<button type="button" id="tickAll"
+          class="text-muted hover:text-accent underline underline-offset-4">${done === items.length ? '全部取消' : '全部勾選'}</button>` : ''}
+      </div>
+    </div>
+    ${items.length ? rows : `<p class="text-muted text-[14px] leading-loose py-4">這一期沒有已入帳的消費。</p>`}
+    ${splits.map((r) => {
+      return `<div class="flex items-baseline py-2.5 border-b border-rule/70 opacity-60">
+          <span class="font-mono num text-[11px] text-muted mr-2">${md(r.postedDate)}</span>
+          <span class="text-[14px] line-through">${esc(r.category)}</span>
+          <span class="font-mono text-[10px] text-muted ml-2">已轉分期，改由期款計算</span>
+          <span class="leader"></span>
+          <span class="num font-mono text-[15px] text-muted line-through">${money(r.amount)}</span>
+        </div>`;
+    }).join('')}`;
+
+  const pending = unposted.length ? `
+    <div class="mt-6 pb-2 border-b border-rule">
+      <p class="font-mono text-[11px] tracking-[0.24em] text-debit">尚未入帳 ${unposted.length} 筆</p>
+    </div>
+    <p class="text-[12px] text-muted mt-2 mb-1 leading-relaxed">
+      這些消費還沒有入帳日，任何一期帳單都不會納入。對到銀行帳單後補上日期即可。
+    </p>
+    ${unposted.map((r) => `
+      <div class="flex items-baseline py-2.5 border-b border-rule/70">
+        <span class="font-mono num text-[11px] text-muted mr-2">${md(r.date)}</span>
+        <span class="text-[14px]">${esc(r.category)}</span>
+        <span class="leader"></span>
+        <span class="num font-mono text-[15px] mr-3">${money(r.amount)}</span>
+        <button type="button" data-posting="${esc(r.id)}"
+                class="font-mono text-[11px] text-accent underline underline-offset-4 shrink-0">設定入帳日</button>
+      </div>`).join('')}` : '';
+
+  const plans = installments.filter((p) => p.cardId === card.id);
+  const planHtml = plans.map((p) => {
+    const hit = dues.find((d) => d.plan.id === p.id);
+    const rowsHtml = (p.schedule || []).map((s) => {
+      const mk = shiftMonth(p.firstMonth, s.period - 1);
+      const on = mk === cardCycle;
+      return `<div class="flex items-baseline py-1 ${on ? 'font-medium' : 'text-muted'}">
+          <span class="font-mono num text-[11px] w-16">${mk.slice(2,4)}/${mk.slice(5)}　${s.period}期</span>
+          <span class="leader"></span>
+          <span class="num font-mono text-[12px] mr-3">本金 ${money(s.principal)}</span>
+          <span class="num font-mono text-[12px] mr-3">利息 ${money(s.interest)}</span>
+          <span class="num font-mono text-[13px] w-20 text-right">${money(s.total)}</span>
+        </div>`;
+    }).join('');
+
+    const src = p.sourceRecordId ? records.find((r) => r.id === p.sourceRecordId) : null;
+    return `<div class="border border-rule bg-form px-4 py-4 mt-3">
+        <div class="flex items-baseline">
+          <span class="text-[15px]">${esc(p.name)}</span>
+          <span class="font-mono text-[10px] text-muted ml-2">${p.sourceRecordId ? '單筆' : '帳單'} · ${p.periods} 期 · ${METHOD_LABEL[p.method] || p.method}${p.method === 'none' ? '' : ' · ' + p.apr + '%'}</span>
+          <span class="leader"></span>
+          <span class="num font-mono text-[15px] font-medium">${money(p.principal)}</span>
+        </div>
+        ${src ? `<p class="font-mono text-[11px] text-muted mt-1">
+          來源：${md(src.date)} ${esc(src.category)}${src.note ? ' · ' + esc(src.note) : ''}</p>` : ''}
+        ${hit ? `<p class="font-mono num text-[12px] text-accent mt-2">
+          本期第 ${hit.period}/${p.periods} 期　本金 ${money(hit.row.principal)} ＋ 利息 ${money(hit.row.interest)}
+          ＝ ${money(hit.row.total)}</p>` : `<p class="font-mono text-[12px] text-muted mt-2">本期沒有應繳款項</p>`}
+        <details class="mt-3">
+          <summary class="font-mono text-[11px] text-muted cursor-pointer hover:text-ink">攤還明細（${ROUNDING_LABEL[p.rounding] || '四捨五入'}・${RESIDUE_LABEL[p.residue] || '尾差歸末期'}）</summary>
+          <div class="mt-2 pt-2 border-t border-rule/70">${rowsHtml}</div>
+        </details>
+        <button type="button" data-plan-del="${esc(p.id)}"
+                class="mt-3 font-mono text-[11px] text-muted hover:text-debit underline underline-offset-4">刪除這個計畫（連同利息紀錄）</button>
+      </div>`;
+  }).join('');
+
+  const installSection = `
+    <div class="mt-7 pb-2 border-b border-rule">
+      <p class="font-mono text-[11px] tracking-[0.24em] text-muted">分期計畫</p>
+    </div>
+    ${plans.length ? planHtml : `<p class="text-muted text-[14px] leading-loose py-3">還沒有分期計畫。</p>`}
+    <button type="button" id="addInstall"
+            class="mt-4 w-full border border-rule text-muted py-3 text-[14px] tracking-[0.18em] hover:border-ink hover:text-ink transition-colors">
+      ＋ 把這一期帳款分期</button>`;
+
+  const payBtn = total > 0 ? `
+    <button type="button" id="payNow"
+            class="mt-6 w-full bg-ink text-paper py-3.5 text-[15px] tracking-[0.2em] font-medium hover:bg-accent transition-colors">
+      記一筆繳卡費 ${money(total)}</button>` : '';
+
+  $('cardBody').innerHTML = head + summary + detail + pending + installSection + payBtn;
+}
+
+/* 對帳勾選：先在畫面上反應，800ms 內的變更合併成一次請求 */
+function toggleTick(id) {
+  const rec = records.find((r) => r.id === id);
+  if (!rec) return;
+  rec.reconciled = !rec.reconciled;
+  reconcileQueue.set(id, rec.reconciled);
+  renderCard();
+  scheduleReconcileFlush();
+}
+
+function scheduleReconcileFlush() {
+  clearTimeout(reconcileTimer);
+  reconcileTimer = setTimeout(flushReconcile, 800);
+}
+
+async function flushReconcile() {
+  if (!reconcileQueue.size || !live()) { reconcileQueue.clear(); return; }
+  const batch = new Map(reconcileQueue);
+  reconcileQueue.clear();
+
+  const groups = { true: [], false: [] };
+  for (const [id, flag] of batch) groups[flag].push(id);
+
+  try {
+    for (const flag of [true, false]) {
+      if (groups[flag].length) {
+        await apiPost({ resource:'record', action:'reconcile', ids: groups[flag], reconciled: flag });
+      }
+    }
+  } catch (err) {
+    for (const [id, flag] of batch) {
+      const rec = records.find((r) => r.id === id);
+      if (rec) rec.reconciled = !flag;
+    }
+    renderCard();
+    toast('對帳沒有存成功：' + err.message, 'error');
+  }
+}
+
+async function tickAll() {
+  const card = accountById(cardId);
+  const items = statementItems(card, cardCycle);
+  const target = !items.every((r) => r.reconciled);
+  for (const r of items) {
+    if (r.reconciled !== target) { r.reconciled = target; reconcileQueue.set(r.id, target); }
+  }
+  renderCard();
+  scheduleReconcileFlush();
+}
+
+/* ============================================================
+ * 分期
+ * ============================================================ */
+function openInstall(sourceId) {
+  const card = accountById(cardId);
+  if (!card) return;
+
+  const source = sourceId ? records.find((r) => r.id === sourceId) : null;
+  if (sourceId && !source) return;
+  if (source && !source.postedDate) {
+    toast('這筆消費還沒入帳，請先填入帳日再分期', 'error');
+    return;
+  }
+  if (source && source.splitPlanId) {
+    toast('這筆消費已經有分期計畫了', 'error');
+    return;
+  }
+
+  installSourceId = source ? source.id : '';
+  $('installTitle').textContent = source ? '單筆消費分期' : '帳單分期';
+
+  if (source) {
+    // 分期會吸收來源消費，本金必須等於被吸收的金額，否則帳目對不上
+    $('installSource').classList.remove('hidden');
+    $('installSource').innerHTML = `
+      <div class="flex items-baseline">
+        <span class="font-mono num text-[11px] text-muted mr-2">${md(source.postedDate)}</span>
+        <span class="text-[14px]">${esc(source.category)}</span>
+        <span class="leader"></span>
+        <span class="num font-mono text-[15px] font-medium">${money(source.amount)}</span>
+      </div>
+      ${source.note ? `<p class="text-[12px] text-muted mt-1">${esc(source.note)}</p>` : ''}`;
+
+    $('i-name').value = (source.note || source.category) + ' 分期';
+    $('i-principal').value = Math.round(source.amount);
+    $('principalHint').textContent = '這筆消費會轉為分期，之後由各期期款代表它。';
+    $('i-first').value = cycleOf(card, source.postedDate);
+  } else {
+    const items = statementItems(card, cardCycle);
+    const total = items.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
+    $('installSource').classList.remove('hidden');
+    $('installSource').innerHTML = items.length
+      ? `<div class="flex items-baseline">
+          <span class="text-[14px]">${Number(cardCycle.slice(5))} 月帳單共 ${items.length} 筆</span>
+          <span class="leader"></span>
+          <span class="num font-mono text-[15px] font-medium">${money(total)}</span>
+        </div>
+        <p class="text-[12px] text-muted mt-1">這些消費會全部轉為分期。</p>`
+      : `<p class="text-[13px] text-debit">這一期沒有可以分期的消費。</p>`;
+
+    $('i-name').value = `${Number(cardCycle.slice(5))} 月帳單分期`;
+    $('i-principal').value = total > 0 ? Math.round(total) : '';
+    $('principalHint').textContent = '帳單分期一律以整期金額計算。';
+    $('i-first').value = shiftMonth(cardCycle, 1);
+  }
+  $('i-principal').readOnly = true;
+  $('i-principal').classList.add('opacity-60');
+
+  $('i-periods').value = 6;
+  $('i-apr').value = card.apr || 0;
+  $('i-method').value = card.apr > 0 ? 'flat' : 'none';
+  $('i-rounding').value = 'round';
+  $('i-residue').value = 'last';
+  syncMethodFields();
+  setMessage('installMsg', '');
+  renderInstallPreview();
+  $('installSheet').showModal();
+}
+
+// 無利息就沒有利率可填，留著只會讓人以為填了會生效
+function syncMethodFields() {
+  $('aprWrap').classList.toggle('hidden', $('i-method').value === 'none');
+}
+
+function renderInstallPreview() {
+  const source = installSourceId ? records.find((r) => r.id === installSourceId) : null;
+  const principal = Number($('i-principal').value) || 0;
+  const periods = Number($('i-periods').value) || 0;
+  const apr = Number($('i-apr').value) || 0;
+  const method = $('i-method').value;
+  const schedule = buildSchedule(principal, periods, apr, method,
+                                 $('i-rounding').value, $('i-residue').value);
+
+  if (!schedule.length) {
+    $('installPreview').innerHTML = `<p class="text-[13px] text-muted">填入本金與期數後會顯示試算。</p>`;
+    return;
+  }
+
+  const totalInterest = schedule.reduce((s, r) => s + r.interest, 0);
+  const first = schedule[0], last = schedule[schedule.length - 1];
+  const varying = first.total !== last.total;
+  const evenPrincipal = Math.round(principal / periods);
+  const residueAt = $('i-residue').value === 'first' ? '首期' : '末期';
+  const residueAmt = ($('i-residue').value === 'first' ? first : last).principal - evenPrincipal;
+
+  $('installPreview').innerHTML = `
+    <div class="flex items-baseline text-[13px]">
+      <span>每期應繳</span><span class="leader"></span>
+      <span class="num font-mono text-[15px] font-medium">${varying ? `${money(first.total)} → ${money(last.total)}` : money(first.total)}</span>
+    </div>
+    <div class="flex items-baseline text-[13px] mt-2">
+      <span>利息總額</span><span class="leader"></span>
+      <span class="num font-mono text-[15px] font-medium ${totalInterest > 0 ? 'text-debit' : ''}">${money(totalInterest)}</span>
+    </div>
+    <div class="rule-double mt-3 pt-3 flex items-baseline text-[13px]">
+      <span class="font-medium">總支付</span><span class="leader"></span>
+      <span class="num font-mono text-[16px] font-semibold">${money(schedule.reduce((s, r) => s + r.total, 0))}</span>
+    </div>
+    <p class="font-mono text-[11px] text-muted mt-3 leading-relaxed">
+      ${totalInterest === 0 ? '無利息，只分攤本金。' : ''}${
+        residueAmt !== 0 ? `尾差 ${residueAmt > 0 ? '+' : ''}${residueAmt} 元併入${residueAt}。<br>` : ''}
+      每一期都會產生一筆消費紀錄掛在這張卡上；原始消費會被取代，
+      報表支出與卡片餘額都改以各期期款計算。
+    </p>`;
+}
+
+async function handleInstallSubmit(event) {
+  event.preventDefault();
+  if (busy) return;
+
+  const card = accountById(cardId);
+  const principal = Number($('i-principal').value);
+  const periods = Math.floor(Number($('i-periods').value));
+  const apr = Number($('i-apr').value) || 0;
+  const method = $('i-method').value;
+  const firstMonth = $('i-first').value;
+
+  if (!card) return;
+  if (!(principal > 0)) return setMessage('installMsg', '沒有可以分期的金額。', 'error');
+  if (!(periods >= 2 && periods <= 60)) return setMessage('installMsg', '期數要介於 2 到 60。', 'error');
+  if (!/^\d{4}-\d{2}$/.test(firstMonth)) return setMessage('installMsg', '請選擇首期帳單年月。', 'error');
+
+  const preview = buildSchedule(principal, periods, apr, method,
+                                $('i-rounding').value, $('i-residue').value);
+  const zero = preview.filter((r) => r.total <= 0);
+  if (zero.length) {
+    return setMessage('installMsg',
+      `取整後第 ${zero.map((r) => r.period).join('、')} 期會變成 0 元，請減少期數。`, 'error');
+  }
+
+  const btn = $('installSubmit');
+  busy = true; btn.disabled = true;
+  btn.innerHTML = `<span class="spinner mr-2"></span>建立中…`;
+  setMessage('installMsg', '');
+
+  try {
+    const payload = { resource:'installment', action:'create', cardId: card.id,
+                      name: $('i-name').value.trim(),
+                      periods, apr, method, firstMonth,
+                      rounding: $('i-rounding').value, residue: $('i-residue').value };
+    if (installSourceId) payload.sourceRecordId = installSourceId;
+    else payload.cycle = cardCycle;
+
+    if (live()) {
+      await apiPost(payload);
+      // 後端同時改寫了來源與期款，重新整批取回比在前端鏡像安全
+      await loadAll({ keepCard: true });
+    } else {
+      applyPlanLocally(payload, card, principal);
+      render();
+    }
+
+    $('installSheet').close();
+    if ($('cardSheet').open) renderCard();
+    toast(`已建立${installSourceId ? '單筆' : '帳單'}分期，共 ${periods} 期`);
+  } catch (err) {
+    setMessage('installMsg', err.message, 'error');
+  } finally {
+    busy = false; btn.disabled = false; btn.textContent = '建立分期';
+  }
+}
+
+
+/* 示範模式下在本機重現後端的分期行為 */
+function applyPlanLocally(payload, card, principal) {
+  const sources = payload.sourceRecordId
+    ? records.filter((r) => r.id === payload.sourceRecordId)
+    : statementItems(card, cardCycle);
+
+  const plan = {
+    id: 'demo-plan-' + Date.now(),
+    cardId: card.id,
+    sourceRecordId: payload.sourceRecordId || '',
+    name: payload.name || (payload.sourceRecordId ? '單筆分期' : '帳單分期'),
+    principal, periods: payload.periods, apr: payload.apr,
+    method: payload.method, rounding: payload.rounding, residue: payload.residue,
+    firstMonth: payload.firstMonth,
+    schedule: buildSchedule(principal, payload.periods, payload.apr, payload.method,
+                            payload.rounding, payload.residue),
+  };
+
+  const category = payload.sourceRecordId ? sources[0].category : '分期付款';
+  const items = plan.schedule.map((sch, k) => {
+    const d = clampDay(shiftMonth(payload.firstMonth, sch.period - 1), card.closingDay);
+    return {
+      id: 'demo-inst-' + Date.now() + '-' + k,
+      type:'expense', date:d, postedDate:d, category, amount: sch.total,
+      note: `${plan.name} 第 ${sch.period}/${payload.periods} 期`
+            + (sch.interest > 0 ? `（含利息 ${sch.interest}）` : ''),
+      accountId: card.id, counterAccountId:'', reconciled:false,
+      installmentId: plan.id, splitPlanId:'',
+    };
+  });
+
+  const ids = new Set(sources.map((r) => r.id));
+  records = records.map((r) => (ids.has(r.id) ? { ...r, splitPlanId: plan.id } : r));
+  records = records.concat(items);
+  installments.push(plan);
+}
+
+
+async function deletePlan(id) {
+  if (busy) return;
+  busy = true;
+  try {
+    if (live()) {
+      await apiPost({ resource:'installment', action:'delete', id });
+      await loadAll({ keepCard: true });
+    } else {
+      const plan = installments.find((p) => p.id === id);
+      installments = installments.filter((p) => p.id !== id);
+      records = records
+        .filter((r) => r.installmentId !== id)
+        .map((r) => (r.splitPlanId === id ? { ...r, splitPlanId: '' } : r));
+      render();
+    }
+    if ($('cardSheet').open) renderCard();
+    toast('已刪除分期計畫，原始消費恢復計算');
+  } catch (err) {
+    toast('刪除失敗：' + err.message, 'error');
+  } finally { busy = false; }
+}
+
+
+/* ============================================================
+ * 自動扣繳
+ * 只補最近到期、且尚未有繳費紀錄的帳單
+ * ============================================================ */
+async function runAutopay() {
+  const today = todayISO();
+  const jobs = [];
+
+  for (const card of cards()) {
+    if (!card.autopayAccountId || !accountById(card.autopayAccountId)) continue;
+    for (let back = 1; back <= 3; back++) {
+      const cycle = shiftMonth(openCycle(card), -back);
+      const due = dueDateOf(card, cycle);
+      if (due > today) continue;
+      if (daysApart(due, today) > AUTOPAY_LOOKBACK_DAYS) break;
+
+      const amount = amountDue(card, cycle);
+      if (!(amount > 0)) continue;
+      // 同一張卡、同一個繳款日只會有一筆，重跑不會重複產生
+      if (records.some((r) => r.type === 'payment' && r.accountId === card.id && r.date === due)) continue;
+
+      jobs.push({ card, cycle, due, amount });
+    }
+  }
+  if (!jobs.length) return;
+
+  for (const job of jobs) {
+    const payload = {
+      resource:'record', action:'create', type:'payment', date: job.due,
+      category:'信用卡繳款', amount: job.amount,
+      note:`自動扣繳 ${job.cycle} 帳單`,
+      accountId: job.card.id, counterAccountId: job.card.autopayAccountId,
+    };
+    try {
+      const saved = live() ? await apiPost(payload) : { ...payload, id:'demo-pay-' + Date.now(), postedDate: job.due, reconciled:false };
+      records.unshift(saved);
+      toast(`自動扣繳：${job.card.name} ${money(job.amount)}`, 'info');
+    } catch (err) {
+      toast(`自動扣繳失敗（${job.card.name}）：${err.message}`, 'error');
+    }
+  }
+  render();
+}
+
+/* ============================================================
+ * 總繪製
+ * ============================================================ */
+function render(newId) {
+  $('monthLabel').textContent = `${viewMonth.slice(0,4)} 年 ${Number(viewMonth.slice(5))} 月`;
+  $('backToday').classList.toggle('hidden', viewMonth === thisMonth());
+  renderAccounts(); renderCalendar(); renderList(newId);
+  if (activeTab === 'report') renderReport();
+}
+
+function setListMessage(html) {
+  $('list').innerHTML = `<p class="font-mono text-[13px] text-muted leading-relaxed py-5">${html}</p>`;
+}
+
+function setMessage(id, text, tone = 'muted') {
+  const el = $(id);
+  el.textContent = text;
+  el.className = 'font-mono text-[12px] leading-relaxed min-h-[1.2em] '
+    + ({ muted:'text-muted', ok:'text-credit', error:'text-debit' }[tone]);
+}
+
+function goMonth(mk) {
+  clearPendingDelete();
+  viewMonth = mk;
+  selectedDate = (mk === thisMonth()) ? todayISO() : `${mk}-01`;
+  render();
+}
+
+function selectDay(iso) {
+  clearPendingDelete();
+  selectedDate = iso;
+  renderCalendar(); renderList();
+}
+
+/* ============================================================
+ * 紀錄面板
+ * ============================================================ */
+const TYPE_BTN = {
+  base: 'type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors ',
+  off:  'bg-form border-rule text-muted hover:border-heavy',
+  expense: 'bg-debit border-debit text-paper font-medium',
+  income:  'bg-credit border-credit text-paper font-medium',
+  payment: 'bg-accent border-accent text-paper font-medium',
+};
+
+function setType(type, keepCategory) {
+  selectedType = type;
+  for (const btn of document.querySelectorAll('.type-btn')) {
+    const on = btn.dataset.type === type;
+    btn.className = TYPE_BTN.base + (on ? TYPE_BTN[btn.dataset.type] : TYPE_BTN.off);
+    btn.setAttribute('aria-pressed', String(on));
+  }
+
+  const isPayment = type === 'payment';
+  $('counterWrap').classList.toggle('hidden', !isPayment);
+  $('categoryWrap').classList.toggle('hidden', isPayment);
+  $('dateLabel').textContent = isPayment ? '繳款日期' : '日期';
+  $('accountLabel').textContent = isPayment ? '要繳的卡片' : '帳戶';
+
+  if (isPayment) {
+    fillSelect('f-account', cards(), $('f-account').value);
+    fillSelect('f-counter', fundingAccounts(), $('f-counter').value);
+  } else {
+    fillSelect('f-account', accounts, $('f-account').value);
+    const options = [...CATEGORIES[type]];
+    if (keepCategory && !options.includes(keepCategory)) options.unshift(keepCategory);
+    $('f-category').innerHTML = options.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+    if (keepCategory) $('f-category').value = keepCategory;
+  }
+  syncPostingVisibility();
+}
+
+function fillSelect(id, list, selectedId) {
+  $(id).innerHTML = list.map((a) => `<option value="${esc(a.id)}">${esc(a.name)}（${esc(a.type)}）</option>`).join('');
+  if (selectedId && list.some((a) => a.id === selectedId)) $(id).value = selectedId;
+}
+
+// 入帳方式只對信用卡的一般消費有意義
+function syncPostingVisibility() {
+  const acc = accountById($('f-account').value);
+  const isCardExpense = selectedType === 'expense' && acc && acc.type === '信用卡';
+  $('postingWrap').classList.toggle('hidden', !isCardExpense);
+  $('f-posted').classList.toggle('hidden', !isCardExpense || $('f-posting').value !== 'deferred');
+
+  // 編輯既有紀錄時不提供分期入口，改由信用卡帳單那邊操作
+  const canSplit = isCardExpense && !editingId;
+  $('splitWrap').classList.toggle('hidden', !canSplit);
+  if (!canSplit) { $('f-split').checked = false; return; }
+
+  // 還沒入帳的消費不落在任何一期帳單上，首期年月無從判斷
+  const pending = $('f-posting').value === 'pending';
+  $('f-split').disabled = pending;
+  $('splitWrap').classList.toggle('opacity-50', pending);
+  if (pending) $('f-split').checked = false;
+  $('splitHint').textContent = pending
+    ? '尚未入帳的消費不能分期，請先確定入帳日。'
+    : '存檔後會接著開啟分期設定，讓你先看到利息試算再確認。';
+}
+
+function setSubmitBusy(on, label) {
+  busy = on;
+  const btn = $('submitBtn');
+  btn.disabled = on;
+  btn.innerHTML = on ? `<span class="spinner mr-2"></span>${label}` : (editingId ? '儲存變更' : '新增記錄');
+}
+
+function openCreate(preset) {
+  if (!accounts.length) {
+    toast('先建立一個帳戶再開始記帳', 'info');
+    openAccountCreate();
+    return;
+  }
+  editingId = null;
+  $('sheetTitle').textContent = '新增一筆';
+  $('submitBtn').textContent = '新增記錄';
+  $('f-date').value = (preset && preset.date) || selectedDate;
+  $('f-amount').value = (preset && preset.amount) || '';
+  $('f-note').value = (preset && preset.note) || '';
+  $('f-posting').value = 'normal';
+  $('f-posted').value = '';
+  $('f-split').checked = false;
+
+  const type = (preset && preset.type) || 'expense';
+  if (type === 'payment' && !cards().length) { toast('還沒有信用卡帳戶', 'info'); return; }
+  setType(type);
+  if (preset && preset.accountId) { $('f-account').value = preset.accountId; }
+  else if (type !== 'payment') fillSelect('f-account', accounts, lastAccountId || accounts[0].id);
+  if (preset && preset.counterAccountId) $('f-counter').value = preset.counterAccountId;
+  syncPostingVisibility();
+
+  setMessage('formMsg', '');
+  $('sheet').showModal();
+  setTimeout(() => $('f-amount').focus(), 60);
+}
+
+function openEdit(id, backToCard) {
+  const r = records.find((x) => x.id === id);
+  if (!r || busy) return;
+  returnToCard = backToCard || null;
+
+  editingId = id;
+  $('sheetTitle').textContent = '編輯這筆';
+  $('submitBtn').textContent = '儲存變更';
+  $('f-date').value = r.date;
+  setType(r.type, r.category);
+  $('f-account').value = r.accountId;
+  if (r.type === 'payment') $('f-counter').value = r.counterAccountId;
+  $('f-amount').value = r.amount;
+  $('f-note').value = r.note || '';
+
+  if (!r.postedDate) { $('f-posting').value = 'pending'; $('f-posted').value = ''; }
+  else if (r.postedDate !== r.date) { $('f-posting').value = 'deferred'; $('f-posted').value = r.postedDate; }
+  else { $('f-posting').value = 'normal'; $('f-posted').value = ''; }
+  syncPostingVisibility();
+
+  setMessage('formMsg', '');
+  $('sheet').showModal();
+}
+
+function readPostedDate(date) {
+  if ($('postingWrap').classList.contains('hidden')) return date;
+  const mode = $('f-posting').value;
+  if (mode === 'pending') return '';
+  if (mode === 'deferred') return $('f-posted').value || '';
+  return date;
+}
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  if (busy) return;
+
+  const date = $('f-date').value;
+  const amount = Number($('f-amount').value);
+  const note = $('f-note').value.trim();
+  const accountId = $('f-account').value;
+  const isPayment = selectedType === 'payment';
+  const category = isPayment ? '信用卡繳款' : $('f-category').value;
+  const counterAccountId = isPayment ? $('f-counter').value : '';
+  const postedDate = isPayment ? date : readPostedDate(date);
+
+  if (!date) return setMessage('formMsg', '請選擇日期。', 'error');
+  if (!accountId) return setMessage('formMsg', '請選擇帳戶。', 'error');
+  if (isPayment && !counterAccountId) return setMessage('formMsg', '請選擇扣款帳戶。', 'error');
+  if (isPayment && counterAccountId === accountId) return setMessage('formMsg', '繳款的兩個帳戶不能相同。', 'error');
+  if (!isFinite(amount) || amount <= 0) return setMessage('formMsg', '金額要是大於 0 的數字。', 'error');
+  if ($('f-posting').value === 'deferred' && !$('f-posted').value && !$('postingWrap').classList.contains('hidden')) {
+    return setMessage('formMsg', '延後入帳需要填實際入帳日。', 'error');
+  }
+  if (postedDate && postedDate < date) return setMessage('formMsg', '入帳日不能早於消費日。', 'error');
+
+  const isEdit = Boolean(editingId);
+  const payload = { resource:'record', action: isEdit ? 'update' : 'create',
+                    date, type: selectedType, category, amount, note,
+                    accountId, counterAccountId, postedDate };
+  if (isEdit) payload.id = editingId;
+
+  setSubmitBusy(true, isEdit ? '儲存中…' : '新增中…');
+  setMessage('formMsg', '');
+
+  try {
+    const saved = live() ? await apiPost(payload)
+      : { ...payload, id: isEdit ? editingId : 'demo-' + Date.now(), reconciled:false, installmentId:'' };
+
+    if (isEdit) records = records.map((r) => (r.id === editingId ? { ...r, ...saved } : r));
+    else records.unshift(saved);
+
+    if (selectedType !== 'payment') lastAccountId = saved.accountId;
+    viewMonth = monthOf(saved.date);
+    selectedDate = saved.date;
+
+    const wantSplit = !isEdit && $('f-split').checked && !$('splitWrap').classList.contains('hidden');
+
+    $('sheet').close();
+    render(saved.id);
+    toast(`${isEdit ? '已更新' : '已新增'} ${saved.category} ${money(saved.amount)}`);
+
+    if (wantSplit) {
+      const card = accountById(saved.accountId);
+      cardId = card.id;
+      cardCycle = cycleOf(card, saved.postedDate || saved.date);
+      openInstall(saved.id);
+      return;
+    }
+    if (returnToCard) { const id = returnToCard; returnToCard = null; openCard(id); }
+  } catch (err) {
+    setMessage('formMsg', err.message, 'error');
+    toast((isEdit ? '沒有更新成功：' : '沒有新增成功：') + err.message, 'error');
+  } finally {
+    setSubmitBusy(false);
+  }
+}
+
+/* ============================================================
+ * 帳戶面板
+ * ============================================================ */
+function setAccountBusy(on, label) {
+  busy = on;
+  const btn = $('accountSubmit');
+  btn.disabled = on;
+  $('accountDelete').disabled = on;
+  btn.innerHTML = on ? `<span class="spinner mr-2"></span>${label}` : (editingAccountId ? '儲存變更' : '建立帳戶');
+}
+
+function syncAccountForm() {
+  const isCard = $('a-type').value === '信用卡';
+  $('openingHint').textContent = OPENING_HINT[$('a-type').value] || '';
+  $('cardSettings').classList.toggle('hidden', !isCard);
+  if (isCard) {
+    const options = fundingAccounts().filter((a) => a.id !== editingAccountId);
+    $('a-autopay').innerHTML = `<option value="">不自動扣繳</option>`
+      + options.map((a) => `<option value="${esc(a.id)}">${esc(a.name)}（${esc(a.type)}）</option>`).join('');
+  }
+}
+
+function openAccountCreate() {
+  editingAccountId = null;
+  $('accountTitle').textContent = '新增帳戶';
+  $('accountSubmit').textContent = '建立帳戶';
+  $('accountDelete').classList.add('hidden');
+  $('a-name').value = ''; $('a-type').value = '現金'; $('a-opening').value = '';
+  $('a-name').readOnly = false; $('a-name').classList.remove('opacity-60');
+  $('a-type').disabled = false; $('a-type').classList.remove('opacity-60');
+  $('typeLocked').classList.add('hidden');
+  const extra = $('a-type').querySelector('option[value="應收應付款項"]');
+  if (extra) extra.remove();
+  $('a-closing').value = 5; $('a-due').value = 23; $('a-apr').value = 0;
+  syncAccountForm();
+  $('a-autopay').value = '';
+  setMessage('accountMsg', '');
+  $('accountSheet').showModal();
+  setTimeout(() => $('a-name').focus(), 60);
+}
+
+function openAccountEdit(id) {
+  const acc = accountById(id);
+  if (!acc || busy) return;
+
+  editingAccountId = id;
+  $('accountTitle').textContent = acc.builtin ? '內建帳戶' : '編輯帳戶';
+  $('accountSubmit').textContent = '儲存變更';
+  $('accountDelete').classList.toggle('hidden', Boolean(acc.builtin));
+  $('typeLocked').classList.toggle('hidden', !acc.builtin);
+  $('a-name').value = acc.name;
+  $('a-name').readOnly = Boolean(acc.builtin);
+  $('a-name').classList.toggle('opacity-60', Boolean(acc.builtin));
+  $('a-type').disabled = Boolean(acc.builtin);
+  $('a-type').classList.toggle('opacity-60', Boolean(acc.builtin));
+  // 內建的應收應付款不在下拉選單裡，補一個選項才顯示得出來
+  if (acc.builtin && !$('a-type').querySelector(`option[value="${acc.type}"]`)) {
+    $('a-type').insertAdjacentHTML('beforeend', `<option value="${esc(acc.type)}">${esc(acc.type)}</option>`);
+  }
+  $('a-type').value = acc.type;
+  $('a-opening').value = acc.opening;
+  $('a-closing').value = acc.closingDay || 5;
+  $('a-due').value = acc.dueDay || 23;
+  $('a-apr').value = acc.apr || 0;
+  syncAccountForm();
+  $('a-autopay').value = acc.autopayAccountId || '';
+  setMessage('accountMsg', '');
+  $('accountSheet').showModal();
+}
+
+async function handleAccountSubmit(event) {
+  event.preventDefault();
+  if (busy) return;
+
+  const name = $('a-name').value.trim();
+  const type = $('a-type').value;
+  const opening = $('a-opening').value === '' ? 0 : Number($('a-opening').value);
+  const isCard = type === '信用卡';
+
+  if (!name) return setMessage('accountMsg', '請填寫帳戶名稱。', 'error');
+  if (!isFinite(opening)) return setMessage('accountMsg', '初始餘額要是數字。', 'error');
+
+  const editing = editingAccountId ? accountById(editingAccountId) : null;
+  const payload = editing && editing.builtin
+    ? { resource:'account', action:'update', opening }
+    : { resource:'account', action: editingAccountId ? 'update' : 'create', name, type, opening };
+  if (isCard && !(editing && editing.builtin)) {
+    const closingDay = Math.floor(Number($('a-closing').value)) || 5;
+    const dueDay = Math.floor(Number($('a-due').value)) || 23;
+    if (closingDay < 1 || closingDay > 28 || dueDay < 1 || dueDay > 28) {
+      return setMessage('accountMsg', '結帳日與繳款日請填 1 到 28。', 'error');
+    }
+    payload.closingDay = closingDay;
+    payload.dueDay = dueDay;
+    payload.autopayAccountId = $('a-autopay').value;
+    payload.apr = Number($('a-apr').value) || 0;
+  }
+  if (editingAccountId) payload.id = editingAccountId;
+
+  setAccountBusy(true, editingAccountId ? '儲存中…' : '建立中…');
+  setMessage('accountMsg', '');
+
+  try {
+    const saved = live() ? await apiPost(payload)
+      : { ...payload, id: editingAccountId || 'demo-acc-' + Date.now() };
+
+    if (editingAccountId) accounts = accounts.map((a) => (a.id === editingAccountId ? { ...a, ...saved } : a));
+    else accounts.push(saved);
+
+    $('accountSheet').close();
+    render();
+    if (cardId && $('cardSheet').open) renderCard();
+    toast(`${editingAccountId ? '已更新' : '已建立'}帳戶「${saved.name}」`);
+  } catch (err) {
+    setMessage('accountMsg', err.message, 'error');
+  } finally {
+    setAccountBusy(false);
+  }
+}
+
+async function handleAccountDelete() {
+  if (busy || !editingAccountId) return;
+  const id = editingAccountId;
+
+  const acc = accountById(id);
+  if (acc && acc.builtin) return setMessage('accountMsg', '內建帳戶不能刪除。', 'error');
+
+  const used = records.filter((r) => r.accountId === id || r.counterAccountId === id).length;
+  if (used > 0) return setMessage('accountMsg', `這個帳戶還有 ${used} 筆紀錄，請先把紀錄改到其他帳戶或刪除。`, 'error');
+  if (installments.some((p) => p.cardId === id)) return setMessage('accountMsg', '這張卡還有分期計畫，請先刪除。', 'error');
+  const bound = accounts.filter((a) => a.autopayAccountId === id).map((a) => a.name);
+  if (bound.length) return setMessage('accountMsg', `這個帳戶是「${bound.join('、')}」的自動扣繳來源，請先解除綁定。`, 'error');
+
+  setAccountBusy(true, '刪除中…');
+  try {
+    if (live()) await apiPost({ resource:'account', action:'delete', id });
+    accounts = accounts.filter((a) => a.id !== id);
+    if (lastAccountId === id) lastAccountId = '';
+    $('accountSheet').close();
+    if (cardId === id) { cardId = null; $('cardSheet').close(); }
+    render();
+    toast('已刪除這個帳戶');
+  } catch (err) {
+    setMessage('accountMsg', err.message, 'error');
+  } finally {
+    setAccountBusy(false);
+  }
+}
+
+/* ============================================================
+ * 刪除紀錄
+ * ============================================================ */
+function clearPendingDelete() {
+  if (!pendingDelete) return;
+  clearTimeout(pendingDelete.timer);
+  const btn = pendingDelete.button;
+  if (btn && btn.isConnected) {
+    btn.textContent = '刪除';
+    btn.className = 'text-muted hover:text-debit underline underline-offset-4 decoration-rule';
+  }
+  pendingDelete = null;
+}
+
+function askDelete(id, button) {
+  if (pendingDelete && pendingDelete.id === id) { clearPendingDelete(); removeRecord(id); return; }
+  clearPendingDelete();
+  button.textContent = '確定刪除';
+  button.className = 'text-debit font-semibold underline underline-offset-4 decoration-debit';
+  pendingDelete = { id, button, timer: setTimeout(clearPendingDelete, 4000) };
+}
+
+async function removeRecord(id) {
+  if (busy) return;
+
+  const rec = records.find((r) => r.id === id);
+  const linked = rec && (rec.splitPlanId || rec.installmentId);
+  if (linked) {
+    const plan = installments.find((p) => p.id === linked);
+    toast(`這筆屬於分期計畫「${plan ? plan.name : linked}」，請先刪除分期計畫`, 'error');
+    return;
+  }
+
+  const row = document.querySelector(`[data-row="${CSS.escape(id)}"]`);
+  if (row) row.classList.add('opacity-40', 'pointer-events-none');
+  busy = true;
+  try {
+    if (live()) await apiPost({ resource:'record', action:'delete', id });
+    records = records.filter((r) => r.id !== id);
+    render();
+    toast('已刪除這筆紀錄');
+  } catch (err) {
+    if (row) row.classList.remove('opacity-40', 'pointer-events-none');
+    toast('沒有刪除成功：' + err.message, 'error');
+  } finally { busy = false; }
+}
+
+/* ============================================================
+ * 設定頁
+ * ============================================================ */
+function looksLikeWebApp(url) {
+  return /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(url.trim());
+}
+
+function renderSettings() {
+  $('s-url').value = apiUrl;
+  $('s-clear').classList.toggle('hidden', !live());
+
+  const rows = [
+    ['連線狀態', live() ? '已連線試算表' : '示範資料（未設定網址）'],
+    ['紀錄', `${records.length} 筆`],
+    ['帳戶', `${accounts.length} 個`],
+    ['分期計畫', `${installments.length} 個`],
+  ];
+  if (!storageOK) rows.push(['本機儲存', '無法使用，設定不會保留']);
+
+  $('s-stats').innerHTML = rows.map(([k, v], i) => `
+    <div class="flex items-baseline py-1.5 ${i ? 'border-t border-rule/60' : ''}">
+      <span class="text-[14px]">${esc(k)}</span><span class="leader"></span>
+      <span class="num font-mono text-[14px]">${esc(v)}</span>
+    </div>`).join('');
+}
+
+function setUrlMessage(text, tone = 'muted') {
+  const el = $('s-urlMsg');
+  el.textContent = text;
+  el.className = 'font-mono text-[12px] leading-relaxed min-h-[1.2em] mt-2 '
+    + ({ muted:'text-muted', ok:'text-credit', error:'text-debit' }[tone]);
+}
+
+async function probeUrl(url) {
+  const res = await fetch(url);
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error || '試算表回報錯誤');
+  return json;
+}
+
+async function testUrl() {
+  const url = $('s-url').value.trim();
+  if (!url) return setUrlMessage('請先填入網址。', 'error');
+  if (!looksLikeWebApp(url)) {
+    setUrlMessage('格式看起來不像 Web App 網址，仍會嘗試連線…', 'muted');
+  } else {
+    setUrlMessage('連線中…');
+  }
+  try {
+    const json = await probeUrl(url);
+    setUrlMessage(`連線成功：${(json.data || []).length} 筆紀錄、${(json.accounts || []).length} 個帳戶。`, 'ok');
+  } catch (err) {
+    setUrlMessage('連不上：' + err.message, 'error');
+  }
+}
+
+async function saveUrl() {
+  const url = $('s-url').value.trim();
+  if (!url) return setUrlMessage('請先填入網址，或按下方按鈕改用示範資料。', 'error');
+  if (!/\/exec\/?$/.test(url)) {
+    return setUrlMessage('網址結尾必須是 /exec。若你複製到 /dev，別人打開會看不到資料。', 'error');
+  }
+
+  const btn = $('s-save');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner mr-2"></span>連線中…`;
+  setUrlMessage('');
+
+  try {
+    await probeUrl(url);            // 先確認連得上再存，避免存進一個壞掉的網址
+    apiUrl = url;
+    if (!saveSettings({ apiUrl: url })) {
+      storageOK = false;
+      toast('瀏覽器不允許儲存，重整後要重新填一次網址', 'info');
+    }
+    $('statusChip').textContent = '已連線試算表';
+    await loadAll();
+    renderSettings();
+    setUrlMessage('已儲存並連線。', 'ok');
+    toast('已連線試算表');
+  } catch (err) {
+    setUrlMessage('連不上，沒有儲存：' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '儲存並連線';
+  }
+}
+
+function clearUrl() {
+  apiUrl = '';
+  saveSettings({ apiUrl: '' });
+  $('s-url').value = '';
+  $('statusChip').textContent = '示範資料 · 未設定 API';
+  setUrlMessage('已清除，目前顯示示範資料。', 'muted');
+  loadAll();
+  renderSettings();
+  toast('已改用示範資料', 'info');
+}
+
+
+/* ============================================================
+ * 載入
+ * ============================================================ */
+async function loadAll(opts) {
+  const keepCard = opts && opts.keepCard;
+  if (!live()) {
+    accounts = DEMO_ACCOUNTS; records = DEMO_RECORDS; installments = [];
+    render();
+    if (activeTab === 'settings') renderSettings();
+    runAutopay();
+    return;
+  }
+
+  setListMessage('讀取中…');
+  try {
+    const res = await fetch(apiUrl);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || '讀取失敗');
+    records = json.data || [];
+    accounts = json.accounts || [];
+    installments = json.installments || [];
+    render();
+    if (activeTab === 'settings') renderSettings();
+    if (keepCard) return;
+    if (!accounts.length) { toast('還沒有帳戶，先建立一個再開始記帳', 'info'); setTab('accounts'); }
+    else runAutopay();
+  } catch (err) {
+    records = []; accounts = []; installments = [];
+    render();
+    setListMessage(`讀不到試算表：${esc(err.message)}<br>
+      若剛升級後端，請先在 Apps Script 執行一次 setup()，<br>
+      並確認改完程式碼後有重新部署。`);
+  }
+}
+
+function init() {
+  applyTheme();
+  prefersDark.addEventListener('change', () => { if (themeChoice === 'system') applyTheme(); });
+
+  viewMonth = thisMonth();
+  selectedDate = todayISO();
+  $('statusChip').textContent = live() ? '已連線試算表' : '示範資料 · 未設定 API';
+
+  setType('expense');
+  for (const btn of document.querySelectorAll('.type-btn')) {
+    btn.addEventListener('click', () => setType(btn.dataset.type));
+  }
+  for (const btn of document.querySelectorAll('.tab')) {
+    btn.addEventListener('click', () => setTab(btn.dataset.tab));
+  }
+
+  $('prevMonth').addEventListener('click', () => goMonth(shiftMonth(viewMonth, -1)));
+  $('nextMonth').addEventListener('click', () => goMonth(shiftMonth(viewMonth,  1)));
+  $('backToday').addEventListener('click', () => goMonth(thisMonth()));
+
+  $('calendar').addEventListener('click', (e) => {
+    const cell = e.target.closest('[data-day]');
+    if (cell) selectDay(cell.dataset.day);
+  });
+
+  $('accountsBox').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-account]');
+    if (!btn) return;
+    const acc = accountById(btn.dataset.account);
+    if (acc && acc.type === '信用卡') openCard(acc.id);
+    else openAccountEdit(btn.dataset.account);
+  });
+
+  $('list').addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-edit]');
+    if (editBtn) { clearPendingDelete(); openEdit(editBtn.dataset.edit); return; }
+    const delBtn = e.target.closest('[data-del]');
+    if (delBtn) askDelete(delBtn.dataset.del, delBtn);
+  });
+
+  $('fab').addEventListener('click', () => openCreate());
+  $('sheetClose').addEventListener('click', () => $('sheet').close());
+  $('sheet').addEventListener('click', (e) => { if (e.target.hasAttribute('data-shell')) $('sheet').close(); });
+  $('sheet').addEventListener('close', () => { editingId = null; setMessage('formMsg', ''); });
+  $('entryForm').addEventListener('submit', handleSubmit);
+  $('f-account').addEventListener('change', syncPostingVisibility);
+  $('f-posting').addEventListener('change', syncPostingVisibility);
+
+  $('addAccount').addEventListener('click', openAccountCreate);
+  $('accountClose').addEventListener('click', () => $('accountSheet').close());
+  $('accountSheet').addEventListener('click', (e) => { if (e.target.hasAttribute('data-shell')) $('accountSheet').close(); });
+  $('accountSheet').addEventListener('close', () => { editingAccountId = null; setMessage('accountMsg', ''); });
+  $('accountForm').addEventListener('submit', handleAccountSubmit);
+  $('accountDelete').addEventListener('click', handleAccountDelete);
+  $('a-type').addEventListener('change', syncAccountForm);
+
+  $('cardClose').addEventListener('click', () => $('cardSheet').close());
+  $('cardSheet').addEventListener('click', (e) => { if (e.target.hasAttribute('data-shell')) $('cardSheet').close(); });
+  $('cardSheet').addEventListener('close', () => { flushReconcile(); });
+  $('cardSettingsBtn').addEventListener('click', () => { $('cardSheet').close(); openAccountEdit(cardId); });
+
+  $('cardBody').addEventListener('click', (e) => {
+    const card = accountById(cardId);
+    if (!card) return;
+
+    const cyc = e.target.closest('[data-cycle]');
+    if (cyc) { cardCycle = shiftMonth(cardCycle, Number(cyc.dataset.cycle)); renderCard(); return; }
+
+    const tick = e.target.closest('[data-tick]');
+    if (tick) { toggleTick(tick.dataset.tick); return; }
+
+    if (e.target.closest('#tickAll')) { tickAll(); return; }
+
+    const posting = e.target.closest('[data-posting]');
+    if (posting) { $('cardSheet').close(); openEdit(posting.dataset.posting, card.id); return; }
+
+    const split = e.target.closest('[data-split]');
+    if (split) { openInstall(split.dataset.split); return; }
+
+    if (e.target.closest('#addInstall')) { openInstall(''); return; }
+
+    const planDel = e.target.closest('[data-plan-del]');
+    if (planDel) { deletePlan(planDel.dataset.planDel); return; }
+
+    if (e.target.closest('#payNow')) {
+      const total = amountDue(card, cardCycle);
+      $('cardSheet').close();
+      openCreate({ type:'payment', date: dueDateOf(card, cardCycle), amount: Math.round(total),
+                   accountId: card.id, counterAccountId: card.autopayAccountId || (fundingAccounts()[0] || {}).id,
+                   note: `${cardCycle} 帳單` });
+      returnToCard = card.id;
+      return;
+    }
+  });
+
+  $('installClose').addEventListener('click', () => $('installSheet').close());
+  $('installSheet').addEventListener('click', (e) => { if (e.target.hasAttribute('data-shell')) $('installSheet').close(); });
+  $('installForm').addEventListener('submit', handleInstallSubmit);
+  for (const id of ['i-principal','i-periods','i-apr','i-method','i-rounding','i-residue']) {
+    $(id).addEventListener('input', renderInstallPreview);
+    $(id).addEventListener('change', renderInstallPreview);
+  }
+  $('i-method').addEventListener('change', syncMethodFields);
+
+  for (const btn of document.querySelectorAll('.theme-btn')) {
+    btn.addEventListener('click', () => setTheme(btn.dataset.themeChoice));
+  }
+  $('s-save').addEventListener('click', saveUrl);
+  $('s-test').addEventListener('click', testUrl);
+  $('s-clear').addEventListener('click', clearUrl);
+  $('s-reload').addEventListener('click', () => { loadAll(); toast('重新讀取中…', 'info'); });
+  $('s-url').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveUrl(); } });
+
+  document.addEventListener('keydown', (e) => {
+    if ($('sheet').open || $('accountSheet').open || $('cardSheet').open || $('installSheet').open) return;
+    if (e.target.closest('input, select, textarea')) return;
+    if (e.key === 'Escape') { clearPendingDelete(); return; }
+    if (activeTab === 'accounts' || activeTab === 'settings') return;
+    if (e.key === 'ArrowLeft')  goMonth(shiftMonth(viewMonth, -1));
+    if (e.key === 'ArrowRight') goMonth(shiftMonth(viewMonth,  1));
+  });
+
+  setTab(live() ? 'records' : 'settings');
+  loadAll();
+}
+
+init();
+</script>
+</body>
 </html>
