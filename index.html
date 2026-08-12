@@ -97,6 +97,13 @@ tailwind.config = {
    * 視窗寬度接近 md 斷點時甚至會在浮動膠囊與整條通欄之間翻轉。
    * 固定保留捲軸槽，寬度就不再隨內容改變。
    */
+  /* 字級一律用 rem，跟著瀏覽器與系統的文字大小設定走 */
+  html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+  body { font-size: 1rem; line-height: 1.5; }
   html { scrollbar-gutter: stable; }
   @supports not (scrollbar-gutter: stable) {
     html { overflow-y: scroll; }
@@ -116,7 +123,7 @@ tailwind.config = {
   .field {
     width: 100%; background: rgb(var(--paper)); border: 1px solid transparent;
     border-radius: var(--r-ctl);
-    padding: .65rem .75rem; color: rgb(var(--ink)); outline: none;
+    padding: .65rem .75rem; font-size: 1rem; color: rgb(var(--ink)); outline: none;
     transition: border-color .15s, background-color .15s;
   }
   html[data-theme="dark"] .field { background: rgb(var(--rule) / .45); }
@@ -125,7 +132,7 @@ tailwind.config = {
   .field[readonly], .field:disabled { opacity: .55; }
   /* 不自繪箭頭，交給瀏覽器；color-scheme 會讓它自動配合深淺色 */
   select.field { padding-right: .5rem; }
-  .lbl { display:block; font-size:13px; letter-spacing:.02em; color: rgb(var(--muted)); margin-bottom:.375rem; }
+  .lbl { display:block; font-size:0.875rem; letter-spacing:.02em; color: rgb(var(--muted)); margin-bottom:.375rem; }
 
   /* 群組卡片：靠底色差異分層，不用邊框 */
   .card { background: rgb(var(--form)); border-radius: var(--r-card); }
@@ -162,7 +169,7 @@ tailwind.config = {
     width:20px; height:20px; flex:none; border:1.5px solid rgb(var(--heavy));
     border-radius: 50%; background: transparent;
     display:flex; align-items:center; justify-content:center;
-    font-size:12px; line-height:1; color:#fff; transition: background-color .12s;
+    font-size:0.8125rem; line-height:1; color:#fff; transition: background-color .12s;
   }
   .tick-on { background: rgb(var(--credit-fill)); border-color: rgb(var(--credit-fill)); }
 
@@ -213,10 +220,10 @@ tailwind.config = {
 
   <header class="flex items-end justify-between gap-4 pb-5 border-b border-rule">
     <div>
-      <p class="text-[13px] font-medium text-muted">個人收支</p>
-      <h1 class="text-[34px] leading-tight font-bold tracking-tight mt-0.5">記帳本</h1>
+      <p class="text-[0.875rem] font-medium text-muted">個人收支</p>
+      <h1 class="text-[2.125rem] leading-tight font-bold tracking-tight mt-0.5">記帳本</h1>
     </div>
-    <p id="statusChip" class="font-mono text-[12px] text-muted whitespace-nowrap"></p>
+    <p id="statusChip" class="font-mono text-[0.8125rem] text-muted whitespace-nowrap"></p>
   </header>
 
   <div id="monthBar" class="mt-7 flex items-center gap-4">
@@ -226,16 +233,16 @@ tailwind.config = {
     <button id="nextMonth" type="button" aria-label="下個月"
             class="btn w-9 h-9 bg-form text-accent hover:opacity-80 transition-opacity leading-none text-lg">›</button>
     <button id="backToday" type="button"
-            class="hidden font-mono text-[11px] text-muted hover:text-accent underline underline-offset-4 ml-auto">回到本月</button>
+            class="hidden font-mono text-[0.75rem] text-muted hover:text-accent underline underline-offset-4 ml-auto">回到本月</button>
   </div>
 
   <!-- 分頁一：帳戶總覽 -->
   <main id="panel-accounts" class="hidden mt-7">
-    <p class="text-[13px] font-medium text-muted mb-3">資產負債 · 累計至今</p>
+    <p class="text-[0.875rem] font-medium text-muted mb-3">資產負債 · 累計至今</p>
     <div id="accountsBox" class="card px-5 py-6 md:px-8 md:py-8"></div>
     <button id="addAccount" type="button"
-            class="btn mt-4 w-full bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">＋ 新增帳戶</button>
-    <p class="font-mono text-[12px] text-muted mt-4 leading-relaxed">
+            class="btn mt-4 w-full bg-form text-accent py-3 text-[1rem] hover:opacity-80 transition-opacity">＋ 新增帳戶</button>
+    <p class="font-mono text-[0.8125rem] text-muted mt-4 leading-relaxed">
       點信用卡可以開啟帳單與對帳，點其他帳戶則是修改設定。
     </p>
   </main>
@@ -243,13 +250,13 @@ tailwind.config = {
   <!-- 分頁二：專案總覽 -->
   <main id="panel-projects" class="hidden mt-7">
     <div class="flex items-baseline justify-between gap-3 pb-3 border-b border-rule">
-      <p class="text-[13px] font-medium text-muted">專案</p>
-      <p id="projectCount" class="font-mono num text-[12px] text-muted"></p>
+      <p class="text-[0.875rem] font-medium text-muted">專案</p>
+      <p id="projectCount" class="font-mono num text-[0.8125rem] text-muted"></p>
     </div>
     <div id="projectList" class="mt-4"></div>
     <button id="addProject" type="button"
-            class="btn mt-4 w-full bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">＋ 新增專案</button>
-    <p class="text-[13px] text-muted mt-4 leading-relaxed">
+            class="btn mt-4 w-full bg-form text-accent py-3 text-[1rem] hover:opacity-80 transition-opacity">＋ 新增專案</button>
+    <p class="text-[0.875rem] text-muted mt-4 leading-relaxed">
       記帳時把紀錄標上專案，這裡就會累計。區間只用來算配速，不會自動把區間內的消費算進來。
     </p>
   </main>
@@ -257,26 +264,26 @@ tailwind.config = {
   <!-- 分頁二：收支紀錄 -->
   <main id="panel-records" class="hidden mt-7 grid gap-9 md:gap-x-12 md:grid-cols-2">
     <section>
-      <p class="text-[13px] font-medium text-muted pb-3 border-b border-rule">月曆</p>
+      <p class="text-[0.875rem] font-medium text-muted pb-3 border-b border-rule">月曆</p>
       <div class="grid grid-cols-7 mt-4 mb-1">
-        <div class="text-center font-mono text-[11px] text-muted py-1">日</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">一</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">二</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">三</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">四</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">五</div>
-        <div class="text-center font-mono text-[11px] text-muted py-1">六</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">日</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">一</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">二</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">三</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">四</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">五</div>
+        <div class="text-center font-mono text-[0.75rem] text-muted py-1">六</div>
       </div>
       <div id="calendar" class="grid grid-cols-7 gap-1"></div>
-      <p class="font-mono text-[12px] text-muted mt-3 leading-relaxed">
+      <p class="font-mono text-[0.8125rem] text-muted mt-3 leading-relaxed">
         紅條表示當天支出多寡，綠點表示當天有收入。繳卡費不計入。
       </p>
     </section>
 
     <section>
       <div class="flex items-baseline justify-between gap-4 pb-3 border-b border-rule">
-        <h2 id="dayHeading" class="font-mono num text-[13px] tracking-[0.16em]">—</h2>
-        <p id="dayMeta" class="font-mono num text-[12px] text-muted whitespace-nowrap"></p>
+        <h2 id="dayHeading" class="font-mono num text-[0.875rem] tracking-[0.16em]">—</h2>
+        <p id="dayMeta" class="font-mono num text-[0.8125rem] text-muted whitespace-nowrap"></p>
       </div>
       <div id="list" class="mt-4"></div>
     </section>
@@ -285,13 +292,13 @@ tailwind.config = {
   <!-- 分頁三：報表 -->
   <main id="panel-report" class="hidden mt-7 grid gap-10 md:gap-x-12 md:grid-cols-2">
     <section>
-      <p class="text-[13px] font-medium text-muted mb-3">本月損益</p>
+      <p class="text-[0.875rem] font-medium text-muted mb-3">本月損益</p>
       <div class="card px-5 py-5 md:px-6 md:py-6">
-        <div class="flex items-baseline text-[15px]">
+        <div class="flex items-baseline text-[1rem]">
           <span class="tracking-[0.1em]">支出</span><span class="leader"></span>
           <span id="sumExpense" class="num font-mono text-lg md:text-xl font-medium text-debit">—</span>
         </div>
-        <div class="flex items-baseline text-[15px] mt-3">
+        <div class="flex items-baseline text-[1rem] mt-3">
           <span class="tracking-[0.1em]">收入</span><span class="leader"></span>
           <span id="sumIncome" class="num font-mono text-lg md:text-xl font-medium text-credit">—</span>
         </div>
@@ -300,28 +307,28 @@ tailwind.config = {
           <span id="sumBalance" class="num font-mono text-2xl md:text-3xl font-semibold">—</span>
         </div>
       </div>
-      <p class="font-mono text-[12px] text-muted mt-3">繳卡費是帳戶間的移動，不列入收支。</p>
+      <p class="font-mono text-[0.8125rem] text-muted mt-3">繳卡費是帳戶間的移動，不列入收支。</p>
     </section>
 
     <section>
-      <p class="text-[13px] font-medium text-muted pb-3 border-b border-rule">支出分類</p>
+      <p class="text-[0.875rem] font-medium text-muted pb-3 border-b border-rule">支出分類</p>
       <div id="chartWrap" class="mt-5 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-7">
         <div class="relative w-[160px] h-[160px] shrink-0 mx-auto sm:mx-0"><canvas id="pieChart"></canvas></div>
         <div id="chartLegend" class="flex-1 w-full min-w-0"></div>
       </div>
-      <p id="chartEmpty" class="hidden text-muted text-[15px] leading-loose mt-4">這個月還沒有支出紀錄。</p>
+      <p id="chartEmpty" class="hidden text-muted text-[1rem] leading-loose mt-4">這個月還沒有支出紀錄。</p>
     </section>
 
     <section class="md:col-span-2">
       <div class="flex items-baseline justify-between gap-4 pb-3 border-b border-rule">
-        <p class="text-[13px] font-medium text-muted">近六個月</p>
-        <p class="font-mono text-[12px] text-muted">
+        <p class="text-[0.875rem] font-medium text-muted">近六個月</p>
+        <p class="font-mono text-[0.8125rem] text-muted">
           <span id="legendExpense" class="inline-block w-2 h-2 rounded-full align-middle mr-1"></span>支出
           <span id="legendIncome" class="inline-block w-2 h-2 rounded-full align-middle ml-3 mr-1"></span>收入
         </p>
       </div>
       <div class="relative h-[210px] mt-5"><canvas id="trendChart"></canvas></div>
-      <p class="font-mono text-[12px] text-muted mt-3">點任一根長條可以跳到該月份。</p>
+      <p class="font-mono text-[0.8125rem] text-muted mt-3">點任一根長條可以跳到該月份。</p>
     </section>
   </main>
 
@@ -329,28 +336,32 @@ tailwind.config = {
   <main id="panel-settings" class="hidden mt-7 grid gap-10 md:gap-x-12 md:grid-cols-2 md:items-start">
 
     <section>
-      <p class="text-[13px] font-medium text-muted pb-3 border-b border-rule">試算表連線</p>
+      <p class="text-[0.875rem] font-medium text-muted pb-3 border-b border-rule">試算表連線</p>
 
       <div class="mt-5">
         <label for="s-url" class="lbl">Web App 網址</label>
-        <input id="s-url" type="url" spellcheck="false" autocomplete="off"
+        <input id="s-url" type="password" spellcheck="false" autocomplete="off"
                placeholder="https://script.google.com/macros/s/…/exec"
-               class="field font-mono text-[13px]">
-        <p id="s-urlMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em] mt-2"></p>
+               class="field font-mono text-[0.875rem]">
+        <p id="s-urlLock" class="hidden text-[0.875rem] text-muted leading-relaxed mt-2">
+          網址已鎖定。要換一個試算表，請先按下方的清除。
+        </p>
+        <p id="s-urlMsg" class="text-[0.875rem] leading-relaxed min-h-[1.2em] mt-2"></p>
       </div>
 
       <div class="grid grid-cols-2 gap-2 mt-3">
         <button id="s-save" type="button"
-                class="btn bg-accent-fill text-white py-3 text-[15px] font-medium
+                class="btn bg-accent-fill text-white py-3 text-[1rem] font-medium
                        hover:opacity-90 transition-opacity active:opacity-80
                        disabled:opacity-40">儲存並連線</button>
         <button id="s-test" type="button"
-                class="btn bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">測試連線</button>
+                class="btn bg-form text-accent py-3 text-[1rem] hover:opacity-80 transition-opacity
+                       disabled:opacity-40">測試連線</button>
       </div>
       <button id="s-clear" type="button"
-              class="btn mt-2 w-full bg-form text-debit py-2.5 text-[14px] hover:opacity-80 transition-opacity">清除網址，改用示範資料</button>
+              class="btn hidden mt-2 w-full bg-form text-debit py-2.5 text-[0.9375rem] hover:opacity-80 transition-opacity">清除網址並解除鎖定</button>
 
-      <p class="text-[12px] text-muted mt-4 leading-relaxed">
+      <p class="text-[0.8125rem] text-muted mt-4 leading-relaxed">
         網址只存在這台裝置的瀏覽器裡，不會寫進檔案，也不會傳給任何人。<br>
         換一台電腦或清掉瀏覽器資料就要重新填。<br>
         結尾必須是 <span class="font-mono">/exec</span>；<span class="font-mono">/dev</span> 只有你本人登入時能用。
@@ -359,26 +370,40 @@ tailwind.config = {
 
     <div class="space-y-10">
       <section>
-        <p class="text-[13px] font-medium text-muted pb-3 border-b border-rule">外觀</p>
+        <div class="flex items-baseline justify-between gap-3 pb-3 border-b border-rule">
+          <p class="text-[0.875rem] font-medium text-muted">類別管理</p>
+          <button id="c-add" type="button" class="text-[0.875rem] text-accent hover:opacity-70">＋ 新增類別</button>
+        </div>
+        <div class="grid grid-cols-4 gap-2 mt-4" role="group" aria-label="類別群組">
+          <button type="button" data-cgroup="expense" class="cgroup-btn btn py-2 text-[0.9375rem] transition-colors">支出</button>
+          <button type="button" data-cgroup="income" class="cgroup-btn btn py-2 text-[0.9375rem] transition-colors">收入</button>
+          <button type="button" data-cgroup="transfer" class="cgroup-btn btn py-2 text-[0.9375rem] transition-colors">轉帳</button>
+          <button type="button" data-cgroup="receivable" class="cgroup-btn btn py-2 text-[0.9375rem] transition-colors">應收款項</button>
+        </div>
+        <div id="c-list" class="mt-4"></div>
+      </section>
+
+      <section>
+        <p class="text-[0.875rem] font-medium text-muted pb-3 border-b border-rule">外觀</p>
         <span class="lbl mt-5">主題</span>
         <div class="grid grid-cols-3 gap-2" role="group" aria-label="主題">
-          <button type="button" data-theme-choice="system" class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">跟隨系統</button>
-          <button type="button" data-theme-choice="light"  class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">淺色</button>
-          <button type="button" data-theme-choice="dark"   class="theme-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">深色</button>
+          <button type="button" data-theme-choice="system" class="theme-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">跟隨系統</button>
+          <button type="button" data-theme-choice="light"  class="theme-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">淺色</button>
+          <button type="button" data-theme-choice="dark"   class="theme-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">深色</button>
         </div>
-        <p class="text-[12px] text-muted mt-3 leading-relaxed">
+        <p class="text-[0.8125rem] text-muted mt-3 leading-relaxed">
           跟隨系統會依照你作業系統目前的深淺色自動切換。
         </p>
       </section>
 
       <section>
-        <p class="text-[13px] font-medium text-muted pb-3 border-b border-rule">目前資料</p>
+        <p class="text-[0.875rem] font-medium text-muted pb-3 border-b border-rule">目前資料</p>
         <div id="s-stats" class="mt-4"></div>
         <button id="s-reload" type="button"
-                class="btn mt-4 w-full bg-form text-accent py-2.5 text-[14px] hover:opacity-80 transition-opacity">重新讀取試算表</button>
+                class="btn mt-4 w-full bg-form text-accent py-2.5 text-[0.9375rem] hover:opacity-80 transition-opacity">重新讀取試算表</button>
       <button id="s-clearCache" type="button"
-              class="btn mt-2 w-full bg-form text-muted py-2.5 text-[14px] hover:opacity-80 transition-opacity">清除本機快取</button>
-      <p class="text-[13px] text-muted mt-3 leading-relaxed">
+              class="btn mt-2 w-full bg-form text-muted py-2.5 text-[0.9375rem] hover:opacity-80 transition-opacity">清除本機快取</button>
+      <p class="text-[0.875rem] text-muted mt-3 leading-relaxed">
         開啟時會先用上次存下的資料立刻顯示，同時在背景重新讀取。
       </p>
       </section>
@@ -395,12 +420,12 @@ tailwind.config = {
             md:border-0 md:rounded-2xl md:shadow-xl"
      style="padding-bottom: env(safe-area-inset-bottom);">
   <div class="grid grid-cols-5">
-    <button type="button" data-tab="accounts" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+    <button type="button" data-tab="accounts" class="tab relative py-3.5 text-[0.8125rem] md:text-[0.875rem] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">帳戶總覽</span></button>
-    <button type="button" data-tab="projects" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+    <button type="button" data-tab="projects" class="tab relative py-3.5 text-[0.8125rem] md:text-[0.875rem] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">專案總覽</span></button>
     <button type="button" data-tab="records" id="tabRecords"
-            class="tab tab-center py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+            class="tab tab-center py-3.5 text-[0.8125rem] md:text-[0.875rem] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span>
       <span class="tab-icon" aria-hidden="true">
         <svg class="icon-note" viewBox="0 0 20 20" fill="none" stroke="currentColor"
@@ -414,9 +439,9 @@ tailwind.config = {
           <path d="M10 4.4v11.2M4.4 10h11.2"/>
         </svg>
       </span></button>
-    <button type="button" data-tab="report" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+    <button type="button" data-tab="report" class="tab relative py-3.5 text-[0.8125rem] md:text-[0.875rem] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">報表</span></button>
-    <button type="button" data-tab="settings" class="tab relative py-3.5 text-[12px] md:text-[13px] tracking-[0.1em] transition-colors">
+    <button type="button" data-tab="settings" class="tab relative py-3.5 text-[0.8125rem] md:text-[0.875rem] tracking-[0.1em] transition-colors">
       <span class="tab-mark absolute top-0 inset-x-0 h-[2px]"></span><span class="tab-label">設定</span></button>
   </div>
 </nav>
@@ -426,7 +451,7 @@ tailwind.config = {
   <div class="sheet-shell" data-shell>
     <div class="sheet-panel w-full sm:max-w-[380px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
       <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
-        <h3 id="sheetTitle" class="text-[13px] font-medium text-muted">新增一筆</h3>
+        <h3 id="sheetTitle" class="text-[0.875rem] font-medium text-muted">新增一筆</h3>
         <button id="sheetClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
       </div>
 
@@ -434,9 +459,9 @@ tailwind.config = {
         <div>
           <span class="lbl">類型</span>
           <div class="grid grid-cols-3 gap-2" role="group" aria-label="類型">
-            <button type="button" data-type="expense" class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">支出</button>
-            <button type="button" data-type="income"  class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">收入</button>
-            <button type="button" data-type="payment" class="type-btn border py-2.5 text-[14px] tracking-[0.06em] transition-colors">繳卡費</button>
+            <button type="button" data-type="expense" class="type-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">支出</button>
+            <button type="button" data-type="income"  class="type-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">收入</button>
+            <button type="button" data-type="payment" class="type-btn border py-2.5 text-[0.9375rem] tracking-[0.06em] transition-colors">繳卡費</button>
           </div>
         </div>
 
@@ -453,14 +478,20 @@ tailwind.config = {
         <div id="counterWrap" class="hidden">
           <label for="f-counter" class="lbl">扣款帳戶</label>
           <select id="f-counter" class="field"></select>
-          <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+          <p class="text-[0.8125rem] text-muted mt-1.5 leading-relaxed">
             繳卡費會同時減少扣款帳戶餘額與卡片欠款，不列入支出統計。
           </p>
         </div>
 
-        <div id="categoryWrap">
-          <label for="f-category" class="lbl">分類</label>
-          <select id="f-category" class="field"></select>
+        <div id="categoryWrap" class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="f-category" class="lbl">類別</label>
+            <select id="f-category" class="field"></select>
+          </div>
+          <div id="subWrap">
+            <label for="f-sub" class="lbl">子類別</label>
+            <select id="f-sub" class="field"></select>
+          </div>
         </div>
 
         <div id="projectWrap">
@@ -476,7 +507,7 @@ tailwind.config = {
             <option value="pending">尚未入帳（帳單先略過）</option>
           </select>
           <input id="f-posted" type="date" class="field font-mono num mt-2 hidden">
-          <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+          <p class="text-[0.8125rem] text-muted mt-1.5 leading-relaxed">
             結算日當下店家還沒請款時，改成延後入帳，這筆就會落到下一期帳單。
           </p>
         </div>
@@ -496,8 +527,8 @@ tailwind.config = {
           <label class="flex items-start gap-3 cursor-pointer">
             <input id="f-split" type="checkbox" class="mt-1 w-4 h-4 accent-[#1F4E6B]">
             <span>
-              <span class="text-[15px] tracking-[0.04em]">這筆要分期付款</span>
-              <span id="splitHint" class="block text-[12px] text-muted mt-1 leading-relaxed">
+              <span class="text-[1rem] tracking-[0.04em]">這筆要分期付款</span>
+              <span id="splitHint" class="block text-[0.8125rem] text-muted mt-1 leading-relaxed">
                 存檔後會接著開啟分期設定，讓你先看到利息試算再確認。
               </span>
             </span>
@@ -505,10 +536,10 @@ tailwind.config = {
         </div>
 
         <button id="submitBtn" type="submit"
-                class="btn w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium
                        transition-opacity active:opacity-80 hover:opacity-90
                        disabled:opacity-40">新增記錄</button>
-        <p id="formMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+        <p id="formMsg" class="font-mono text-[0.8125rem] leading-relaxed min-h-[1.2em]"></p>
       </form>
     </div>
   </div>
@@ -519,7 +550,7 @@ tailwind.config = {
   <div class="sheet-shell" data-shell>
     <div class="sheet-panel w-full sm:max-w-[380px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
       <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
-        <h3 id="accountTitle" class="text-[13px] font-medium text-muted">新增帳戶</h3>
+        <h3 id="accountTitle" class="text-[0.875rem] font-medium text-muted">新增帳戶</h3>
         <button id="accountClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
       </div>
 
@@ -536,7 +567,7 @@ tailwind.config = {
             <option value="銀行帳戶">銀行帳戶</option>
             <option value="信用卡">信用卡</option>
           </select>
-          <p id="typeLocked" class="hidden text-[12px] text-muted mt-1.5 leading-relaxed">
+          <p id="typeLocked" class="hidden text-[0.8125rem] text-muted mt-1.5 leading-relaxed">
             這是內建帳戶，名稱與類型固定，只能調整初始餘額。
           </p>
         </div>
@@ -544,11 +575,11 @@ tailwind.config = {
         <div>
           <label for="a-opening" class="lbl">初始餘額</label>
           <input id="a-opening" type="number" inputmode="decimal" step="1" placeholder="0" class="field font-mono num text-lg">
-          <p id="openingHint" class="text-[12px] text-muted mt-1.5 leading-relaxed"></p>
+          <p id="openingHint" class="text-[0.8125rem] text-muted mt-1.5 leading-relaxed"></p>
         </div>
 
         <div id="cardSettings" class="hidden space-y-5 pt-1 border-t border-rule">
-          <p class="text-[13px] font-medium text-muted pt-4">信用卡設定</p>
+          <p class="text-[0.875rem] font-medium text-muted pt-4">信用卡設定</p>
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="a-closing" class="lbl">結帳日</label>
@@ -559,12 +590,12 @@ tailwind.config = {
               <input id="a-due" type="number" min="1" max="28" placeholder="23" class="field font-mono num">
             </div>
           </div>
-          <p class="text-[12px] text-muted -mt-2 leading-relaxed">只接受 1 到 28，避開月底長短不一造成的錯期。</p>
+          <p class="text-[0.8125rem] text-muted -mt-2 leading-relaxed">只接受 1 到 28，避開月底長短不一造成的錯期。</p>
 
           <div>
             <label for="a-autopay" class="lbl">自動扣繳帳戶</label>
             <select id="a-autopay" class="field"></select>
-            <p class="text-[12px] text-muted mt-1.5 leading-relaxed">
+            <p class="text-[0.8125rem] text-muted mt-1.5 leading-relaxed">
               設定後，繳款日一到會自動產生一筆繳費紀錄。留空表示不自動扣繳。
             </p>
           </div>
@@ -576,13 +607,13 @@ tailwind.config = {
         </div>
 
         <button id="accountSubmit" type="submit"
-                class="btn w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium
                        transition-opacity active:opacity-80 hover:opacity-90
                        disabled:opacity-40">建立帳戶</button>
         <button id="accountDelete" type="button"
-                class="btn hidden w-full bg-form text-debit py-3 text-[15px] hover:opacity-80 transition-opacity">
+                class="btn hidden w-full bg-form text-debit py-3 text-[1rem] hover:opacity-80 transition-opacity">
           刪除這個帳戶</button>
-        <p id="accountMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+        <p id="accountMsg" class="font-mono text-[0.8125rem] leading-relaxed min-h-[1.2em]"></p>
       </form>
     </div>
   </div>
@@ -593,10 +624,10 @@ tailwind.config = {
   <div class="sheet-shell" data-shell>
     <div class="sheet-panel w-full sm:max-w-[560px] max-h-[90dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
       <div class="flex items-center justify-between px-5 py-4 border-b border-rule sticky top-0 bg-paper z-10">
-        <h3 id="cardTitle" class="text-[15px] tracking-[0.06em] font-medium">信用卡</h3>
+        <h3 id="cardTitle" class="text-[1rem] tracking-[0.06em] font-medium">信用卡</h3>
         <div class="flex items-center gap-3">
           <button id="cardSettingsBtn" type="button"
-                  class="text-[13px] text-accent hover:opacity-70">設定</button>
+                  class="text-[0.875rem] text-accent hover:opacity-70">設定</button>
           <button id="cardClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
         </div>
       </div>
@@ -610,7 +641,7 @@ tailwind.config = {
   <div class="sheet-shell" data-shell>
     <div class="sheet-panel w-full sm:max-w-[420px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
       <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
-        <h3 id="installTitle" class="text-[13px] font-medium text-muted">新增分期</h3>
+        <h3 id="installTitle" class="text-[0.875rem] font-medium text-muted">新增分期</h3>
         <button id="installClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
       </div>
 
@@ -624,32 +655,35 @@ tailwind.config = {
         <div>
           <label for="i-principal" class="lbl">分期本金</label>
           <input id="i-principal" type="number" min="1" step="1" required placeholder="0" class="field font-mono num text-lg">
-          <p id="principalHint" class="text-[12px] text-muted mt-1.5 leading-relaxed"></p>
+          <p id="principalHint" class="text-[0.8125rem] text-muted mt-1.5 leading-relaxed"></p>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
+            <label for="i-method" class="lbl">計息方式
+              <span id="i-methodHint" class="text-[0.8125rem]"></span></label>
+            <select id="i-method" class="field">
+              <option value="none">無利息</option>
+              <option value="flat">固定利息</option>
+              <option value="equal_principal">本金均攤</option>
+              <option value="equal_payment">本息均攤</option>
+            </select>
+          </div>
+          <div>
             <label for="i-periods" class="lbl">期數</label>
-            <input id="i-periods" type="number" min="2" max="60" value="6" class="field font-mono num">
-          </div>
-          <div id="aprWrap">
-            <label for="i-apr" class="lbl">年利率（%）</label>
-            <input id="i-apr" type="number" min="0" step="0.01" value="0" class="field font-mono num">
+            <select id="i-periods" class="field font-mono num"></select>
           </div>
         </div>
-        <div>
-          <label for="i-method" class="lbl">計息方式</label>
-          <select id="i-method" class="field">
-            <option value="none">無利息（只分攤本金）</option>
-            <option value="flat">固定利息（利息以原始本金計）</option>
-            <option value="equal_principal">本金均攤（本金固定、利息遞減）</option>
-            <option value="equal_payment">本息均攤（每期總額固定）</option>
-          </select>
+
+        <div id="aprWrap">
+          <label for="i-apr" class="lbl">年利率（%）</label>
+          <input id="i-apr" type="number" min="0" step="0.01" value="0" class="field font-mono num">
         </div>
+
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label for="i-rounding" class="lbl">尾數處理</label>
             <select id="i-rounding" class="field">
-              <option value="round">四捨五入</option>
+              <option value="round" selected>四捨五入</option>
               <option value="floor">無條件捨去</option>
               <option value="ceil">無條件進位</option>
             </select>
@@ -657,11 +691,12 @@ tailwind.config = {
           <div>
             <label for="i-residue" class="lbl">尾差歸入</label>
             <select id="i-residue" class="field">
+              <option value="first" selected>首期</option>
               <option value="last">末期</option>
-              <option value="first">首期</option>
             </select>
           </div>
         </div>
+
         <div>
           <label for="i-first" class="lbl">首期帳單年月</label>
           <input id="i-first" type="month" class="field font-mono num">
@@ -670,10 +705,10 @@ tailwind.config = {
         <div id="installPreview" class="card px-4 py-4"></div>
 
         <button id="installSubmit" type="submit"
-                class="btn w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium
                        transition-opacity active:opacity-80 hover:opacity-90
                        disabled:opacity-40">建立分期</button>
-        <p id="installMsg" class="font-mono text-[12px] leading-relaxed min-h-[1.2em]"></p>
+        <p id="installMsg" class="font-mono text-[0.8125rem] leading-relaxed min-h-[1.2em]"></p>
       </form>
     </div>
   </div>
@@ -684,7 +719,7 @@ tailwind.config = {
   <div class="sheet-shell" data-shell>
     <div class="sheet-panel w-full sm:max-w-[400px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
       <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
-        <h3 id="projectTitle" class="text-[13px] font-medium text-muted">新增專案</h3>
+        <h3 id="projectTitle" class="text-[0.875rem] font-medium text-muted">新增專案</h3>
         <button id="projectClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
       </div>
 
@@ -697,8 +732,8 @@ tailwind.config = {
         <div>
           <span class="lbl">週期類型</span>
           <div class="grid grid-cols-2 gap-2" role="group" aria-label="週期類型">
-            <button type="button" data-cycle-type="single" class="cycle-btn btn py-2.5 text-[15px] transition-colors">單一區間</button>
-            <button type="button" data-cycle-type="recurring" class="cycle-btn btn py-2.5 text-[15px] transition-colors">重複循環</button>
+            <button type="button" data-cycle-type="single" class="cycle-btn btn py-2.5 text-[1rem] transition-colors">單一區間</button>
+            <button type="button" data-cycle-type="recurring" class="cycle-btn btn py-2.5 text-[1rem] transition-colors">重複循環</button>
           </div>
         </div>
 
@@ -715,7 +750,7 @@ tailwind.config = {
         <div id="p-cycleWrap" class="hidden">
           <span class="lbl">循環間隔</span>
           <div class="flex items-center gap-2">
-            <span class="text-[15px] shrink-0">每</span>
+            <span class="text-[1rem] shrink-0">每</span>
             <input id="p-interval" type="number" min="1" max="100" value="1" class="field font-mono num w-20 shrink-0">
             <select id="p-unit" class="field">
               <option value="day">日</option>
@@ -724,13 +759,13 @@ tailwind.config = {
               <option value="year">年</option>
             </select>
           </div>
-          <p id="p-cyclePreview" class="text-[13px] text-muted mt-2 leading-relaxed"></p>
+          <p id="p-cyclePreview" class="text-[0.875rem] text-muted mt-2 leading-relaxed"></p>
         </div>
 
         <div>
           <label for="p-budget" class="lbl"><span id="p-budgetLabel">規劃總預算</span></label>
           <input id="p-budget" type="number" min="0" step="1" placeholder="0" class="field font-mono num text-lg">
-          <p id="p-budgetHint" class="text-[13px] text-muted mt-1.5 leading-relaxed">填 0 表示不設預算，只累計金額。</p>
+          <p id="p-budgetHint" class="text-[0.875rem] text-muted mt-1.5 leading-relaxed">填 0 表示不設預算，只累計金額。</p>
         </div>
 
         <div>
@@ -739,16 +774,42 @@ tailwind.config = {
         </div>
 
         <button id="projectSubmit" type="submit"
-                class="btn w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium
                        transition-opacity active:opacity-80 hover:opacity-90 disabled:opacity-40">建立專案</button>
         <button id="projectArchive" type="button"
-                class="btn hidden w-full bg-form text-warn py-3 text-[15px] hover:opacity-80 transition-opacity">停用這個專案</button>
-        <p id="projectArchiveHint" class="hidden text-[13px] text-muted leading-relaxed -mt-2">
+                class="btn hidden w-full bg-form text-warn py-3 text-[1rem] hover:opacity-80 transition-opacity">停用這個專案</button>
+        <p id="projectArchiveHint" class="hidden text-[0.875rem] text-muted leading-relaxed -mt-2">
           停用後不會出現在記帳的專案選單，既有紀錄與統計完全不受影響，隨時可以恢復。
         </p>
         <button id="projectDelete" type="button"
-                class="btn hidden w-full bg-form text-debit py-3 text-[15px] hover:opacity-80 transition-opacity">刪除這個專案</button>
-        <p id="projectMsg" class="text-[13px] leading-relaxed min-h-[1.2em]"></p>
+                class="btn hidden w-full bg-form text-debit py-3 text-[1rem] hover:opacity-80 transition-opacity">刪除這個專案</button>
+        <p id="projectMsg" class="text-[0.875rem] leading-relaxed min-h-[1.2em]"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<!-- 類別面板 -->
+<dialog id="categorySheet" class="sheet" aria-labelledby="categoryTitle">
+  <div class="sheet-shell" data-shell>
+    <div class="sheet-panel w-full sm:max-w-[380px] max-h-[88dvh] overflow-y-auto bg-paper rounded-t-2xl sm:rounded-2xl">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-rule">
+        <h3 id="categoryTitle" class="text-[0.875rem] font-medium text-muted">新增類別</h3>
+        <button id="categoryClose" type="button" aria-label="關閉" class="text-muted hover:text-ink text-xl leading-none px-1">×</button>
+      </div>
+
+      <form id="categoryForm" class="px-5 py-5 space-y-5" novalidate>
+        <p id="c-context" class="text-[0.875rem] text-muted leading-relaxed"></p>
+        <div>
+          <label for="c-name" class="lbl">名稱</label>
+          <input id="c-name" type="text" maxlength="20" required placeholder="例如：早餐" class="field">
+        </div>
+        <button id="categorySubmit" type="submit"
+                class="btn w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium
+                       transition-opacity active:opacity-80 hover:opacity-90 disabled:opacity-40">建立</button>
+        <button id="categoryDelete" type="button"
+                class="btn hidden w-full bg-form text-debit py-3 text-[1rem] hover:opacity-80 transition-opacity">刪除</button>
+        <p id="categoryMsg" class="text-[0.875rem] leading-relaxed min-h-[1.2em]"></p>
       </form>
     </div>
   </div>
@@ -819,23 +880,55 @@ let apiUrl = loadSettings().apiUrl || DEFAULT_API_URL;
 let themeChoice = loadSettings().theme || 'system';
 let storageOK = true;
 
-const CATEGORIES = {
-  expense: ['飲食', '交通', '娛樂', '居住', '分期付款', '其他'],
-  income:  ['薪水', '其他'],
+const GROUP_LABEL = { expense:'支出', income:'收入', transfer:'轉帳', receivable:'應收款項' };
+const GROUP_ORDER = ['expense', 'income', 'transfer', 'receivable'];
+
+// 沒有連線時（示範模式）用的預設樹，內容與後端 seedCategories_ 一致
+const DEFAULT_CATEGORIES = {
+  expense: [
+    ['飲食', ['早餐','午餐','晚餐','點心','飲料','酒類','水果']],
+    ['交通', ['加油費','停車費','火車','捷運','汽車','計程車','公車','摩托車','單車','機票','傳票','高鐵']],
+    ['娛樂', ['電影','遊樂園','展覽','影音','音樂','遊戲','運動','博弈','消遣','健身','夜店','玩具']],
+    ['購物', ['市場','衣物','鞋子','配件','包包','美妝保養','精品','禮物','電子產品','應用軟體']],
+    ['個人', ['社交','通話費','借款','投資','稅金','保險','捐款','寵物','彩券','儲值']],
+    ['醫療', ['門診','牙齒保健','藥品','醫療用品','打針','住院','手術','健康檢查']],
+    ['家居', ['日常用品','水費','電費','燃料費','電話費','網路費','房租','洗衣費','修繕費','家具','訂閱','家電','車位']],
+    ['家庭', ['生活費','教育','看護','玩具','才藝']],
+    ['生活', ['美容美髮','泡湯','按摩','住宿','旅行','派對']],
+    ['學習', ['書籍','課程','教材','證書','探索','文具']],
+    ['其他', ['其他']],
+  ],
+  income: [
+    ['收入', ['薪水','獎金','投資','收款','彩券','利息']],
+  ],
+  transfer: [],
+  receivable: [],
 };
 
-// 圓餅圖配色：深色底要提亮，否則深橄欖那幾塊會糊成一團
-// iOS 系統色盤，深色模式各自有對應的較亮版本
-const CATEGORY_COLORS_LIGHT = {
-  '飲食':'#FF3B30', '居住':'#FF9500', '交通':'#5856D6',
-  '娛樂':'#AF52DE', '分期付款':'#FF2D55', '其他':'#8E8E93',
-};
-const CATEGORY_COLORS_DARK = {
-  '飲食':'#FF453A', '居住':'#FF9F0A', '交通':'#5E5CE6',
-  '娛樂':'#BF5AF2', '分期付款':'#FF375F', '其他':'#98989F',
-};
-const SPARE_LIGHT = ['#34C759', '#00C7BE', '#007AFF', '#FFCC00', '#A2845E'];
-const SPARE_DARK  = ['#30D158', '#66D4CF', '#0A84FF', '#FFD60A', '#AC8E68'];
+function seedCategoriesLocal() {
+  const out = [];
+  let order = 0;
+  for (const group of GROUP_ORDER) {
+    for (const [name, subs] of (DEFAULT_CATEGORIES[group] || [])) {
+      const id = 'c' + (++order);
+      out.push({ id, group, name, parentId:'', order, archived:false });
+      for (const sub of subs) out.push({ id:'c' + (++order), group, name:sub, parentId:id, order, archived:false });
+    }
+  }
+  return out;
+}
+
+/** 示範資料用名稱找 ID，免得手寫一堆流水號 */
+function demoCat(list, top, sub) {
+  const t = list.find((c) => !c.parentId && c.name === top) || {};
+  const sc = sub ? list.find((c) => c.parentId === t.id && c.name === sub) : null;
+  return { categoryId: t.id || '', category: t.name || '',
+           subCategoryId: sc ? sc.id : '', subCategory: sc ? sc.name : '' };
+}
+
+// 類別可以自由增刪，配色改成依名稱雜湊取色，同一個類別永遠是同一色
+const PIE_LIGHT = ['#FF3B30','#FF9500','#FFCC00','#34C759','#00C7BE','#007AFF','#5856D6','#AF52DE','#FF2D55','#A2845E','#8E8E93'];
+const PIE_DARK  = ['#FF453A','#FF9F0A','#FFD60A','#30D158','#66D4CF','#0A84FF','#5E5CE6','#BF5AF2','#FF375F','#AC8E68','#98989F'];
 
 const ASSET_TYPES = ['現金', '銀行帳戶'];
 const LIABILITY_TYPES = ['信用卡'];
@@ -871,23 +964,24 @@ const DEMO_PROJECTS = [
   { id:'p3', name:'家電汰換', cycleType:'single', startDate:'2026-06-01', endDate:'2026-06-30',
     unit:'', interval:0, budget:3000, note:'' },
 ];
+const DEMO_CATS = seedCategoriesLocal();
 const DEMO_RECORDS = [
-  { id:'d1', date:'2026-08-09', type:'expense', category:'飲食', amount:180, note:'午餐便當', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
-  { id:'d2', date:'2026-08-09', type:'expense', category:'交通', amount:65, note:'', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
-  { id:'d3', date:'2026-08-06', type:'expense', category:'娛樂', amount:420, note:'電影', accountId:'a3', projectId:'p1', postedDate:'2026-08-07', reconciled:false },
-  { id:'d4', date:'2026-08-05', type:'income', category:'薪水', amount:62000, note:'八月薪轉', accountId:'a2', postedDate:'2026-08-05', reconciled:false },
-  { id:'d5', date:'2026-08-01', type:'expense', category:'居住', amount:16500, note:'房租', accountId:'a2', postedDate:'2026-08-01', reconciled:false },
-  { id:'d6', date:'2026-08-02', type:'expense', category:'飲食', amount:1280, note:'超市', accountId:'a3', projectId:'p1', postedDate:'2026-08-03', reconciled:true },
-  { id:'d7', date:'2026-08-04', type:'expense', category:'交通', amount:960, note:'加油', accountId:'a3', projectId:'p1', postedDate:'', reconciled:false },
-  { id:'d8', date:'2026-07-28', type:'expense', category:'飲食', amount:760, note:'聚餐', accountId:'a3', postedDate:'2026-07-29', reconciled:true },
-  { id:'d9', date:'2026-07-05', type:'income', category:'薪水', amount:62000, note:'七月薪轉', accountId:'a2', postedDate:'2026-07-05', reconciled:false },
-  { id:'d10',date:'2026-06-12', type:'expense', category:'娛樂', amount:2800, note:'演唱會', accountId:'a3', projectId:'p2', postedDate:'2026-06-13', reconciled:true },
+  { id:'d1', date:'2026-08-09', type:'expense', ...demoCat(DEMO_CATS,'飲食','午餐'), amount:180, note:'午餐便當', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d2', date:'2026-08-09', type:'expense', ...demoCat(DEMO_CATS,'交通','公車'), amount:65, note:'', accountId:'a1', projectId:'p1', postedDate:'2026-08-09', reconciled:false },
+  { id:'d3', date:'2026-08-06', type:'expense', ...demoCat(DEMO_CATS,'娛樂','電影'), amount:420, note:'電影', accountId:'a3', projectId:'p1', postedDate:'2026-08-07', reconciled:false },
+  { id:'d4', date:'2026-08-05', type:'income', ...demoCat(DEMO_CATS,'收入','薪水'), amount:62000, note:'八月薪轉', accountId:'a2', postedDate:'2026-08-05', reconciled:false },
+  { id:'d5', date:'2026-08-01', type:'expense', ...demoCat(DEMO_CATS,'家居','房租'), amount:16500, note:'房租', accountId:'a2', postedDate:'2026-08-01', reconciled:false },
+  { id:'d6', date:'2026-08-02', type:'expense', ...demoCat(DEMO_CATS,'購物','市場'), amount:1280, note:'超市', accountId:'a3', projectId:'p1', postedDate:'2026-08-03', reconciled:true },
+  { id:'d7', date:'2026-08-04', type:'expense', ...demoCat(DEMO_CATS,'交通','加油費'), amount:960, note:'加油', accountId:'a3', projectId:'p1', postedDate:'', reconciled:false },
+  { id:'d8', date:'2026-07-28', type:'expense', ...demoCat(DEMO_CATS,'飲食','晚餐'), amount:760, note:'聚餐', accountId:'a3', postedDate:'2026-07-29', reconciled:true },
+  { id:'d9', date:'2026-07-05', type:'income', ...demoCat(DEMO_CATS,'收入','薪水'), amount:62000, note:'七月薪轉', accountId:'a2', postedDate:'2026-07-05', reconciled:false },
+  { id:'d10',date:'2026-06-12', type:'expense', ...demoCat(DEMO_CATS,'娛樂','音樂'), amount:2800, note:'演唱會', accountId:'a3', projectId:'p2', postedDate:'2026-06-13', reconciled:true },
 ];
 
 /* ============================================================
  * 狀態
  * ============================================================ */
-let records = [], accounts = [], installments = [], projects = [];
+let records = [], accounts = [], installments = [], projects = [], categories = [];
 let editingProjectId = null;
 const periodOffset = new Map();   // 專案 id → 翻期偏移
 let activeTab = 'records';
@@ -945,10 +1039,11 @@ const dateHeading = (iso) => {
 const md = (iso) => iso ? `${iso.slice(5,7)}/${iso.slice(8,10)}` : '';
 
 const isDark = () => document.documentElement.dataset.theme === 'dark';
-const colorFor = (category, index) => {
-  const map = isDark() ? CATEGORY_COLORS_DARK : CATEGORY_COLORS_LIGHT;
-  const spare = isDark() ? SPARE_DARK : SPARE_LIGHT;
-  return map[category] || spare[index % spare.length];
+const colorFor = (category) => {
+  const palette = isDark() ? PIE_DARK : PIE_LIGHT;
+  let h = 0;
+  for (let i = 0; i < category.length; i++) h = (h * 31 + category.charCodeAt(i)) >>> 0;
+  return palette[h % palette.length];
 };
 
 // 圖表跑在 canvas 裡，吃不到 CSS 變數，得在繪製當下把值讀出來
@@ -1146,7 +1241,7 @@ function toast(message, kind = 'ok') {
   el.className = 'toast-in pointer-events-auto flex items-stretch overflow-hidden rounded-xl shadow-lg text-white';
   el.style.background = '#1C1C1E';
   el.innerHTML = `<span class="w-1 shrink-0 ${TOAST_BAR[kind] || TOAST_BAR.info}"></span>
-    <span class="px-4 py-3 text-[13px] leading-snug tracking-[0.04em]">${esc(message)}</span>`;
+    <span class="px-4 py-3 text-[0.875rem] leading-snug tracking-[0.04em]">${esc(message)}</span>`;
   $('toastHost').appendChild(el);
   setTimeout(() => { el.classList.add('toast-out'); setTimeout(() => el.remove(), 300); }, 2600);
 }
@@ -1182,7 +1277,7 @@ function applyTheme() {
 
   for (const btn of document.querySelectorAll('.theme-btn')) {
     const on = btn.dataset.themeChoice === themeChoice;
-    btn.className = 'theme-btn btn py-2.5 text-[15px] transition-colors '
+    btn.className = 'theme-btn btn py-2.5 text-[1rem] transition-colors '
       + (on ? 'bg-accent-fill text-white font-medium' : 'bg-form text-muted hover:opacity-80');
     btn.setAttribute('aria-pressed', String(on));
   }
@@ -1252,7 +1347,7 @@ function setTab(tab) {
 function renderAccounts() {
   const box = $('accountsBox');
   if (!accounts.length) {
-    box.innerHTML = `<p class="text-muted text-[15px] leading-loose">
+    box.innerHTML = `<p class="text-muted text-[1rem] leading-loose">
       還沒有帳戶。<br>先建立一個現金或銀行帳戶，才能開始記帳。</p>`;
     return;
   }
@@ -1265,17 +1360,17 @@ function renderAccounts() {
   const group = (side, title) => {
     const items = rows.filter((r) => r.side === side);
     if (!items.length) return '';
-    return `<p class="text-[13px] font-medium text-muted mt-5 first:mt-0 mb-2">${title}</p>
+    return `<p class="text-[0.875rem] font-medium text-muted mt-5 first:mt-0 mb-2">${title}</p>
       ${items.map(({ acc, bal }) => {
         const label = balanceLabel(acc, bal);
         const isCard = acc.type === '信用卡';
         const badge = isCard && acc.autopayAccountId ? ' · 自動扣繳' : '';
         return `<button type="button" data-account="${esc(acc.id)}"
                   class="w-full flex items-baseline py-2 text-left hover:opacity-70 transition-opacity">
-            <span class="text-[16px] tracking-[0.04em]">${esc(acc.name)}</span>
-            <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc.type)}${badge}</span>
+            <span class="text-[1.0625rem] tracking-[0.04em]">${esc(acc.name)}</span>
+            <span class="font-mono text-[0.75rem] text-muted ml-2 whitespace-nowrap">${esc(acc.type)}${badge}</span>
             <span class="leader"></span>
-            <span class="num font-mono text-[17px] font-medium ${label.cls} whitespace-nowrap">${label.text}</span>
+            <span class="num font-mono text-[1.125rem] font-medium ${label.cls} whitespace-nowrap">${label.text}</span>
           </button>`;
       }).join('')}`;
   };
@@ -1325,7 +1420,7 @@ function renderCalendar() {
     }
     const dot = (cell && cell.income > 0)
       ? `<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full" style="background:${on ? '#fff' : tone('credit-fill')}"></span>` : '';
-    const numClass = 'font-mono num text-[13px] leading-none ' + (on ? 'font-semibold' : (cell ? 'text-ink' : 'text-muted/70'));
+    const numClass = 'font-mono num text-[0.875rem] leading-none ' + (on ? 'font-semibold' : (cell ? 'text-ink' : 'text-muted/70'));
 
     html += `<button type="button" data-day="${iso}" class="${classes.join(' ')}">${dot}<span class="${numClass}">${d}</span>${bar}</button>`;
   }
@@ -1341,7 +1436,7 @@ function renderList(newId) {
   $('dayMeta').textContent = rows.length ? `${rows.length} 筆　支出 ${money(spent)}` : '';
 
   if (!rows.length) {
-    $('list').innerHTML = `<p class="text-muted text-[15px] leading-loose py-5">
+    $('list').innerHTML = `<p class="text-muted text-[1rem] leading-loose py-5">
       這天還沒有紀錄。<br>點下方的 ＋ 新增一筆。</p>`;
     return;
   }
@@ -1352,9 +1447,9 @@ function renderList(newId) {
 
     if (r.type === 'payment') {
       const from = accountById(r.counterAccountId);
-      head = `<span class="text-[15px] tracking-[0.06em]">繳卡費</span>
-              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(from ? from.name : '?')} → ${esc(acc ? acc.name : '?')}</span>`;
-      amountHtml = `<span class="num font-mono text-[17px] font-medium text-accent">${money(r.amount)}</span>`;
+      head = `<span class="text-[1rem] tracking-[0.06em]">繳卡費</span>
+              <span class="font-mono text-[0.75rem] text-muted ml-2 whitespace-nowrap">${esc(from ? from.name : '?')} → ${esc(acc ? acc.name : '?')}</span>`;
+      amountHtml = `<span class="num font-mono text-[1.125rem] font-medium text-accent">${money(r.amount)}</span>`;
     } else {
       const isIncome = r.type === 'income';
       const posted = (acc && acc.type === '信用卡')
@@ -1364,17 +1459,17 @@ function renderList(newId) {
       const splitTag = plan ? ` · 已轉分期 ${plan.periods} 期` : '';
       const proj = r.projectId ? projectById(r.projectId) : null;
       const projTag = proj ? ` · ${proj.name}` : '';
-      head = `<span class="text-[15px] tracking-[0.06em]">${esc(r.category)}</span>
-              <span class="font-mono text-[10px] text-muted ml-2 whitespace-nowrap">${esc(acc ? acc.name : '未指定帳戶')}${posted}${splitTag}${esc(projTag)}</span>`;
-      amountHtml = `<span class="num font-mono text-[17px] font-medium ${isIncome ? 'text-credit' : 'text-debit'}">${isIncome ? '+' : '−'}${money(Math.abs(Number(r.amount) || 0))}</span>`;
+      head = `<span class="text-[1rem] tracking-[0.06em]">${esc(r.category)}${r.subCategory ? ' · ' + esc(r.subCategory) : ''}</span>
+              <span class="font-mono text-[0.75rem] text-muted ml-2 whitespace-nowrap">${esc(acc ? acc.name : '未指定帳戶')}${posted}${splitTag}${esc(projTag)}</span>`;
+      amountHtml = `<span class="num font-mono text-[1.125rem] font-medium ${isIncome ? 'text-credit' : 'text-debit'}">${isIncome ? '+' : '−'}${money(Math.abs(Number(r.amount) || 0))}</span>`;
     }
 
     const dim = absorbed(r) ? ' opacity-55' : '';
     return `<div data-row="${esc(r.id)}" class="${r.id === newId ? 'stamp ' : ''}border-b border-rule/60 py-3 -mx-2 px-2 transition-opacity${dim}">
         <div class="flex items-baseline">${head}<span class="leader"></span>${amountHtml}</div>
         <div class="flex items-baseline justify-between gap-4 mt-1">
-          <p class="text-[13px] text-muted truncate">${esc(r.note || '')}</p>
-          <div class="flex gap-3 shrink-0 font-mono text-[11px]">
+          <p class="text-[0.875rem] text-muted truncate">${esc(r.note || '')}</p>
+          <div class="flex gap-3 shrink-0 font-mono text-[0.75rem]">
             <button type="button" data-edit="${esc(r.id)}" class="text-accent hover:opacity-70">編輯</button>
             <button type="button" data-del="${esc(r.id)}" class="text-debit hover:opacity-70">刪除</button>
           </div>
@@ -1449,10 +1544,10 @@ function renderPie() {
   $('chartLegend').innerHTML = entries.map(([name, amount], i) => {
     const pct = Math.round((amount / total) * 100);
     return `<div class="flex items-baseline py-1.5 ${i ? 'border-t border-rule/60' : ''}">
-        <span class="w-2.5 h-2.5 rounded-full shrink-0 mr-2.5 translate-y-[1px]" style="background:${colorFor(name, i)}"></span>
-        <span class="text-[14px] tracking-[0.06em]">${esc(name)}</span><span class="leader"></span>
-        <span class="num font-mono text-[14px] text-muted mr-3">${pct}%</span>
-        <span class="num font-mono text-[15px] font-medium">${money(amount)}</span>
+        <span class="w-2.5 h-2.5 rounded-full shrink-0 mr-2.5 translate-y-[1px]" style="background:${colorFor(name)}"></span>
+        <span class="text-[0.9375rem] tracking-[0.06em]">${esc(name)}</span><span class="leader"></span>
+        <span class="num font-mono text-[0.9375rem] text-muted mr-3">${pct}%</span>
+        <span class="num font-mono text-[1rem] font-medium">${money(amount)}</span>
       </div>`;
   }).join('');
 }
@@ -1548,94 +1643,104 @@ function renderCard() {
   const head = `
     <div class="flex items-center gap-3">
       <button type="button" data-cycle="-1" class="btn w-8 h-8 bg-form text-accent hover:opacity-80 transition-opacity leading-none">‹</button>
-      <p class="font-mono num text-[15px] tracking-[0.08em] flex-1 text-center">${cycleLabel} 帳單</p>
+      <p class="font-mono num text-[1rem] tracking-[0.08em] flex-1 text-center">${cycleLabel} 帳單</p>
       <button type="button" data-cycle="1" class="btn w-8 h-8 bg-form text-accent hover:opacity-80 transition-opacity leading-none">›</button>
     </div>
-    <p class="font-mono num text-[12px] text-muted mt-2 text-center leading-relaxed">
+    <p class="font-mono num text-[0.8125rem] text-muted mt-2 text-center leading-relaxed">
       ${md(w.from)} – ${md(w.to)} · 繳款截止 ${md(due)}
       ${autopay ? ` · 自動扣繳自「${esc(autopay.name)}」` : ' · 未設定自動扣繳'}
     </p>`;
 
   const summary = `
     <div class="card px-4 py-4 mt-4">
-      ${absorbedTotal > 0 ? `<div class="flex items-baseline text-[13px] text-muted">
+      ${absorbedTotal > 0 ? `<div class="flex items-baseline text-[0.875rem] text-muted">
         <span>已轉分期</span><span class="leader"></span>
         <span class="num font-mono line-through">${money(absorbedTotal)}</span></div>` : ''}
       <div class="flex items-baseline ${absorbedTotal > 0 ? 'mt-2' : ''}">
         <span class="font-medium">本期應繳</span><span class="leader"></span>
         <span class="num font-mono text-xl font-semibold ${total > 0 ? 'text-debit' : 'text-ink'}">${money(total)}</span>
       </div>
-      ${dues.length ? `<p class="font-mono text-[12px] text-muted mt-2 leading-relaxed">
+      ${dues.length ? `<p class="font-mono text-[0.8125rem] text-muted mt-2 leading-relaxed">
         其中含分期期款 ${money(dues.reduce((s, d) => s + d.row.total, 0))}
         （本金 ${money(dues.reduce((s, d) => s + d.row.principal, 0))}
         ＋ 利息 ${money(dues.reduce((s, d) => s + d.row.interest, 0))}）</p>` : ''}
-      ${paid > 0 ? `<div class="flex items-baseline text-[13px] text-muted mt-2 pt-2 border-t border-rule">
+      ${paid > 0 ? `<div class="flex items-baseline text-[0.875rem] text-muted mt-2 pt-2 border-t border-rule">
         <span>已繳</span><span class="leader"></span>
         <span class="num font-mono">${money(paid)}</span></div>` : ''}
     </div>`;
 
   const rows = items.map((r) => {
+    const done = r.reconciled;
     const deferred = r.postedDate !== r.date;
+    const meta = `${esc(r.note || '')}${deferred ? `${r.note ? ' · ' : ''}消費 ${md(r.date)} 延後入帳` : ''}`;
+
+    // 已對帳代表這筆已經跟銀行帳單核對過。
+    // 這時再改入帳日或轉分期會讓核對結果失效，所以動作先收起來，
+    // 真要改就先取消勾選。
+    const actions = done ? '' : `
+      <div class="flex gap-3 shrink-0 font-mono text-[0.75rem]">
+        <button type="button" data-posting="${esc(r.id)}"
+                class="text-accent hover:opacity-70">入帳</button>
+        ${(r.installmentId || r.splitPlanId) ? '' : `<button type="button" data-split="${esc(r.id)}"
+                class="text-accent hover:opacity-70">分期</button>`}
+      </div>`;
+
+    const secondRow = (meta || actions) ? `
+      <div class="flex items-baseline justify-between gap-3 mt-0.5">
+        <p class="text-[0.8125rem] text-muted truncate">${meta}</p>
+        ${actions}
+      </div>` : '';
+
     return `<div class="flex items-start gap-3 py-2.5 border-b border-rule/60">
-        <button type="button" data-tick="${esc(r.id)}" aria-pressed="${r.reconciled}"
-                class="tick ${r.reconciled ? 'tick-on' : ''} mt-0.5">${r.reconciled ? '✓' : ''}</button>
-        <div class="flex-1 min-w-0">
+        <button type="button" data-tick="${esc(r.id)}" aria-pressed="${done}"
+                class="tick ${done ? 'tick-on' : ''} mt-0.5">${done ? '✓' : ''}</button>
+        <div class="flex-1 min-w-0${done ? ' line-through opacity-55' : ''}">
           <div class="flex items-baseline">
-            <span class="font-mono num text-[12px] text-muted mr-2">${md(r.postedDate)}</span>
-            <span class="text-[14px]">${esc(r.category)}</span>
+            <span class="font-mono num text-[0.8125rem] text-muted mr-2">${md(r.postedDate)}</span>
+            <span class="text-[0.9375rem]">${esc(r.category)}</span>
             <span class="leader"></span>
-            <span class="num font-mono text-[15px] font-medium">${money(r.amount)}</span>
+            <span class="num font-mono text-[1rem] font-medium">${money(r.amount)}</span>
           </div>
-          <div class="flex items-baseline justify-between gap-3 mt-0.5">
-            <p class="text-[12px] text-muted truncate">
-              ${esc(r.note || '')}${deferred ? `${r.note ? ' · ' : ''}消費 ${md(r.date)} 延後入帳` : ''}
-            </p>
-            <div class="flex gap-3 shrink-0 font-mono text-[11px]">
-              <button type="button" data-posting="${esc(r.id)}"
-                      class="text-accent hover:opacity-70">入帳</button>
-              ${(r.installmentId || r.splitPlanId) ? '' : `<button type="button" data-split="${esc(r.id)}"
-                      class="text-accent hover:opacity-70">分期</button>`}
-            </div>
-          </div>
+          ${secondRow}
         </div>
       </div>`;
   }).join('');
 
   const detail = `
     <div class="flex items-baseline justify-between gap-3 mt-6 pb-2 border-b border-rule">
-      <p class="text-[13px] font-medium text-muted">交易明細</p>
-      <div class="flex items-center gap-3 font-mono text-[11px]">
+      <p class="text-[0.875rem] font-medium text-muted">交易明細</p>
+      <div class="flex items-center gap-3 font-mono text-[0.75rem]">
         <span class="num text-muted">已對帳 ${done} / ${items.length}</span>
         ${items.length ? `<button type="button" id="tickAll"
           class="text-muted hover:text-accent underline underline-offset-4">${done === items.length ? '全部取消' : '全部勾選'}</button>` : ''}
       </div>
     </div>
-    ${items.length ? rows : `<p class="text-muted text-[14px] leading-loose py-4">這一期沒有已入帳的消費。</p>`}
+    ${items.length ? rows : `<p class="text-muted text-[0.9375rem] leading-loose py-4">這一期沒有已入帳的消費。</p>`}
     ${splits.map((r) => {
       return `<div class="flex items-baseline py-2.5 border-b border-rule/60 opacity-60">
-          <span class="font-mono num text-[12px] text-muted mr-2">${md(r.postedDate)}</span>
-          <span class="text-[14px] line-through">${esc(r.category)}</span>
-          <span class="font-mono text-[10px] text-muted ml-2">已轉分期，改由期款計算</span>
+          <span class="font-mono num text-[0.8125rem] text-muted mr-2">${md(r.postedDate)}</span>
+          <span class="text-[0.9375rem] line-through">${esc(r.category)}</span>
+          <span class="font-mono text-[0.75rem] text-muted ml-2">已轉分期，改由期款計算</span>
           <span class="leader"></span>
-          <span class="num font-mono text-[15px] text-muted line-through">${money(r.amount)}</span>
+          <span class="num font-mono text-[1rem] text-muted line-through">${money(r.amount)}</span>
         </div>`;
     }).join('')}`;
 
   const pending = unposted.length ? `
     <div class="mt-6 pb-2 border-b border-rule">
-      <p class="font-mono text-[12px] tracking-[0.24em] text-debit">尚未入帳 ${unposted.length} 筆</p>
+      <p class="font-mono text-[0.8125rem] tracking-[0.24em] text-debit">尚未入帳 ${unposted.length} 筆</p>
     </div>
-    <p class="text-[12px] text-muted mt-2 mb-1 leading-relaxed">
+    <p class="text-[0.8125rem] text-muted mt-2 mb-1 leading-relaxed">
       這些消費還沒有入帳日，任何一期帳單都不會納入。對到銀行帳單後補上日期即可。
     </p>
     ${unposted.map((r) => `
       <div class="flex items-baseline py-2.5 border-b border-rule/60">
-        <span class="font-mono num text-[12px] text-muted mr-2">${md(r.date)}</span>
-        <span class="text-[14px]">${esc(r.category)}</span>
+        <span class="font-mono num text-[0.8125rem] text-muted mr-2">${md(r.date)}</span>
+        <span class="text-[0.9375rem]">${esc(r.category)}</span>
         <span class="leader"></span>
-        <span class="num font-mono text-[15px] mr-3">${money(r.amount)}</span>
+        <span class="num font-mono text-[1rem] mr-3">${money(r.amount)}</span>
         <button type="button" data-posting="${esc(r.id)}"
-                class="text-[13px] text-accent hover:opacity-70 shrink-0">設定入帳日</button>
+                class="text-[0.875rem] text-accent hover:opacity-70 shrink-0">設定入帳日</button>
       </div>`).join('')}` : '';
 
   const plans = installments.filter((p) => p.cardId === card.id);
@@ -1645,48 +1750,48 @@ function renderCard() {
       const mk = shiftMonth(p.firstMonth, s.period - 1);
       const on = mk === cardCycle;
       return `<div class="flex items-baseline py-1 ${on ? 'font-medium' : 'text-muted'}">
-          <span class="font-mono num text-[12px] w-16">${mk.slice(2,4)}/${mk.slice(5)}　${s.period}期</span>
+          <span class="font-mono num text-[0.8125rem] w-16">${mk.slice(2,4)}/${mk.slice(5)}　${s.period}期</span>
           <span class="leader"></span>
-          <span class="num font-mono text-[12px] mr-3">本金 ${money(s.principal)}</span>
-          <span class="num font-mono text-[12px] mr-3">利息 ${money(s.interest)}</span>
-          <span class="num font-mono text-[13px] w-20 text-right">${money(s.total)}</span>
+          <span class="num font-mono text-[0.8125rem] mr-3">本金 ${money(s.principal)}</span>
+          <span class="num font-mono text-[0.8125rem] mr-3">利息 ${money(s.interest)}</span>
+          <span class="num font-mono text-[0.875rem] w-20 text-right">${money(s.total)}</span>
         </div>`;
     }).join('');
 
     const src = p.sourceRecordId ? records.find((r) => r.id === p.sourceRecordId) : null;
     return `<div class="card px-4 py-4 mt-3">
         <div class="flex items-baseline">
-          <span class="text-[15px]">${esc(p.name)}</span>
-          <span class="font-mono text-[10px] text-muted ml-2">${p.sourceRecordId ? '單筆' : '帳單'} · ${p.periods} 期 · ${METHOD_LABEL[p.method] || p.method}${p.method === 'none' ? '' : ' · ' + p.apr + '%'}</span>
+          <span class="text-[1rem]">${esc(p.name)}</span>
+          <span class="font-mono text-[0.75rem] text-muted ml-2">${p.sourceRecordId ? '單筆' : '帳單'} · ${p.periods} 期 · ${METHOD_LABEL[p.method] || p.method}${p.method === 'none' ? '' : ' · ' + p.apr + '%'}</span>
           <span class="leader"></span>
-          <span class="num font-mono text-[15px] font-medium">${money(p.principal)}</span>
+          <span class="num font-mono text-[1rem] font-medium">${money(p.principal)}</span>
         </div>
-        ${src ? `<p class="font-mono text-[12px] text-muted mt-1">
+        ${src ? `<p class="font-mono text-[0.8125rem] text-muted mt-1">
           來源：${md(src.date)} ${esc(src.category)}${src.note ? ' · ' + esc(src.note) : ''}</p>` : ''}
-        ${hit ? `<p class="font-mono num text-[12px] text-accent mt-2">
+        ${hit ? `<p class="font-mono num text-[0.8125rem] text-accent mt-2">
           本期第 ${hit.period}/${p.periods} 期　本金 ${money(hit.row.principal)} ＋ 利息 ${money(hit.row.interest)}
-          ＝ ${money(hit.row.total)}</p>` : `<p class="font-mono text-[12px] text-muted mt-2">本期沒有應繳款項</p>`}
+          ＝ ${money(hit.row.total)}</p>` : `<p class="font-mono text-[0.8125rem] text-muted mt-2">本期沒有應繳款項</p>`}
         <details class="mt-3">
-          <summary class="font-mono text-[12px] text-muted cursor-pointer hover:text-ink">攤還明細（${ROUNDING_LABEL[p.rounding] || '四捨五入'}・${RESIDUE_LABEL[p.residue] || '尾差歸末期'}）</summary>
+          <summary class="font-mono text-[0.8125rem] text-muted cursor-pointer hover:text-ink">攤還明細（${ROUNDING_LABEL[p.rounding] || '四捨五入'}・${RESIDUE_LABEL[p.residue] || '尾差歸末期'}）</summary>
           <div class="mt-2 pt-2 border-t border-rule/70">${rowsHtml}</div>
         </details>
         <button type="button" data-plan-del="${esc(p.id)}"
-                class="mt-3 text-[13px] text-debit hover:opacity-70">刪除這個計畫（連同利息紀錄）</button>
+                class="mt-3 text-[0.875rem] text-debit hover:opacity-70">刪除這個計畫（連同利息紀錄）</button>
       </div>`;
   }).join('');
 
   const installSection = `
     <div class="mt-7 pb-2 border-b border-rule">
-      <p class="text-[13px] font-medium text-muted">分期計畫</p>
+      <p class="text-[0.875rem] font-medium text-muted">分期計畫</p>
     </div>
-    ${plans.length ? planHtml : `<p class="text-muted text-[14px] leading-loose py-3">還沒有分期計畫。</p>`}
+    ${plans.length ? planHtml : `<p class="text-muted text-[0.9375rem] leading-loose py-3">還沒有分期計畫。</p>`}
     <button type="button" id="addInstall"
-            class="btn mt-4 w-full bg-form text-accent py-3 text-[15px] hover:opacity-80 transition-opacity">
+            class="btn mt-4 w-full bg-form text-accent py-3 text-[1rem] hover:opacity-80 transition-opacity">
       ＋ 把這一期帳款分期</button>`;
 
   const payBtn = total > 0 ? `
     <button type="button" id="payNow"
-            class="btn mt-6 w-full bg-accent-fill text-white py-3.5 text-[16px] font-medium hover:opacity-90 transition-opacity">
+            class="btn mt-6 w-full bg-accent-fill text-white py-3.5 text-[1.0625rem] font-medium hover:opacity-90 transition-opacity">
       記一筆繳卡費 ${money(total)}</button>` : '';
 
   $('cardBody').innerHTML = head + summary + detail + pending + installSection + payBtn;
@@ -1746,6 +1851,21 @@ async function tickAll() {
 /* ============================================================
  * 分期
  * ============================================================ */
+/** 把選單復原成標記上帶 selected 的那一項，預設值只存在 HTML 裡一處 */
+function resetSelect(id) {
+  const el = $(id);
+  const def = [...el.options].find((o) => o.defaultSelected);
+  el.value = def ? def.value : (el.options[0] ? el.options[0].value : '');
+}
+
+// 用 select 而不是數字輸入：iOS 會直接給原生滾輪，桌機則是可捲動的下拉
+function fillPeriodSelect(value) {
+  let html = '';
+  for (let n = 2; n <= 60; n++) html += `<option value="${n}">${n} 期</option>`;
+  $('i-periods').innerHTML = html;
+  $('i-periods').value = String(value);
+}
+
 function openInstall(sourceId) {
   const card = accountById(cardId);
   if (!card) return;
@@ -1769,12 +1889,12 @@ function openInstall(sourceId) {
     $('installSource').classList.remove('hidden');
     $('installSource').innerHTML = `
       <div class="flex items-baseline">
-        <span class="font-mono num text-[12px] text-muted mr-2">${md(source.postedDate)}</span>
-        <span class="text-[14px]">${esc(source.category)}</span>
+        <span class="font-mono num text-[0.8125rem] text-muted mr-2">${md(source.postedDate)}</span>
+        <span class="text-[0.9375rem]">${esc(source.category)}</span>
         <span class="leader"></span>
-        <span class="num font-mono text-[15px] font-medium">${money(source.amount)}</span>
+        <span class="num font-mono text-[1rem] font-medium">${money(source.amount)}</span>
       </div>
-      ${source.note ? `<p class="text-[12px] text-muted mt-1">${esc(source.note)}</p>` : ''}`;
+      ${source.note ? `<p class="text-[0.8125rem] text-muted mt-1">${esc(source.note)}</p>` : ''}`;
 
     $('i-name').value = (source.note || source.category) + ' 分期';
     $('i-principal').value = Math.round(source.amount);
@@ -1786,12 +1906,12 @@ function openInstall(sourceId) {
     $('installSource').classList.remove('hidden');
     $('installSource').innerHTML = items.length
       ? `<div class="flex items-baseline">
-          <span class="text-[14px]">${Number(cardCycle.slice(5))} 月帳單共 ${items.length} 筆</span>
+          <span class="text-[0.9375rem]">${Number(cardCycle.slice(5))} 月帳單共 ${items.length} 筆</span>
           <span class="leader"></span>
-          <span class="num font-mono text-[15px] font-medium">${money(total)}</span>
+          <span class="num font-mono text-[1rem] font-medium">${money(total)}</span>
         </div>
-        <p class="text-[12px] text-muted mt-1">這些消費會全部轉為分期。</p>`
-      : `<p class="text-[13px] text-debit">這一期沒有可以分期的消費。</p>`;
+        <p class="text-[0.8125rem] text-muted mt-1">這些消費會全部轉為分期。</p>`
+      : `<p class="text-[0.875rem] text-debit">這一期沒有可以分期的消費。</p>`;
 
     $('i-name').value = `${Number(cardCycle.slice(5))} 月帳單分期`;
     $('i-principal').value = total > 0 ? Math.round(total) : '';
@@ -1801,20 +1921,29 @@ function openInstall(sourceId) {
   $('i-principal').readOnly = true;
   $('i-principal').classList.add('opacity-60');
 
-  $('i-periods').value = 6;
+  fillPeriodSelect(6);
   $('i-apr').value = card.apr || 0;
   $('i-method').value = card.apr > 0 ? 'flat' : 'none';
-  $('i-rounding').value = 'round';
-  $('i-residue').value = 'last';
+  resetSelect('i-rounding');
+  resetSelect('i-residue');
   syncMethodFields();
   setMessage('installMsg', '');
   renderInstallPreview();
   $('installSheet').showModal();
 }
 
+const METHOD_HINT = {
+  none: '只分攤本金',
+  flat: '利息以原始本金計',
+  equal_principal: '本金固定、利息遞減',
+  equal_payment: '每期總額固定',
+};
+
 // 無利息就沒有利率可填，留著只會讓人以為填了會生效
 function syncMethodFields() {
-  $('aprWrap').classList.toggle('hidden', $('i-method').value === 'none');
+  const method = $('i-method').value;
+  $('aprWrap').classList.toggle('hidden', method === 'none');
+  $('i-methodHint').textContent = METHOD_HINT[method] || '';
 }
 
 function renderInstallPreview() {
@@ -1827,7 +1956,7 @@ function renderInstallPreview() {
                                  $('i-rounding').value, $('i-residue').value);
 
   if (!schedule.length) {
-    $('installPreview').innerHTML = `<p class="text-[13px] text-muted">填入本金與期數後會顯示試算。</p>`;
+    $('installPreview').innerHTML = `<p class="text-[0.875rem] text-muted">填入本金與期數後會顯示試算。</p>`;
     return;
   }
 
@@ -1839,19 +1968,19 @@ function renderInstallPreview() {
   const residueAmt = ($('i-residue').value === 'first' ? first : last).principal - evenPrincipal;
 
   $('installPreview').innerHTML = `
-    <div class="flex items-baseline text-[13px]">
+    <div class="flex items-baseline text-[0.875rem]">
       <span>每期應繳</span><span class="leader"></span>
-      <span class="num font-mono text-[15px] font-medium">${varying ? `${money(first.total)} → ${money(last.total)}` : money(first.total)}</span>
+      <span class="num font-mono text-[1rem] font-medium">${varying ? `${money(first.total)} → ${money(last.total)}` : money(first.total)}</span>
     </div>
-    <div class="flex items-baseline text-[13px] mt-2">
+    <div class="flex items-baseline text-[0.875rem] mt-2">
       <span>利息總額</span><span class="leader"></span>
-      <span class="num font-mono text-[15px] font-medium ${totalInterest > 0 ? 'text-debit' : ''}">${money(totalInterest)}</span>
+      <span class="num font-mono text-[1rem] font-medium ${totalInterest > 0 ? 'text-debit' : ''}">${money(totalInterest)}</span>
     </div>
-    <div class="rule-double mt-3 pt-3 flex items-baseline text-[13px]">
+    <div class="rule-double mt-3 pt-3 flex items-baseline text-[0.875rem]">
       <span class="font-medium">總支付</span><span class="leader"></span>
-      <span class="num font-mono text-[16px] font-semibold">${money(schedule.reduce((s, r) => s + r.total, 0))}</span>
+      <span class="num font-mono text-[1.0625rem] font-semibold">${money(schedule.reduce((s, r) => s + r.total, 0))}</span>
     </div>
-    <p class="font-mono text-[12px] text-muted mt-3 leading-relaxed">
+    <p class="font-mono text-[0.8125rem] text-muted mt-3 leading-relaxed">
       ${totalInterest === 0 ? '無利息，只分攤本金。' : ''}${
         residueAmt !== 0 ? `尾差 ${residueAmt > 0 ? '+' : ''}${residueAmt} 元併入${residueAt}。<br>` : ''}
       每一期都會產生一筆消費紀錄掛在這張卡上；原始消費會被取代，
@@ -1934,15 +2063,21 @@ function applyPlanLocally(payload, card, principal) {
                             payload.rounding, payload.residue),
   };
 
-  const category = payload.sourceRecordId ? sources[0].category : '分期付款';
+  const src0 = sources[0] || {};
+  const catId = payload.sourceRecordId ? (src0.categoryId || '') : '';
+  const subId = payload.sourceRecordId ? (src0.subCategoryId || '') : '';
+  const first = (sources[0] && sources[0].projectId) || '';
+  const projectId = sources.every((r) => (r.projectId || '') === first) ? first : '';
   const items = plan.schedule.map((sch, k) => {
     const d = clampDay(shiftMonth(payload.firstMonth, sch.period - 1), card.closingDay);
     return {
       id: 'demo-inst-' + Date.now() + '-' + k,
-      type:'expense', date:d, postedDate:d, category, amount: sch.total,
+      type:'expense', date:d, postedDate:d, amount: sch.total,
+      categoryId: catId, category: (categoryById(catId)||{}).name || '',
+      subCategoryId: subId, subCategory: (categoryById(subId)||{}).name || '',
       note: `${plan.name} 第 ${sch.period}/${payload.periods} 期`
             + (sch.interest > 0 ? `（含利息 ${sch.interest}）` : ''),
-      accountId: card.id, counterAccountId:'', reconciled:false,
+      accountId: card.id, counterAccountId:'', projectId, reconciled:false,
       installmentId: plan.id, splitPlanId:'',
     };
   });
@@ -2006,7 +2141,7 @@ async function runAutopay() {
   for (const job of jobs) {
     const payload = {
       resource:'record', action:'create', type:'payment', date: job.due,
-      category:'信用卡繳款', amount: job.amount,
+      categoryId: '', subCategoryId: '', amount: job.amount,
       note:`自動扣繳 ${job.cycle} 帳單`,
       accountId: job.card.id, counterAccountId: job.card.autopayAccountId,
     };
@@ -2034,13 +2169,13 @@ function render(newId) {
 }
 
 function setListMessage(html) {
-  $('list').innerHTML = `<p class="font-mono text-[13px] text-muted leading-relaxed py-5">${html}</p>`;
+  $('list').innerHTML = `<p class="font-mono text-[0.875rem] text-muted leading-relaxed py-5">${html}</p>`;
 }
 
 function setMessage(id, text, kind = 'muted') {
   const el = $(id);
   el.textContent = text;
-  el.className = 'text-[13px] leading-relaxed min-h-[1.2em] '
+  el.className = 'text-[0.875rem] leading-relaxed min-h-[1.2em] '
     + ({ muted:'text-muted', ok:'text-credit', error:'text-debit' }[kind]);
 }
 
@@ -2061,14 +2196,86 @@ function selectDay(iso) {
  * 紀錄面板
  * ============================================================ */
 const TYPE_BTN = {
-  base: 'type-btn btn py-2.5 text-[15px] transition-colors ',
+  base: 'type-btn btn py-2.5 text-[1rem] transition-colors ',
   off:  'bg-form text-muted hover:opacity-80',
   expense: 'bg-debit-fill text-white font-medium',
   income:  'bg-credit-fill text-white font-medium',
   payment: 'bg-accent-fill text-white font-medium',
 };
 
-function setType(type, keepCategory) {
+/* ---------- 類別 ---------- */
+const topCategories = (group) => categories
+  .filter((c) => c.group === group && !c.parentId && !c.archived);
+const subCategories = (parentId) => parentId
+  ? categories.filter((c) => c.parentId === parentId && !c.archived) : [];
+const categoryById = (id) => categories.find((c) => c.id === id);
+
+/**
+ * 交易類型決定用哪一組類別。
+ * 例外是應收應付款帳戶：錢進出那個帳戶代表借出或收回，
+ * 所以改用「應收款項」那一組，而不是一般的支出／收入。
+ */
+/**
+ * 交易類型決定用哪一組類別。
+ * 轉帳與應收款項兩組預設是空的；空的時候回落到支出／收入，
+ * 你在設定頁替它們建立類別之後就會自動生效。
+ */
+/**
+ * 交易類型決定用哪一組類別。
+ * 轉帳與應收款項兩組預設是空的，這時整排類別欄位會收起來，
+ * 那筆紀錄就是未分類；等你在設定頁替它們建了類別就會自動出現。
+ * 不回落到支出類別——繳卡費標成「飲食」比沒有類別更糟。
+ */
+function groupForForm() {
+  if (selectedType === 'payment') return 'transfer';
+  const acc = accountById($('f-account').value);
+  if (acc && acc.type === '應收應付款項') return 'receivable';
+  return selectedType === 'income' ? 'income' : 'expense';
+}
+
+/**
+ * preserveUnknown 只在編輯既有紀錄時開啟：
+ * 那筆的類別可能已經被刪掉、或屬於別的群組，補進清單才不會被悄悄改掉。
+ * 平時切換帳戶或類型時不該把上一組的類別帶過來。
+ */
+function fillCategorySelects(keepCatId, keepSubId, preserveUnknown, snapshot) {
+  const group = groupForForm();
+  const tops = topCategories(group);
+  const sel = $('f-category');
+
+  // 已刪除或屬於別組的類別，只在編輯既有紀錄時補回清單，
+  // 平時切換帳戶或類型不該把上一組的選擇帶過來
+  const extra = (preserveUnknown && keepCatId && !tops.some((c) => c.id === keepCatId))
+    ? [{ id: keepCatId, name: (snapshot && snapshot.category) || '（已移除）' }] : [];
+
+  const all = extra.concat(tops);
+  sel.innerHTML = '<option value="">未分類</option>'
+    + all.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+  sel.value = (keepCatId && all.some((c) => c.id === keepCatId)) ? keepCatId : '';
+
+  // 這個群組沒有任何類別時整排收起來，不留一個空下拉框
+  $('categoryWrap').classList.toggle('hidden', all.length === 0);
+
+  fillSubSelect(keepSubId, preserveUnknown, snapshot);
+}
+
+function fillSubSelect(keepSubId, preserveUnknown, snapshot) {
+  const subs = subCategories($('f-category').value);
+  const extra = (preserveUnknown && keepSubId && !subs.some((c) => c.id === keepSubId))
+    ? [{ id: keepSubId, name: (snapshot && snapshot.subCategory) || '（已移除）' }] : [];
+  const all = extra.concat(subs);
+
+  $('f-sub').innerHTML = '<option value="">不指定</option>'
+    + all.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+  $('f-sub').value = (keepSubId && all.some((c) => c.id === keepSubId)) ? keepSubId : '';
+
+  const has = all.length > 0;
+  $('subWrap').classList.toggle('hidden', !has);
+  $('categoryWrap').classList.toggle('grid-cols-2', has);
+  $('categoryWrap').classList.toggle('grid-cols-1', !has);
+}
+
+function setType(type, keepCatId, keepSubId, preserveUnknown, snapshot) {
   selectedType = type;
   for (const btn of document.querySelectorAll('.type-btn')) {
     const on = btn.dataset.type === type;
@@ -2079,7 +2286,6 @@ function setType(type, keepCategory) {
   const isPayment = type === 'payment';
   $('projectWrap').classList.toggle('hidden', !projects.length || isPayment);
   $('counterWrap').classList.toggle('hidden', !isPayment);
-  $('categoryWrap').classList.toggle('hidden', isPayment);
   $('dateLabel').textContent = isPayment ? '繳款日期' : '日期';
   $('accountLabel').textContent = isPayment ? '要繳的卡片' : '帳戶';
 
@@ -2088,11 +2294,8 @@ function setType(type, keepCategory) {
     fillSelect('f-counter', fundingAccounts(), $('f-counter').value);
   } else {
     fillSelect('f-account', accounts, $('f-account').value);
-    const options = [...CATEGORIES[type]];
-    if (keepCategory && !options.includes(keepCategory)) options.unshift(keepCategory);
-    $('f-category').innerHTML = options.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
-    if (keepCategory) $('f-category').value = keepCategory;
   }
+  fillCategorySelects(keepCatId, keepSubId, preserveUnknown, snapshot);
   syncPostingVisibility();
 }
 
@@ -2180,9 +2383,10 @@ function openEdit(id, backToCard) {
   $('sheetTitle').textContent = '編輯這筆';
   $('submitBtn').textContent = '儲存變更';
   $('f-date').value = r.date;
-  setType(r.type, r.category);
+  setType(r.type, r.categoryId, r.subCategoryId, true, r);
   $('f-account').value = r.accountId;
   if (r.type === 'payment') $('f-counter').value = r.counterAccountId;
+  fillCategorySelects(r.categoryId, r.subCategoryId, true, r);
   fillProjectSelect(r.projectId);
   $('f-amount').value = r.amount;
   $('f-note').value = r.note || '';
@@ -2213,7 +2417,8 @@ async function handleSubmit(event) {
   const note = $('f-note').value.trim();
   const accountId = $('f-account').value;
   const isPayment = selectedType === 'payment';
-  const category = isPayment ? '信用卡繳款' : $('f-category').value;
+  const categoryId = $('f-category').value || '';
+  const subCategoryId = $('f-sub').value || '';
   const counterAccountId = isPayment ? $('f-counter').value : '';
   const postedDate = isPayment ? date : readPostedDate(date);
 
@@ -2230,7 +2435,7 @@ async function handleSubmit(event) {
   const isEdit = Boolean(editingId);
   const projectId = (selectedType === 'payment') ? '' : $('f-project').value;
   const payload = { resource:'record', action: isEdit ? 'update' : 'create',
-                    date, type: selectedType, category, amount, note,
+                    date, type: selectedType, categoryId, subCategoryId, amount, note,
                     accountId, counterAccountId, projectId, postedDate };
   if (isEdit) payload.id = editingId;
 
@@ -2239,7 +2444,10 @@ async function handleSubmit(event) {
 
   try {
     const saved = live() ? await apiPost(payload)
-      : { ...payload, id: isEdit ? editingId : 'demo-' + Date.now(), reconciled:false, installmentId:'' };
+      : { ...payload, id: isEdit ? editingId : 'demo-' + Date.now(),
+          category: (categoryById(categoryId) || {}).name || '',
+          subCategory: (categoryById(subCategoryId) || {}).name || '',
+          reconciled:false, installmentId:'' };
 
     if (isEdit) records = records.map((r) => (r.id === editingId ? { ...r, ...saved } : r));
     else records.unshift(saved);
@@ -2612,46 +2820,46 @@ function projectCard(p) {
 
   const budgetBlock = st.budget > 0 ? `
     <div class="mt-4 pt-4 border-t border-rule">
-      <div class="flex items-baseline text-[13px] text-muted">
+      <div class="flex items-baseline text-[0.875rem] text-muted">
         <span>剩餘預算</span><span class="leader"></span>
         <span>${st.remain < 0
-          ? `<span class="num font-mono text-[17px] font-semibold text-debit">超支 ${money(-st.remain)}</span>`
-          : `<span class="num font-mono text-[17px] font-medium text-credit">${money(st.remain)}</span>`}</span>
+          ? `<span class="num font-mono text-[1.125rem] font-semibold text-debit">超支 ${money(-st.remain)}</span>`
+          : `<span class="num font-mono text-[1.125rem] font-medium text-credit">${money(st.remain)}</span>`}</span>
       </div>
       <div class="mt-2.5">${budgetBar(st)}</div>
-      <p class="num font-mono text-[13px] text-right mt-1.5">
+      <p class="num font-mono text-[0.875rem] text-right mt-1.5">
         <span class="text-debit">${money(st.spent)}</span>
         <span class="text-muted mx-0.5">/</span>
         <span class="text-warn">${money(st.budget)}</span>
       </p>
     </div>` : `
-    <p class="text-[13px] text-muted mt-4 pt-4 border-t border-rule">沒有設定預算，只累計金額。</p>`;
+    <p class="text-[0.875rem] text-muted mt-4 pt-4 border-t border-rule">沒有設定預算，只累計金額。</p>`;
 
   return `
     <div class="card px-5 py-5 mt-3 first:mt-0">
       <div class="flex items-center gap-3">
         <button type="button" data-project="${esc(p.id)}"
                 class="flex items-baseline gap-1 text-left -my-1 py-1 hover:opacity-70 transition-opacity">
-          <span class="text-[17px] font-medium">${esc(p.name)}</span>
-          <span class="text-[15px] text-muted">›</span>
+          <span class="text-[1.125rem] font-medium">${esc(p.name)}</span>
+          <span class="text-[1rem] text-muted">›</span>
         </button>
-        <span class="text-[12px] text-muted">${cycleTag}</span>
-        ${p.archived ? '<span class="text-[12px] text-warn">已停用</span>' : ''}
+        <span class="text-[0.8125rem] text-muted">${cycleTag}</span>
+        ${p.archived ? '<span class="text-[0.8125rem] text-warn">已停用</span>' : ''}
         <span class="leader"></span>
         ${nav}
       </div>
-      <p class="font-mono num text-[12px] text-muted mt-1">
+      <p class="font-mono num text-[0.8125rem] text-muted mt-1">
         ${st.period.start.replace(/-/g, '/')} – ${st.period.end.replace(/-/g, '/')} · ${dayLine}
         ${recurring ? `· 第 ${st.period.index + 1} 期${offset ? '（非當期）' : ''}` : ''}
       </p>
 
       <div class="flex items-baseline mt-4 pt-4 border-t border-rule">
-        <span class="text-[14px]">累積金額</span>
-        <span class="font-mono text-[12px] text-muted ml-2">${st.count} 筆</span>
+        <span class="text-[0.9375rem]">累積金額</span>
+        <span class="font-mono text-[0.8125rem] text-muted ml-2">${st.count} 筆</span>
         <span class="leader"></span>
-        <span class="num font-mono text-[20px] font-semibold">${money(st.expense)}</span>
+        <span class="num font-mono text-[1.375rem] font-semibold">${money(st.expense)}</span>
       </div>
-      ${st.income > 0 ? `<div class="flex items-baseline text-[13px] text-muted mt-1">
+      ${st.income > 0 ? `<div class="flex items-baseline text-[0.875rem] text-muted mt-1">
         <span>收入抵減</span><span class="leader"></span>
         <span class="num font-mono">−${money(st.income)}</span></div>` : ''}
 
@@ -2664,7 +2872,7 @@ function renderProjects() {
   $('projectCount').textContent = projects.length ? `${projects.length} 個` : '';
 
   if (!projects.length) {
-    box.innerHTML = `<p class="text-muted text-[15px] leading-loose py-5">
+    box.innerHTML = `<p class="text-muted text-[1rem] leading-loose py-5">
       還沒有專案。<br>建立一個之後，記帳時就能把消費標記進來。</p>`;
     return;
   }
@@ -2675,7 +2883,7 @@ function renderProjects() {
     .sort((a, b) => (a.endDate < b.endDate ? 1 : -1));
 
   const section = (title, list) => list.length ? `
-    <p class="text-[13px] font-medium text-muted mt-7 first:mt-0 mb-2">${title}　${list.length}</p>
+    <p class="text-[0.875rem] font-medium text-muted mt-7 first:mt-0 mb-2">${title}　${list.length}</p>
     ${list.map(projectCard).join('')}` : '';
 
   box.innerHTML = section('進行中', active) + section('已結束', ended);
@@ -2685,7 +2893,7 @@ function renderProjects() {
  * 專案面板
  * ============================================================ */
 const CYCLE_BTN = {
-  base: 'cycle-btn btn py-2.5 text-[15px] transition-colors ',
+  base: 'cycle-btn btn py-2.5 text-[1rem] transition-colors ',
   off:  'bg-form text-muted hover:opacity-80',
   on:   'bg-accent-fill text-white font-medium',
 };
@@ -2886,15 +3094,193 @@ async function handleProjectDelete() {
 
 
 /* ============================================================
+ * 類別管理
+ * ============================================================ */
+let cGroup = 'expense';
+let editingCategoryId = null, categoryParentId = '';
+
+function setCategoryGroup(group) {
+  cGroup = group;
+  for (const btn of document.querySelectorAll('.cgroup-btn')) {
+    const on = btn.dataset.cgroup === group;
+    btn.className = 'cgroup-btn btn py-2 text-[0.9375rem] transition-colors '
+      + (on ? 'bg-accent-fill text-white font-medium' : 'bg-form text-muted hover:opacity-80');
+    btn.setAttribute('aria-pressed', String(on));
+  }
+  renderCategoryList();
+}
+
+function renderCategoryList() {
+  const tops = topCategories(cGroup);
+  const box = $('c-list');
+
+  if (!tops.length) {
+    box.innerHTML = `<p class="text-muted text-[1rem] leading-loose py-4">
+      這個群組還沒有類別。<br>用右上角的「＋ 新增類別」建立。</p>`;
+    return;
+  }
+
+  box.innerHTML = tops.map((top) => {
+    const subs = subCategories(top.id);
+    return `
+      <div class="card px-4 py-3.5 mt-2 first:mt-0">
+        <div class="flex items-center gap-2">
+          <button type="button" data-cat="${esc(top.id)}"
+                  class="flex items-baseline gap-1 text-left hover:opacity-70">
+            <span class="text-[1rem] font-medium">${esc(top.name)}</span>
+            <span class="text-[0.875rem] text-muted">›</span>
+          </button>
+          <span class="leader"></span>
+          <button type="button" data-csub="${esc(top.id)}"
+                  class="text-[0.875rem] text-accent hover:opacity-70 shrink-0">＋ 子類別</button>
+        </div>
+        ${subs.length ? `<div class="flex flex-wrap gap-1.5 mt-2.5">
+          ${subs.map((c) => `<button type="button" data-cat="${esc(c.id)}"
+              class="btn bg-paper text-[0.875rem] px-2.5 py-1 hover:opacity-70">${esc(c.name)}</button>`).join('')}
+        </div>` : `<p class="text-[0.875rem] text-muted mt-2">沒有子類別</p>`}
+      </div>`;
+  }).join('');
+}
+
+function openCategoryCreate(parentId) {
+  editingCategoryId = null;
+  categoryParentId = parentId || '';
+  const parent = parentId ? categories.find((c) => c.id === parentId) : null;
+
+  $('categoryTitle').textContent = parent ? '新增子類別' : '新增類別';
+  $('categorySubmit').textContent = '建立';
+  $('categoryDelete').classList.add('hidden');
+  $('c-context').textContent = parent
+    ? `建立在「${GROUP_LABEL[cGroup]} · ${parent.name}」底下。`
+    : `建立在「${GROUP_LABEL[cGroup]}」群組的第一層。`;
+  $('c-name').value = '';
+  setMessage('categoryMsg', '');
+  $('categorySheet').showModal();
+  setTimeout(() => $('c-name').focus(), 60);
+}
+
+function openCategoryEdit(id) {
+  const cat = categories.find((c) => c.id === id);
+  if (!cat || busy) return;
+  editingCategoryId = id;
+  categoryParentId = cat.parentId;
+  const parent = cat.parentId ? categories.find((c) => c.id === cat.parentId) : null;
+
+  $('categoryTitle').textContent = parent ? '編輯子類別' : '編輯類別';
+  $('categorySubmit').textContent = '儲存變更';
+  $('categoryDelete').classList.remove('hidden');
+  $('c-context').textContent = parent
+    ? `${GROUP_LABEL[cat.group]} · ${parent.name} · ${cat.name}　改名會一併更新用到它的紀錄。`
+    : `${GROUP_LABEL[cat.group]} · ${cat.name}　改名會一併更新用到它的紀錄。`;
+  $('c-name').value = cat.name;
+  setMessage('categoryMsg', '');
+  $('categorySheet').showModal();
+}
+
+async function handleCategorySubmit(event) {
+  event.preventDefault();
+  if (busy) return;
+
+  const name = $('c-name').value.trim();
+  if (!name) return setMessage('categoryMsg', '請填寫名稱。', 'error');
+
+  const isEdit = Boolean(editingCategoryId);
+  const payload = isEdit
+    ? { resource:'category', action:'update', id: editingCategoryId, name }
+    : { resource:'category', action:'create', group: cGroup, parentId: categoryParentId, name };
+
+  const btn = $('categorySubmit');
+  busy = true; btn.disabled = true;
+  btn.innerHTML = `<span class="spinner mr-2"></span>${isEdit ? '儲存中…' : '建立中…'}`;
+  setMessage('categoryMsg', '');
+
+  try {
+    let saved;
+    if (live()) saved = await apiPost(payload);
+    else if (isEdit) {
+      const cur = categories.find((c) => c.id === editingCategoryId);
+      saved = { ...cur, name };
+      // 示範模式下自己補上改名的連動，同樣以 ID 比對
+      records = records.map((r) => (cur.parentId
+        ? (r.subCategoryId === cur.id ? { ...r, subCategory: name } : r)
+        : (r.categoryId === cur.id ? { ...r, category: name } : r)));
+    } else {
+      saved = { id:'c-' + Date.now(), group: cGroup, name, parentId: categoryParentId,
+                order: categories.length, archived:false };
+    }
+
+    if (isEdit) categories = categories.map((c) => (c.id === editingCategoryId ? { ...c, ...saved } : c));
+    else categories.push(saved);
+
+    $('categorySheet').close();
+    renderCategoryList(); render(); touchCache();
+    toast(isEdit
+      ? `已更名為「${saved.name}」${saved.renamedRecords ? `，同步更新 ${saved.renamedRecords} 筆紀錄` : ''}`
+      : `已建立「${saved.name}」`);
+  } catch (err) {
+    setMessage('categoryMsg', err.message, 'error');
+  } finally {
+    busy = false; btn.disabled = false;
+    btn.textContent = isEdit ? '儲存變更' : '建立';
+  }
+}
+
+async function handleCategoryDelete() {
+  if (busy || !editingCategoryId) return;
+  const cat = categories.find((c) => c.id === editingCategoryId);
+  if (!cat) return;
+
+  const children = categories.filter((c) => c.parentId === cat.id);
+  if (children.length) {
+    return setMessage('categoryMsg', `底下還有 ${children.length} 個子類別，請先刪除它們。`, 'error');
+  }
+  const used = records.filter((r) => (cat.parentId ? r.subCategoryId : r.categoryId) === cat.id).length;
+  if (used > 0) {
+    return setMessage('categoryMsg', `還有 ${used} 筆紀錄用到「${cat.name}」，請先改掉那些紀錄。`, 'error');
+  }
+
+  busy = true;
+  $('categoryDelete').disabled = true;
+  try {
+    if (live()) await apiPost({ resource:'category', action:'delete', id: cat.id });
+    categories = categories.filter((c) => c.id !== cat.id);
+    $('categorySheet').close();
+    renderCategoryList(); render(); touchCache();
+    toast(`已刪除「${cat.name}」`);
+  } catch (err) {
+    setMessage('categoryMsg', err.message, 'error');
+  } finally {
+    busy = false; $('categoryDelete').disabled = false;
+  }
+}
+
+
+/* ============================================================
  * 設定頁
  * ============================================================ */
 function looksLikeWebApp(url) {
   return /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec\/?$/.test(url.trim());
 }
 
+/**
+ * 已連線就把網址鎖起來。
+ * 這串網址等同於資料庫密碼，遮住可以防旁人窺看；
+ * 鎖住則是避免誤觸把已經跑順的連線改壞——真要換就先明確清除。
+ */
+function syncUrlLock() {
+  const locked = live();
+  $('s-url').readOnly = locked;
+  $('s-url').classList.toggle('opacity-60', locked);
+  $('s-save').disabled = locked;
+  $('s-test').disabled = locked;
+  $('s-urlLock').classList.toggle('hidden', !locked);
+  $('s-clear').classList.toggle('hidden', !locked);
+}
+
 function renderSettings() {
+  setCategoryGroup(cGroup);
   $('s-url').value = apiUrl;
-  $('s-clear').classList.toggle('hidden', !live());
+  syncUrlLock();
 
   const rows = [
     ['連線狀態', live() ? (syncFailed ? '連線失敗' : '已連線試算表') : '示範資料（未設定網址）'],
@@ -2903,20 +3289,21 @@ function renderSettings() {
     ['帳戶', `${accounts.length} 個`],
     ['分期計畫', `${installments.length} 個`],
     ['專案', `${projects.length} 個`],
+    ['類別', `${categories.filter((c) => !c.parentId).length} 個・子類別 ${categories.filter((c) => c.parentId).length} 個`],
   ];
   if (!storageOK) rows.push(['本機儲存', '無法使用，設定不會保留']);
 
   $('s-stats').innerHTML = rows.map(([k, v], i) => `
     <div class="flex items-baseline py-1.5 ${i ? 'border-t border-rule/60' : ''}">
-      <span class="text-[14px]">${esc(k)}</span><span class="leader"></span>
-      <span class="num font-mono text-[14px]">${esc(v)}</span>
+      <span class="text-[0.9375rem]">${esc(k)}</span><span class="leader"></span>
+      <span class="num font-mono text-[0.9375rem]">${esc(v)}</span>
     </div>`).join('');
 }
 
 function setUrlMessage(text, kind = 'muted') {
   const el = $('s-urlMsg');
   el.textContent = text;
-  el.className = 'text-[13px] leading-relaxed min-h-[1.2em] mt-2 '
+  el.className = 'text-[0.875rem] leading-relaxed min-h-[1.2em] mt-2 '
     + ({ muted:'text-muted', ok:'text-credit', error:'text-debit' }[kind]);
 }
 
@@ -2928,6 +3315,7 @@ async function probeUrl(url) {
 }
 
 async function testUrl() {
+  if (live()) return;
   const url = $('s-url').value.trim();
   if (!url) return setUrlMessage('請先填入網址。', 'error');
   if (!looksLikeWebApp(url)) {
@@ -2944,6 +3332,7 @@ async function testUrl() {
 }
 
 async function saveUrl() {
+  if (live()) return setUrlMessage('網址已鎖定，請先清除再重新填寫。', 'error');
   const url = $('s-url').value.trim();
   if (!url) return setUrlMessage('請先填入網址，或按下方按鈕改用示範資料。', 'error');
   if (!/\/exec\/?$/.test(url)) {
@@ -2966,13 +3355,14 @@ async function saveUrl() {
     }
     await loadAll();
     renderSettings();
-    setUrlMessage('已儲存並連線。', 'ok');
+    setUrlMessage('已儲存並連線，網址已鎖定。', 'ok');
     toast('已連線試算表');
   } catch (err) {
     setUrlMessage('連不上，沒有儲存：' + err.message, 'error');
   } finally {
     btn.disabled = false;
     btn.textContent = '儲存並連線';
+    syncUrlLock();   // 連線成功的話會再把它鎖回去
   }
 }
 
@@ -2983,10 +3373,10 @@ function clearUrl() {
   saveSettings({ apiUrl: '' });
   $('s-url').value = '';
   renderSyncStatus();
-  setUrlMessage('已清除，目前顯示示範資料。', 'muted');
+  setUrlMessage('已清除並解除鎖定，現在可以填入新的網址。', 'muted');
   loadAll();
   renderSettings();
-  toast('已改用示範資料', 'info');
+  toast('已解除鎖定，目前顯示示範資料', 'info');
 }
 
 
@@ -3016,7 +3406,7 @@ function touchCache() {
   if (!live()) return;
   clearTimeout(cacheTimer);
   cacheTimer = setTimeout(() => {
-    writeCache(apiUrl, { savedAt: lastSyncAt || Date.now(), records, accounts, installments, projects });
+    writeCache(apiUrl, { savedAt: lastSyncAt || Date.now(), records, accounts, installments, projects, categories });
   }, 400);
 }
 
@@ -3029,7 +3419,7 @@ async function loadAll(opts) {
 
   if (!live()) {
     accounts = DEMO_ACCOUNTS; records = DEMO_RECORDS;
-    installments = []; projects = DEMO_PROJECTS;
+    installments = []; projects = DEMO_PROJECTS; categories = seedCategoriesLocal();
     dataLoaded = true; lastSyncAt = 0; syncFailed = false;
     render();
     renderSyncStatus();
@@ -3046,6 +3436,7 @@ async function loadAll(opts) {
       accounts = cache.accounts || [];
       installments = cache.installments || [];
       projects = cache.projects || [];
+      categories = (cache.categories && cache.categories.length) ? cache.categories : seedCategoriesLocal();
       lastSyncAt = cache.savedAt || 0;
       dataLoaded = true;
       usedCache = true;
@@ -3068,11 +3459,12 @@ async function loadAll(opts) {
     accounts = json.accounts || [];
     installments = json.installments || [];
     projects = json.projects || [];
+    categories = (json.categories && json.categories.length) ? json.categories : seedCategoriesLocal();
     lastSyncAt = Date.now();
     dataLoaded = true;
     syncing = false;
 
-    writeCache(apiUrl, { savedAt: lastSyncAt, records, accounts, installments, projects });
+    writeCache(apiUrl, { savedAt: lastSyncAt, records, accounts, installments, projects, categories });
     render();
     renderSyncStatus();
     if (activeTab === 'settings') renderSettings();
@@ -3089,7 +3481,7 @@ async function loadAll(opts) {
     if (usedCache || dataLoaded) {
       toast('更新失敗，畫面上是先前存下的資料', 'error');
     } else {
-      records = []; accounts = []; installments = []; projects = [];
+      records = []; accounts = []; installments = []; projects = []; categories = seedCategoriesLocal();
       render();
       setListMessage(`讀不到試算表：${esc(err.message)}<br>
         若剛升級後端，請先在 Apps Script 執行一次 setup()，<br>
@@ -3146,7 +3538,11 @@ function init() {
   $('sheet').addEventListener('click', (e) => { if (e.target.hasAttribute('data-shell')) $('sheet').close(); });
   $('sheet').addEventListener('close', () => { editingId = null; setMessage('formMsg', ''); });
   $('entryForm').addEventListener('submit', handleSubmit);
-  $('f-account').addEventListener('change', syncPostingVisibility);
+  $('f-account').addEventListener('change', () => {
+    fillCategorySelects($('f-category').value, $('f-sub').value, false);
+    syncPostingVisibility();
+  });
+  $('f-category').addEventListener('change', () => fillSubSelect(''));
   $('f-posting').addEventListener('change', syncPostingVisibility);
 
   $('projectList').addEventListener('click', (e) => {
@@ -3240,6 +3636,24 @@ function init() {
   for (const btn of document.querySelectorAll('.theme-btn')) {
     btn.addEventListener('click', () => setTheme(btn.dataset.themeChoice));
   }
+  for (const btn of document.querySelectorAll('.cgroup-btn')) {
+    btn.addEventListener('click', () => setCategoryGroup(btn.dataset.cgroup));
+  }
+  $('c-add').addEventListener('click', () => openCategoryCreate(''));
+  $('c-list').addEventListener('click', (e) => {
+    const sub = e.target.closest('[data-csub]');
+    if (sub) { openCategoryCreate(sub.dataset.csub); return; }
+    const cat = e.target.closest('[data-cat]');
+    if (cat) openCategoryEdit(cat.dataset.cat);
+  });
+  $('categoryClose').addEventListener('click', () => $('categorySheet').close());
+  $('categorySheet').addEventListener('click', (e) => {
+    if (e.target.hasAttribute('data-shell')) $('categorySheet').close();
+  });
+  $('categorySheet').addEventListener('close', () => { editingCategoryId = null; setMessage('categoryMsg', ''); });
+  $('categoryForm').addEventListener('submit', handleCategorySubmit);
+  $('categoryDelete').addEventListener('click', handleCategoryDelete);
+
   $('s-save').addEventListener('click', saveUrl);
   $('s-test').addEventListener('click', testUrl);
   $('s-clear').addEventListener('click', clearUrl);
@@ -3250,11 +3664,13 @@ function init() {
     renderSyncStatus(); renderSettings();
     toast('已清除快取，下次開啟會重新讀取', 'info');
   });
-  $('s-url').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveUrl(); } });
+  $('s-url').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !live()) { e.preventDefault(); saveUrl(); }
+  });
 
   document.addEventListener('keydown', (e) => {
     if ($('sheet').open || $('accountSheet').open || $('cardSheet').open
-        || $('installSheet').open || $('projectSheet').open) return;
+        || $('installSheet').open || $('projectSheet').open || $('categorySheet').open) return;
     if (e.target.closest('input, select, textarea')) return;
     if (e.key === 'Escape') { clearPendingDelete(); return; }
     if (activeTab === 'accounts' || activeTab === 'settings' || activeTab === 'projects') return;
