@@ -1,0 +1,1107 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>卡組登錄表 · YDK 檢視器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#D6DCDE;
+    --field:#EEF2F3;
+    --ink:#13202A;
+    --graphite:#54646E;
+    --rule:#9BABB4;
+    --rule-soft:#C3CDD2;
+    --stamp:#B23A2C;
+    --seal:#1F4E5F;
+
+    --sheet-max: 1180px;
+    --gap: 10px;
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{margin:0;padding:0}
+
+  body{
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--rule-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-position:-1px -1px;
+    color:var(--ink);
+    font-family:"Noto Sans TC","Zen Kaku Gothic New",-apple-system,"Segoe UI",sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .sheet{
+    max-width:var(--sheet-max);
+    margin:0 auto;
+    padding:28px 20px 96px;
+  }
+
+  /* ---------- 表頭 ---------- */
+
+  .masthead{
+    border:1.5px solid var(--ink);
+    background:var(--field);
+    padding:18px 20px 0;
+    position:relative;
+  }
+  .masthead-top{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:16px;
+    padding-bottom:16px;
+  }
+  .title-jp{
+    font-family:"Oswald","Noto Sans TC",sans-serif;
+    font-size:12px;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    margin:0 0 4px;
+  }
+  .title-main{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:29px;
+    letter-spacing:.06em;
+    margin:0;
+    line-height:1.1;
+  }
+  .title-sub{
+    font-family:"Oswald",sans-serif;
+    font-weight:400;
+    font-size:13px;
+    letter-spacing:.3em;
+    color:var(--graphite);
+    margin:6px 0 0;
+    text-transform:uppercase;
+  }
+
+  .docmeta{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11px;
+    line-height:1.9;
+    color:var(--graphite);
+    text-align:right;
+    white-space:nowrap;
+  }
+  .docmeta b{color:var(--ink);font-weight:600}
+
+  /* 表頭欄位列 */
+  .fields{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--rule);
+    margin:0 -20px;
+  }
+  .field{
+    padding:9px 20px 11px;
+    border-right:1px solid var(--rule-soft);
+    min-width:0;
+  }
+  .field:last-child{border-right:0}
+  .field-label{
+    font-family:"Oswald",sans-serif;
+    font-size:10px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    display:block;
+  }
+  .field-value{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:14px;
+    font-weight:600;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    display:block;
+  }
+  .field-value.dim{color:var(--rule);font-weight:400}
+
+  /* ---------- 印章 ---------- */
+
+  .seal-slot{
+    position:absolute;
+    right:18px;
+    top:96px;
+    pointer-events:none;
+  }
+  .seal{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.18em;
+    color:var(--stamp);
+    border:2.5px solid var(--stamp);
+    border-radius:3px;
+    padding:5px 12px 6px;
+    transform:rotate(-7deg);
+    opacity:.86;
+    box-shadow:inset 0 0 0 1px var(--stamp);
+    animation:press .38s cubic-bezier(.2,1.5,.4,1) both;
+  }
+  .seal.ok{color:var(--seal);border-color:var(--seal);box-shadow:inset 0 0 0 1px var(--seal)}
+  @keyframes press{
+    from{transform:rotate(-7deg) scale(1.9);opacity:0}
+    60%{opacity:.95}
+    to{transform:rotate(-7deg) scale(1);opacity:.86}
+  }
+
+  /* ---------- 投放區 ---------- */
+
+  .intake{
+    border:1.5px solid var(--ink);
+    border-top:0;
+    background:var(--field);
+    padding:16px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:14px;
+  }
+  .dropzone{
+    flex:1 1 340px;
+    min-width:0;
+    border:1.5px dashed var(--rule);
+    background:transparent;
+    color:var(--ink);
+    font:inherit;
+    text-align:left;
+    padding:14px 16px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .dropzone:hover,.dropzone:focus-visible{border-color:var(--ink);background:#fff}
+  .dropzone:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+  body.dragging .dropzone{border-color:var(--stamp);background:#fff}
+  .dz-line1{
+    font-family:"Oswald",sans-serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    display:block;
+  }
+  .dz-line2{font-size:13px;color:var(--graphite);display:block}
+
+  .intake-side{display:flex;flex-direction:column;gap:8px}
+
+  .linkbtn{
+    background:none;border:0;padding:0;
+    font:inherit;font-size:13px;
+    color:var(--seal);
+    border-bottom:1px solid currentColor;
+    cursor:pointer;
+    align-self:flex-start;
+  }
+  .linkbtn:hover{color:var(--stamp)}
+
+  .check{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--graphite);cursor:pointer;user-select:none;
+  }
+  .check input{
+    appearance:none;-webkit-appearance:none;
+    width:15px;height:15px;margin:0;
+    border:1.5px solid var(--rule);background:#fff;cursor:pointer;
+  }
+  .check input:checked{
+    border-color:var(--stamp);
+    background:var(--stamp);
+    box-shadow:inset 0 0 0 2.5px #fff;
+  }
+  .check input:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+
+  /* ---------- 進度 / 提示 ---------- */
+
+  .notes{
+    border:1.5px solid var(--ink);
+    border-top:0;
+    background:var(--field);
+    padding:10px 20px 12px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11.5px;
+    color:var(--graphite);
+  }
+  .notes:empty{display:none}
+  .notes .flag{color:var(--stamp)}
+  .progress{
+    height:3px;background:var(--rule-soft);margin-top:8px;overflow:hidden;
+  }
+  .progress i{display:block;height:100%;background:var(--seal);width:0;transition:width .2s}
+
+  .alert{
+    border:1.5px solid var(--stamp);
+    border-top:0;
+    background:#fff;
+    color:var(--stamp);
+    padding:12px 20px;
+    font-size:13.5px;
+  }
+
+  /* ---------- 分區 ---------- */
+
+  .section{margin-top:34px}
+
+  .section-bar{
+    display:flex;align-items:center;gap:14px;
+    border-bottom:1.5px solid var(--ink);
+    padding-bottom:7px;
+  }
+  .section-name{
+    font-family:"Oswald",sans-serif;
+    font-size:16px;letter-spacing:.22em;text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .section-zh{font-size:13px;color:var(--graphite);letter-spacing:.08em;white-space:nowrap}
+  .section-rule{flex:1;border-bottom:1px dotted var(--rule);height:0}
+  .tally{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12px;font-weight:600;
+    border:1.5px solid var(--ink);
+    padding:2px 9px 3px;
+    background:var(--field);
+    white-space:nowrap;
+  }
+  .tally.bad{border-color:var(--stamp);color:var(--stamp)}
+  .tally small{font-weight:400;color:var(--graphite)}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(96px,1fr));
+    gap:var(--gap);
+    margin-top:14px;
+  }
+
+  /* ---------- 模擬抽卡 ---------- */
+
+  #opening[hidden]{display:none}
+
+  .hand-controls{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    margin-top:14px;
+  }
+  .turn{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13.5px;letter-spacing:.06em;
+    background:var(--field);
+    border:1.5px solid var(--rule);
+    color:var(--ink);
+    padding:7px 16px 8px;
+    cursor:pointer;
+    transition:background .13s,border-color .13s,color .13s;
+  }
+  .turn small{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11px;color:var(--graphite);margin-left:7px;
+  }
+  .turn:hover{border-color:var(--ink);background:#fff}
+  .turn:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+  .turn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .turn[aria-pressed="true"] small{color:rgba(255,255,255,.7)}
+
+  .hand-note{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11.5px;color:var(--graphite);
+    margin-left:auto;
+  }
+
+  .ctrl-split{
+    width:1px;align-self:stretch;background:var(--rule-soft);margin:0 4px;
+  }
+  .turn.aux{
+    background:transparent;
+    border-style:dashed;
+    padding:7px 14px 8px;
+  }
+  .turn.aux:hover:not(:disabled){background:#fff;border-style:solid}
+  .turn.aux:disabled{opacity:.4;cursor:not-allowed}
+  .turn.aux small{margin-left:6px}
+  .turn.shuffled{animation:riffle .45s ease}
+  @keyframes riffle{
+    0%,100%{transform:none}
+    25%{transform:translateX(-3px) skewX(4deg)}
+    60%{transform:translateX(3px) skewX(-4deg)}
+  }
+
+  .hand-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));
+    gap:var(--gap);
+    margin-top:14px;
+  }
+  .card.dealt{animation:deal .34s cubic-bezier(.2,.8,.3,1) both}
+  @keyframes deal{
+    from{opacity:0;transform:translateY(14px) rotate(-2deg)}
+    to{opacity:1;transform:none}
+  }
+
+  .empty{
+    margin-top:14px;
+    border:1px dashed var(--rule);
+    padding:22px;
+    text-align:center;
+    color:var(--graphite);
+    font-size:13px;
+  }
+
+  /* ---------- 卡片 ---------- */
+
+  .card{
+    position:relative;
+    aspect-ratio:59/86;
+    background:var(--field);
+    border:1px solid var(--rule-soft);
+    padding:0;
+    cursor:zoom-in;
+    overflow:hidden;
+    transition:transform .13s ease, box-shadow .13s ease;
+  }
+  .card img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    opacity:0;transition:opacity .25s;
+  }
+  .card img.in{opacity:1}
+  .card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(19,32,42,.28);z-index:2}
+  .card:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+
+  .card-id{
+    position:absolute;left:0;right:0;bottom:0;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:9.5px;letter-spacing:.04em;
+    background:rgba(19,32,42,.82);color:#fff;
+    padding:3px 4px;text-align:center;
+    opacity:0;transition:opacity .13s;
+  }
+  .card:hover .card-id,.card:focus-visible .card-id{opacity:1}
+
+  .card-dup{
+    position:absolute;top:0;right:0;
+    font-family:"Oswald",sans-serif;font-size:11px;letter-spacing:.06em;
+    background:var(--ink);color:#fff;padding:1px 6px 2px;
+  }
+
+  .card.pending::after{
+    content:attr(data-id);
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:10px;color:var(--rule);
+  }
+  .card.failed{border-color:var(--stamp);border-style:dashed;cursor:default}
+  .card.failed::after{
+    content:"缺圖 " attr(data-id);
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:10px;color:var(--stamp);text-align:center;padding:6px;
+  }
+
+  /* ---------- 放大 ---------- */
+
+  dialog.viewer{
+    border:0;padding:0;background:transparent;
+    max-width:100vw;max-height:100vh;
+  }
+  dialog.viewer::backdrop{background:rgba(19,32,42,.78)}
+  .viewer-inner{
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:16px;
+  }
+  .viewer-inner img{
+    max-width:min(86vw,420px);
+    max-height:74vh;
+    border:2px solid #fff;
+    display:block;
+  }
+  .viewer-bar{display:flex;align-items:center;gap:12px}
+  .viewer-id{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:13px;color:#fff;letter-spacing:.08em;
+  }
+  .viewer-bar button{
+    font:inherit;font-size:12px;
+    font-family:"Oswald",sans-serif;letter-spacing:.14em;text-transform:uppercase;
+    background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6);
+    padding:5px 12px;cursor:pointer;
+  }
+  .viewer-bar button:hover{background:#fff;color:var(--ink)}
+
+  .footnote{
+    margin-top:44px;padding-top:12px;
+    border-top:1px solid var(--rule);
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:10.5px;color:var(--graphite);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+
+  @media (max-width:720px){
+    .fields{grid-template-columns:repeat(2,1fr)}
+    .field{border-bottom:1px solid var(--rule-soft)}
+    .title-main{font-size:23px}
+    .docmeta{text-align:left}
+    .seal-slot{position:static;margin:0 -20px;padding:12px 20px;border-top:1px solid var(--rule)}
+    .seal{display:inline-block}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(78px,1fr));--gap:8px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    .card:hover{transform:none}
+  }
+
+  @media print{
+    body{background:#fff}
+    .intake,.footnote{display:none}
+    .card:hover{transform:none;box-shadow:none}
+    .section{break-inside:avoid}
+  }
+</style>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <div>
+        <p class="title-jp">Deck Registration</p>
+        <h1 class="title-main">卡組登錄表</h1>
+        <p class="title-sub">.ydk viewer</p>
+      </div>
+      <div class="docmeta" id="docmeta">
+        表單編號 <b>—</b><br>
+        建立時間 <b id="meta-time">—</b>
+      </div>
+    </div>
+
+    <div class="fields">
+      <div class="field">
+        <span class="field-label">File</span>
+        <span class="field-value dim" id="f-file">未選擇檔案</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Total</span>
+        <span class="field-value dim" id="f-total">0</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Unique</span>
+        <span class="field-value dim" id="f-unique">0</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Images cached</span>
+        <span class="field-value dim" id="f-cache">0</span>
+      </div>
+    </div>
+
+    <div class="seal-slot" id="seal-slot"></div>
+  </header>
+
+  <div class="intake">
+    <button class="dropzone" id="dropzone" type="button">
+      <span class="dz-line1">Drop .ydk here</span>
+      <span class="dz-line2">把卡組檔拖進來，或點一下選擇檔案</span>
+    </button>
+    <div class="intake-side">
+      <label class="check">
+        <input type="checkbox" id="opt-group">
+        合併重複卡片
+      </label>
+      <button class="linkbtn" id="btn-sample" type="button">載入範例：Cyber Dragon</button>
+    </div>
+    <input type="file" id="file-input" accept=".ydk,text/plain" hidden>
+  </div>
+
+  <div class="notes" id="notes"></div>
+  <div class="alert" id="alert" hidden></div>
+
+  <section class="section" id="opening" hidden>
+    <div class="section-bar">
+      <span class="section-name">Opening Hand</span>
+      <span class="section-zh">模擬抽卡</span>
+      <span class="section-rule"></span>
+      <span class="tally" id="hand-tally">0 <small>/ 起手</small></span>
+    </div>
+
+    <div class="hand-controls">
+      <button class="turn" type="button" id="turn-first" aria-pressed="false">
+        先攻 <small>5 張</small>
+      </button>
+      <button class="turn" type="button" id="turn-second" aria-pressed="false">
+        後攻 <small>6 張</small>
+      </button>
+      <span class="ctrl-split"></span>
+      <button class="turn aux" type="button" id="btn-draw1" disabled>
+        抽一張 <small id="pile-count">0</small>
+      </button>
+      <button class="turn aux" type="button" id="btn-shuffle" disabled>洗牌</button>
+      <span class="hand-note" id="hand-note"></span>
+    </div>
+
+    <div id="hand-body"></div>
+  </section>
+
+  <main id="sections"></main>
+
+  <p class="footnote">
+    <span>圖片來源 cdn.jsdelivr.net/gh/salix5/query-data</span>
+    <span>每個卡片編號只下載一次，重複張數共用同一份暫存</span>
+  </p>
+</div>
+
+<dialog class="viewer" id="viewer">
+  <div class="viewer-inner">
+    <img id="viewer-img" alt="">
+    <div class="viewer-bar">
+      <span class="viewer-id" id="viewer-id"></span>
+      <button type="button" id="viewer-copy">複製編號</button>
+      <button type="button" id="viewer-close">關閉</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+
+  var PIC_BASE = "https://cdn.jsdelivr.net/gh/salix5/query-data@master/pics/";
+
+  var SECTIONS = [
+    { key:"main",  en:"Main Deck",  zh:"主卡組", min:40, max:60 },
+    { key:"extra", en:"Extra Deck", zh:"額外卡組", min:0,  max:15 },
+    { key:"side",  en:"Side Deck",  zh:"副卡組", min:0,  max:15 }
+  ];
+
+  var SAMPLE = "#main\n81101309\n10604644\n70095154\n66664203\n66664203\n56100345\n5370235\n5370235\n42141493\n42141493\n42141493\n45078193\n82562802\n82562802\n82562802\n14558127\n14558127\n23434538\n23893227\n23893227\n23893227\n1142880\n1142880\n56364287\n84797028\n64753988\n64753988\n64753988\n92058902\n92058902\n92058902\n60600126\n60600126\n63031396\n63031396\n63031396\n37630732\n37630732\n64964750\n64964750\n\n#extra\n37542782\n30275298\n82315403\n87116928\n40418351\n79229522\n8963089\n84058253\n84058253\n92359409\n56910167\n10443957\n58069384\n46724542\n41739381\n\n!side\n";
+
+  /* ---------- 圖片暫存：id -> blob URL，同一編號只抓一次 ---------- */
+
+  var cache = new Map();
+  var inflight = new Map();
+
+  function fetchPic(id){
+    if (cache.has(id)) return Promise.resolve(cache.get(id));
+    if (inflight.has(id)) return inflight.get(id);
+
+    var p = fetch(PIC_BASE + id + ".jpg", { mode:"cors" })
+      .then(function(res){
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.blob();
+      })
+      .then(function(blob){
+        var url = URL.createObjectURL(blob);
+        cache.set(id, url);
+        updateCacheCount();
+        return url;
+      });
+
+    inflight.set(id, p);
+    p.catch(function(){}).then(function(){ inflight.delete(id); });
+    return p;
+  }
+
+  function clearCache(){
+    cache.forEach(function(url){ URL.revokeObjectURL(url); });
+    cache.clear();
+    inflight.clear();
+    updateCacheCount();
+  }
+
+  function updateCacheCount(){
+    setField("f-cache", String(cache.size), cache.size > 0);
+  }
+
+  /* ---------- 解析 ---------- */
+
+  function parseYdk(text){
+    var out = { main:[], extra:[], side:[] };
+    var current = null;
+    var lines = text.split(/\r?\n/);
+
+    for (var i = 0; i < lines.length; i++){
+      var line = lines[i].trim();
+      if (!line) continue;
+
+      if (line.charAt(0) === "#" || line.charAt(0) === "!"){
+        var tag = line.slice(1).trim().toLowerCase();
+        current = (tag === "main" || tag === "extra" || tag === "side") ? tag : null;
+        continue;
+      }
+      if (current && /^\d{1,10}$/.test(line)){
+        out[current].push(String(parseInt(line, 10)));
+      }
+    }
+    return out;
+  }
+
+  /* ---------- 狀態 ---------- */
+
+  var deck = null;
+  var deckName = "";
+  var groupMode = false;
+  var loadedCount = 0;
+  var expectedCount = 0;
+
+  var el = {
+    sections: document.getElementById("sections"),
+    notes:    document.getElementById("notes"),
+    alert:    document.getElementById("alert"),
+    seal:     document.getElementById("seal-slot"),
+    dropzone: document.getElementById("dropzone"),
+    fileInput:document.getElementById("file-input"),
+    optGroup: document.getElementById("opt-group"),
+    sample:   document.getElementById("btn-sample")
+  };
+
+  function setField(id, value, strong){
+    var node = document.getElementById(id);
+    node.textContent = value;
+    node.classList.toggle("dim", !strong);
+  }
+
+  /* ---------- 檢查 ---------- */
+
+  function audit(d){
+    var issues = [];
+    if (d.main.length < 40 || d.main.length > 60){
+      issues.push("主卡組 " + d.main.length + " 張，規定 40–60 張");
+    }
+    if (d.extra.length > 15) issues.push("額外卡組 " + d.extra.length + " 張，上限 15 張");
+    if (d.side.length > 15)  issues.push("副卡組 " + d.side.length + " 張，上限 15 張");
+
+    var tally = {};
+    ["main","extra","side"].forEach(function(k){
+      d[k].forEach(function(id){ tally[id] = (tally[id] || 0) + 1; });
+    });
+    Object.keys(tally).forEach(function(id){
+      if (tally[id] > 3) issues.push("編號 " + id + " 共 " + tally[id] + " 張，同名上限 3 張");
+    });
+
+    return issues;
+  }
+
+  function renderSeal(issues){
+    el.seal.innerHTML = "";
+    var span = document.createElement("span");
+    span.className = "seal" + (issues.length ? "" : " ok");
+    span.textContent = issues.length ? "要確認" : "張數合格";
+    el.seal.appendChild(span);
+  }
+
+  function renderNotes(issues){
+    el.notes.innerHTML = "";
+    if (issues.length){
+      issues.forEach(function(t){
+        var line = document.createElement("div");
+        line.className = "flag";
+        line.textContent = "! " + t;
+        el.notes.appendChild(line);
+      });
+    }
+    var bar = document.createElement("div");
+    bar.className = "progress";
+    bar.innerHTML = '<i id="bar"></i>';
+    var label = document.createElement("div");
+    label.id = "progress-label";
+    el.notes.appendChild(label);
+    el.notes.appendChild(bar);
+    updateProgress();
+  }
+
+  function updateProgress(){
+    var label = document.getElementById("progress-label");
+    var bar = document.getElementById("bar");
+    if (!label || !bar) return;
+    var pct = expectedCount ? Math.round(loadedCount / expectedCount * 100) : 0;
+    label.textContent = "圖片 " + loadedCount + " / " + expectedCount + " 已載入";
+    bar.style.width = pct + "%";
+  }
+
+  /* ---------- 繪製 ---------- */
+
+  function toEntries(ids){
+    if (!groupMode) return ids.map(function(id){ return { id:id, n:1 }; });
+    var order = [], seen = Object.create(null);
+    ids.forEach(function(id){
+      if (seen[id]) { seen[id].n++; return; }
+      seen[id] = { id:id, n:1 };
+      order.push(seen[id]);
+    });
+    return order;
+  }
+
+  function makeCard(entry){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "card pending";
+    btn.dataset.id = entry.id;
+    btn.setAttribute("aria-label", "卡片編號 " + entry.id);
+
+    var img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    btn.appendChild(img);
+
+    if (entry.n > 1){
+      var dup = document.createElement("span");
+      dup.className = "card-dup";
+      dup.textContent = "×" + entry.n;
+      btn.appendChild(dup);
+    }
+
+    var idTag = document.createElement("span");
+    idTag.className = "card-id";
+    idTag.textContent = entry.id;
+    btn.appendChild(idTag);
+
+    btn.addEventListener("click", function(){
+      if (btn.classList.contains("failed") || !img.src) return;
+      openViewer(img.src, entry.id);
+    });
+
+    fetchPic(entry.id).then(function(url){
+      img.src = url;
+      img.classList.add("in");
+      btn.classList.remove("pending");
+    }).catch(function(){
+      btn.classList.remove("pending");
+      btn.classList.add("failed");
+    }).then(function(){
+      loadedCount++;
+      updateProgress();
+    });
+
+    return btn;
+  }
+
+  function render(){
+    el.sections.innerHTML = "";
+    loadedCount = 0;
+    expectedCount = 0;
+
+    SECTIONS.forEach(function(def){
+      var ids = deck[def.key];
+      var entries = toEntries(ids);
+      expectedCount += entries.length;
+
+      var sec = document.createElement("section");
+      sec.className = "section";
+
+      var bar = document.createElement("div");
+      bar.className = "section-bar";
+
+      var limit = def.min ? def.min + "–" + def.max : "≤" + def.max;
+      var bad = ids.length < def.min || ids.length > def.max;
+
+      bar.innerHTML =
+        '<span class="section-name">' + def.en + '</span>' +
+        '<span class="section-zh">' + def.zh + '</span>' +
+        '<span class="section-rule"></span>' +
+        '<span class="tally' + (bad ? " bad" : "") + '">' + ids.length +
+        ' <small>/ ' + limit + '</small></span>';
+      sec.appendChild(bar);
+
+      if (!entries.length){
+        var empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = def.zh + "沒有登錄任何卡片。";
+        sec.appendChild(empty);
+      } else {
+        var grid = document.createElement("div");
+        grid.className = "grid";
+        entries.forEach(function(entry){ grid.appendChild(makeCard(entry)); });
+        sec.appendChild(grid);
+      }
+
+      el.sections.appendChild(sec);
+    });
+
+    updateProgress();
+  }
+
+  /* ---------- 模擬抽卡 ---------- */
+
+  var hand = {
+    root:   document.getElementById("opening"),
+    body:   document.getElementById("hand-body"),
+    tally:  document.getElementById("hand-tally"),
+    note:   document.getElementById("hand-note"),
+    first:  document.getElementById("turn-first"),
+    second: document.getElementById("turn-second"),
+    draw1:  document.getElementById("btn-draw1"),
+    shuffle:document.getElementById("btn-shuffle"),
+    pileNum:document.getElementById("pile-count")
+  };
+
+  var MODES = {
+    first:  { label:"先攻", n:5 },
+    second: { label:"後攻", n:6 }
+  };
+
+  // 牌堆狀態：pile[0] 是頂端。抽掉的卡片直接從 pile 移除，
+  // 其餘卡片維持既有順序，只有按下洗牌才會重排。
+  var pile = [];
+  var handIds = [];
+  var mode = null;
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // 起手卡圖一律先讀 client 端暫存；只有在該編號還沒抓過時才補下載
+  function makeHandCard(id, index){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "card dealt";
+    btn.dataset.id = id;
+    btn.setAttribute("aria-label", "手牌第 " + (index + 1) + " 張，卡片編號 " + id);
+    btn.style.animationDelay = (index * 55) + "ms";
+    btn.addEventListener("animationend", function(){
+      btn.classList.remove("dealt");
+      btn.style.animationDelay = "";
+    });
+
+    var img = document.createElement("img");
+    img.alt = "";
+    btn.appendChild(img);
+
+    var idTag = document.createElement("span");
+    idTag.className = "card-id";
+    idTag.textContent = id;
+    btn.appendChild(idTag);
+
+    btn.addEventListener("click", function(){
+      if (btn.classList.contains("failed") || !img.src) return;
+      openViewer(img.src, id);
+    });
+
+    var cached = cache.get(id);
+    if (cached){
+      img.src = cached;
+      img.classList.add("in");
+    } else {
+      btn.classList.add("pending");
+      fetchPic(id).then(function(url){
+        img.src = url;
+        img.classList.add("in");
+        btn.classList.remove("pending");
+      }).catch(function(){
+        btn.classList.remove("pending");
+        btn.classList.add("failed");
+      });
+    }
+    return btn;
+  }
+
+  function handGrid(){
+    var grid = hand.body.querySelector(".hand-grid");
+    if (!grid){
+      hand.body.innerHTML = "";
+      grid = document.createElement("div");
+      grid.className = "hand-grid";
+      hand.body.appendChild(grid);
+    }
+    return grid;
+  }
+
+  function syncControls(extra){
+    var started = mode !== null;
+    hand.draw1.disabled = !started || pile.length === 0;
+    hand.shuffle.disabled = !started || pile.length < 2;
+    hand.pileNum.textContent = started ? String(pile.length) : "0";
+
+    hand.first.setAttribute("aria-pressed", String(mode === "first"));
+    hand.second.setAttribute("aria-pressed", String(mode === "second"));
+
+    hand.tally.textContent = "";
+    hand.tally.appendChild(document.createTextNode(handIds.length + " "));
+    var unit = document.createElement("small");
+    unit.textContent = started ? "/ " + MODES[mode].label : "/ 起手";
+    hand.tally.appendChild(unit);
+
+    if (!started){ hand.note.textContent = ""; return; }
+    hand.note.textContent = extra ||
+      ("牌組剩餘 " + pile.length + " 張 · 手牌 " + handIds.length + " 張");
+  }
+
+  function startHand(nextMode){
+    if (!deck || !deck.main.length) return;
+    mode = nextMode;
+    pile = shuffle(deck.main);
+    handIds = pile.splice(0, Math.min(MODES[mode].n, pile.length));
+
+    hand.body.innerHTML = "";
+    var grid = handGrid();
+    handIds.forEach(function(id, i){ grid.appendChild(makeHandCard(id, i)); });
+    syncControls();
+  }
+
+  function drawOne(){
+    if (mode === null || !pile.length) return;
+    var id = pile.shift();          // 從頂端拿走，其餘順序不動
+    handIds.push(id);
+    handGrid().appendChild(makeHandCard(id, 0));
+    syncControls();
+    if (!pile.length) hand.note.textContent = "牌組已抽完 · 手牌 " + handIds.length + " 張";
+  }
+
+  function shufflePile(){
+    if (mode === null || pile.length < 2) return;
+    pile = shuffle(pile);
+    syncControls("已洗牌 · 牌組剩餘 " + pile.length + " 張");
+    hand.shuffle.classList.remove("shuffled");
+    void hand.shuffle.offsetWidth;
+    hand.shuffle.classList.add("shuffled");
+    setTimeout(function(){ syncControls(); }, 1600);
+  }
+
+  function resetHand(){
+    mode = null;
+    pile = [];
+    handIds = [];
+    syncControls();
+    hand.body.innerHTML =
+      '<p class="empty">選擇先攻或後攻，從主卡組隨機抽起手。抽掉的卡片會從牌組移除，' +
+      '之後抽一張都是從牌組頂端拿，順序只有按洗牌才會改變。</p>';
+  }
+
+  hand.first.addEventListener("click", function(){ startHand("first"); });
+  hand.second.addEventListener("click", function(){ startHand("second"); });
+  hand.draw1.addEventListener("click", drawOne);
+  hand.shuffle.addEventListener("click", shufflePile);
+
+  /* ---------- 載入 ---------- */
+
+  function loadText(text, name){
+    var parsed = parseYdk(text);
+    var total = parsed.main.length + parsed.extra.length + parsed.side.length;
+
+    if (!total){
+      showAlert("這個檔案讀不到卡片編號。確認它是 .ydk 檔，內容含 #main、#extra 或 !side 段落。");
+      return;
+    }
+    hideAlert();
+    clearCache();
+
+    deck = parsed;
+    deckName = name;
+
+    var uniq = {};
+    ["main","extra","side"].forEach(function(k){
+      parsed[k].forEach(function(id){ uniq[id] = 1; });
+    });
+
+    setField("f-file", name, true);
+    setField("f-total", String(total), true);
+    setField("f-unique", String(Object.keys(uniq).length), true);
+    document.getElementById("meta-time").textContent = timestamp();
+
+    var issues = audit(parsed);
+    renderSeal(issues);
+    renderNotes(issues);
+    render();
+
+    resetHand();
+    hand.root.hidden = deck.main.length === 0;
+  }
+
+  function timestamp(){
+    var d = new Date(), p = function(n){ return String(n).padStart(2, "0"); };
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate()) +
+           " " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+
+  function readFile(file){
+    if (!file) return;
+    if (!/\.ydk$/i.test(file.name)){
+      showAlert("只接受 .ydk 卡組檔，收到的是「" + file.name + "」。");
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(){ loadText(String(reader.result), file.name); };
+    reader.onerror = function(){ showAlert("檔案讀取失敗，再試一次。"); };
+    reader.readAsText(file);
+  }
+
+  function showAlert(msg){
+    el.alert.textContent = msg;
+    el.alert.hidden = false;
+  }
+  function hideAlert(){ el.alert.hidden = true; }
+
+  /* ---------- 事件 ---------- */
+
+  el.dropzone.addEventListener("click", function(){ el.fileInput.click(); });
+
+  el.fileInput.addEventListener("change", function(e){
+    readFile(e.target.files[0]);
+    e.target.value = "";
+  });
+
+  ["dragenter","dragover"].forEach(function(type){
+    document.addEventListener(type, function(e){
+      e.preventDefault();
+      document.body.classList.add("dragging");
+    });
+  });
+  ["dragleave","drop"].forEach(function(type){
+    document.addEventListener(type, function(e){
+      e.preventDefault();
+      if (type === "drop" || e.relatedTarget === null){
+        document.body.classList.remove("dragging");
+      }
+    });
+  });
+  document.addEventListener("drop", function(e){
+    if (e.dataTransfer && e.dataTransfer.files.length) readFile(e.dataTransfer.files[0]);
+  });
+
+  el.optGroup.addEventListener("change", function(){
+    groupMode = el.optGroup.checked;
+    if (deck) render();
+  });
+
+  el.sample.addEventListener("click", function(){
+    loadText(SAMPLE, "Cyber_Dragon_new.ydk");
+  });
+
+  /* ---------- 放大檢視 ---------- */
+
+  var viewer = document.getElementById("viewer");
+  var viewerImg = document.getElementById("viewer-img");
+  var viewerId = document.getElementById("viewer-id");
+
+  function openViewer(src, id){
+    viewerImg.src = src;
+    viewerId.textContent = id;
+    document.getElementById("viewer-copy").textContent = "複製編號";
+    if (typeof viewer.showModal === "function") viewer.showModal();
+  }
+
+  document.getElementById("viewer-close").addEventListener("click", function(){ viewer.close(); });
+  viewer.addEventListener("click", function(e){ if (e.target === viewer) viewer.close(); });
+
+  document.getElementById("viewer-copy").addEventListener("click", function(){
+    var btn = this;
+    var text = viewerId.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        btn.textContent = "已複製";
+        setTimeout(function(){ btn.textContent = "複製編號"; }, 1400);
+      });
+    }
+  });
+})();
+</script>
