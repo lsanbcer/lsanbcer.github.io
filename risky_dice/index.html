@@ -219,6 +219,31 @@
 
     function initAudio() {
       if (!audioCtx) audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // 播放骰子翻滾撞擊聲 (滾動過程呼叫)
+    function playDiceClick() {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      // 隨機頻率模擬骰子不同面碰撞撞擊聲
+      const freq = 200 + Math.random() * 300;
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(60, audioCtx.currentTime + 0.04);
+      
+      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.04);
     }
 
     // 播放大吉慶祝音 (Maj Chord)
@@ -280,19 +305,14 @@
     renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
-    // 根據視窗寬度動態計算並設定 Camera 距離（實現骰子與視窗解析度自動縮放）
+    // 根據視窗寬度動態計算並設定 Camera 距離
     function updateCameraPosition() {
       const aspect = window.innerWidth / window.innerHeight;
-      
-      // 計算適合當前螢幕尺寸的 Camera Z 軸距離
       if (aspect < 0.8) {
-        // 直立手機模式：加長鏡頭距離，縮小骰子佔比避免塞滿螢幕
         camera.position.z = 8.5 / aspect;
       } else if (aspect < 1.2) {
-        // 平板 / 正方形螢幕
         camera.position.z = 8.5;
       } else {
-        // 橫向電腦螢幕
         camera.position.z = 7.0;
       }
     }
@@ -394,6 +414,7 @@
     let startRotation = new THREE.Euler();
     let targetRotation = new THREE.Euler();
     let selectedResultIndex = 1;
+    let lastAngleForSound = 0;
 
     function rollDice() {
       if (isRolling) return;
@@ -425,6 +446,7 @@
       );
 
       rollStartTime = performance.now();
+      lastAngleForSound = dice.rotation.x + dice.rotation.y + dice.rotation.z;
     }
 
     function easeOutCubic(t) {
@@ -496,6 +518,13 @@
 
         dice.position.y = Math.sin(progress * Math.PI) * 1.2;
 
+        // 旋轉角度差達到閾值時觸發滾動音效（體現轉速越快聲音越密）
+        const currentAngleSum = dice.rotation.x + dice.rotation.y + dice.rotation.z;
+        if (Math.abs(currentAngleSum - lastAngleForSound) > 0.65) {
+          playDiceClick();
+          lastAngleForSound = currentAngleSum;
+        }
+
         if (progress >= 1) {
           isRolling = false;
           document.getElementById('roll-btn').disabled = false;
@@ -510,7 +539,7 @@
       renderer.render(scene, camera);
     }
 
-    // 響應式視窗調整 (RWD 關鍵部分)
+    // 響應式視窗調整
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       updateCameraPosition();
