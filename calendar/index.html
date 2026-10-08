@@ -95,6 +95,7 @@ button,select{font:inherit;color:inherit}
 .badge.today{background:var(--seal);border-color:var(--seal);color:var(--card)}
 .badge.fest{color:var(--seal)}
 .badge.term{color:var(--gold)}
+.badge.work{color:var(--jade)}
 .big-day{font-family:var(--serif);font-weight:900;font-size:clamp(6rem,24vw,9rem);line-height:1;margin:.3rem 0 .2rem;font-variant-numeric:tabular-nums}
 .big-day.red{color:var(--seal)}
 .lunar-line{font-family:var(--serif);font-weight:900;font-size:1.7rem;letter-spacing:.08em}
@@ -129,29 +130,37 @@ button,select{font:inherit;color:inherit}
 .week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center;font-weight:700;font-size:1.05rem;padding:.4rem 0;border-bottom:2px solid var(--ink);margin-bottom:.4rem}
 .week .we{color:var(--seal)}
 .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.3rem}
-.day{position:relative;border:2px solid transparent;background:none;border-radius:10px;padding:.4rem .15rem .45rem;min-height:5.2rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.15rem;text-align:center}
+.day{position:relative;border:2px solid transparent;background:none;border-radius:10px;padding:.4rem .15rem .45rem;min-height:6.2rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.1rem;text-align:center}
 .day:hover{background:var(--jade-soft)}
 .d-num{font-family:var(--serif);font-weight:900;font-size:1.65rem;line-height:1.1;font-variant-numeric:tabular-nums}
 .d-lunar{font-size:.85rem;line-height:1.25;color:var(--muted);font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
-.d-lunar.fest{color:var(--seal);font-weight:700}
-.d-lunar.term{color:var(--gold);font-weight:700}
 .d-lunar.m1{color:var(--jade);font-weight:700}
-.day.we .d-num,.day.hol .d-num{color:var(--seal)}
+.d-info{display:flex;flex-direction:column;align-items:center;gap:.05rem;font-size:.78rem;line-height:1.2;font-weight:700;word-break:keep-all;overflow-wrap:anywhere;max-width:100%}
+.d-info .fest{color:var(--seal)}
+.d-info .term{color:var(--gold)}
+.d-info .work{color:var(--jade)}
+.d-info .off{color:var(--card);background:var(--seal);border-radius:4px;padding:0 .3em}
+.d-info .work.tagged{color:var(--card);background:var(--jade);border-radius:4px;padding:0 .3em}
+.day.hol .d-num{color:var(--seal)}
 .day.out{opacity:.45}
 .day.sel{border-color:var(--jade);background:var(--jade-soft)}
 .day.today{background:var(--seal);border-color:var(--seal)}
-.day.today .d-num,.day.today .d-lunar{color:var(--card)}
+.day.today .d-num,.day.today .d-lunar,.day.today .d-info span{color:var(--card)}
+.day.today .d-info .off,.day.today .d-info .work.tagged{background:none;border:1px solid var(--card)}
 .day.today.sel{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--jade)}
 .d-tag{position:absolute;top:.15rem;right:.25rem;font-size:.7rem;font-weight:700;color:var(--card);line-height:1}
 .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.hol-status{width:100%;font-size:.9rem;color:var(--muted)}
+.hol-status.ok{color:var(--jade);font-weight:700}
 .legend i{display:inline-block;width:1rem;height:1rem;border-radius:4px;vertical-align:-.15rem;margin-right:.35rem}
 .foot{margin-top:1.5rem;font-size:.85rem;color:var(--muted);text-align:center}
 
 @media (max-width:640px){
   .now-time{font-size:2.1rem}
   .now-date span{display:block;margin-left:0}
-  .d-lunar.fest{font-size:.66rem;letter-spacing:-.02em}
-  .day{min-height:4.4rem;padding:.3rem .05rem}
+  .d-info{font-size:.64rem;letter-spacing:-.03em}
+  .d-info span+span{display:none}
+  .day{min-height:5.2rem;padding:.3rem .05rem}
   .d-num{font-size:1.35rem}
   .d-lunar{font-size:.72rem}
   .d-tag{display:none}
@@ -236,8 +245,11 @@ button,select{font:inherit;color:inherit}
       <div class="legend">
         <span><i style="background:var(--seal)"></i>今天</span>
         <span><i style="background:var(--jade-soft);border:2px solid var(--jade)"></i>正在查看</span>
-        <span style="color:var(--seal);font-weight:700">紅字：節日、假日</span>
+        <span style="color:var(--seal);font-weight:700">紅色日期：放假日</span>
+        <span><i style="background:var(--jade)"></i>補班（要上班）</span>
+        <span><i style="background:var(--seal)"></i>補假</span>
         <span style="color:var(--gold);font-weight:700">金字：節氣</span>
+        <span class="hol-status" id="holStatus" aria-live="polite"></span>
       </div>
     </section>
   </main>
@@ -477,6 +489,7 @@ const Almanac = (() => {
   const WD = ['日','一','二','三','四','五','六'];
   const MIN_Y = 1901, MAX_Y = 2099;
   const pad = n => String(n).padStart(2, '0');
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   const store = {
     get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
@@ -560,6 +573,70 @@ const Almanac = (() => {
     });
   }
 
+  /* --- 政府放假資料（ruyut/TaiwanCalendar）--- */
+  const HOL_URL = y => 'https://cdn.jsdelivr.net/gh/ruyut/TaiwanCalendar@HEAD/data/' + y + '.json';
+  const holData = {};          // 年 -> {off:Set, desc:{}} | null（找不到） | 'loading'
+  let gridYears = [];
+
+  function toCompact(arr, y){
+    if (!Array.isArray(arr) || arr.length < 300) throw new Error('格式不符');
+    const h = [], d = {};
+    arr.forEach(e => {
+      if (!e || typeof e.date !== 'string' || e.date.slice(0, 4) !== String(y)) return;
+      const k = e.date.slice(4);
+      if (e.isHoliday === true) h.push(k);
+      if (e.description) d[k] = String(e.description);
+    });
+    if (!h.length) throw new Error('沒有資料');
+    return { h, d };
+  }
+  const fromCompact = c => ({ off: new Set(c.h), desc: c.d || {} });
+
+  function loadYear(y){
+    if (y in holData) return;
+    // 先用上次存下的資料，立即顯示；再到網路上更新
+    const cached = store.get('cal-hol-' + y);
+    if (cached) { try { holData[y] = fromCompact(JSON.parse(cached)); } catch(e){} }
+    if (!(y in holData)) holData[y] = 'loading';
+    if (typeof fetch !== 'function') { if (holData[y] === 'loading') holData[y] = null; return; }
+    const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    const timer = setTimeout(() => ctrl && ctrl.abort(), 10000);
+    fetch(HOL_URL(y), ctrl ? { signal: ctrl.signal } : {})
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(arr => {
+        const c = toCompact(arr, y);
+        holData[y] = fromCompact(c);
+        store.set('cal-hol-' + y, JSON.stringify(c));
+      })
+      .catch(() => { if (holData[y] === 'loading') holData[y] = null; })   // 找不到就不使用
+      .finally(() => {
+        clearTimeout(timer);
+        if (gridYears.includes(y) || sel.y === y) { renderGrid(); renderPage(false); }
+      });
+  }
+
+  // 判斷是否放假：有官方資料就照資料，沒有則用週末＋內建國定假日
+  function holidayOf(y, m, d, wd, inf){
+    const t = holData[y];
+    if (t && t.off) {
+      const k = pad(m) + pad(d);
+      const off = t.off.has(k), desc = t.desc[k] || '';
+      let tag = '';
+      if (!off && (wd === 0 || wd === 6)) tag = '補班';
+      else if (off && desc.includes('補假')) tag = '補假';
+      else if (off && desc.includes('調整放假')) tag = '調整放假';
+      return { red: off, tag, desc, official: true };
+    }
+    return { red: wd === 0 || wd === 6 || inf.isHoliday, tag: '', desc: '', official: false };
+  }
+
+  function updateHolStatus(){
+    const t = holData[view.y], el = $('holStatus');
+    if (t && t.off) { el.textContent = '已套用 ' + view.y + ' 年政府公告放假日'; el.className = 'hol-status ok'; }
+    else if (t === 'loading') { el.textContent = '正在載入 ' + view.y + ' 年放假資料…'; el.className = 'hol-status'; }
+    else { el.textContent = '查無 ' + view.y + ' 年放假資料，假日以週末及內建國定假日顯示'; el.className = 'hol-status'; }
+  }
+
   /* --- 月曆格子 --- */
   function renderGrid(){
     const { y, m } = view;
@@ -570,6 +647,11 @@ const Almanac = (() => {
     const cells = Math.ceil((first.getDay() + daysIn) / 7) * 7;
     const midInfo = Almanac.info(y, m, 15);
     $('calSub').textContent = '農曆' + midInfo.lunarYearGZ + '年（' + midInfo.animal + '年）';
+
+    const lastCell = new Date(start.getFullYear(), start.getMonth(), start.getDate() + cells - 1);
+    gridYears = [...new Set([start.getFullYear(), y, lastCell.getFullYear()])];
+    gridYears.forEach(loadYear);
+    const hadFocus = $('grid').contains(document.activeElement);
 
     const frag = document.createDocumentFragment();
     let row;
@@ -584,26 +666,40 @@ const Almanac = (() => {
       b.setAttribute('role', 'gridcell');
       b.dataset.k = key(cy, cm, cd);
       if (cm !== m) b.classList.add('out');
-      if (wd === 0 || wd === 6) b.classList.add('we');
-      if (inf.isHoliday) b.classList.add('hol');
+      const H = holidayOf(cy, cm, cd, wd, inf);
+      if (H.red) b.classList.add('hol');
       const today = isToday(cy, cm, cd);
       const selected = key(cy, cm, cd) === key(sel.y, sel.m, sel.d);
       if (today) { b.classList.add('today'); b.setAttribute('aria-current', 'date'); }
       if (selected) { b.classList.add('sel'); b.setAttribute('aria-selected', 'true'); }
       b.tabIndex = selected ? 0 : -1;
 
-      let label = inf.shortText, cls = inf.lunar.day === 1 ? 'm1' : '';
-      if (inf.term) { label = inf.term; cls = 'term'; }
-      if (inf.festivals.length) { label = inf.festivals[0]; cls = 'fest'; }
+      // 第一行：農曆日期；第二行：補班／補假／節日／假期／節氣
+      const lunarCls = inf.lunar.day === 1 ? 'm1' : '';
+      const tags = [];
+      const addTag = (t, c) => {
+        if (!t || tags.some(x => x.t.includes(t) || t.includes(x.t))) return;
+        tags.push({ t, c });
+      };
+      if (H.tag === '補班') addTag('補班', 'work tagged');
+      else if (H.tag) addTag(H.tag, 'off');
+      inf.festivals.forEach(f => addTag(f, 'fest'));
+      if (H.red && H.desc && H.desc.length <= 5) addTag(H.desc, 'fest');
+      if (inf.term) addTag(inf.term, 'term');
 
       b.innerHTML = (today ? '<span class="d-tag">今天</span>' : '') +
-        '<span class="d-num">' + cd + '</span><span class="d-lunar ' + cls + '">' + label + '</span>';
+        '<span class="d-num">' + cd + '</span>' +
+        '<span class="d-lunar ' + lunarCls + '">' + inf.shortText + '</span>' +
+        '<span class="d-info">' + tags.slice(0, 2).map(x => '<span class="' + x.c + '">' + esc(x.t) + '</span>').join('') + '</span>';
       b.setAttribute('aria-label', cm + '月' + cd + '日 星期' + WD[wd] + '，農曆' + inf.monthText.slice(0,-1) + inf.dayText +
-        (inf.term ? '，' + inf.term : '') + (inf.festivals.length ? '，' + inf.festivals.join('、') : '') + (today ? '，今天' : ''));
+        (inf.term ? '，' + inf.term : '') + (inf.festivals.length ? '，' + inf.festivals.join('、') : '') + (H.tag ? '，' + H.tag : '') +
+        (H.red ? '，放假' : '') + (today ? '，今天' : ''));
       b.addEventListener('click', () => select(cy, cm, cd));
       row.appendChild(b);
     }
     $('grid').replaceChildren(frag);
+    if (hadFocus) { const el = document.querySelector('.day.sel'); if (el) el.focus(); }
+    updateHolStatus();
   }
 
   /* --- 撕日曆頁 --- */
@@ -618,10 +714,17 @@ const Almanac = (() => {
     if (today) badges.push('<span class="badge today">今天</span>');
     inf.festivals.forEach(f => badges.push('<span class="badge fest">' + f + '</span>'));
     if (inf.term) badges.push('<span class="badge term">' + inf.term + '</span>');
+    const H = holidayOf(y, m, d, wd, inf);
+    if (H.tag === '補班') badges.push('<span class="badge work">補班（要上班）</span>');
+    else if (H.desc && H.red) {
+      const known = inf.festivals.concat(inf.term ? [inf.term] : []);
+      if (!known.some(f => H.desc.includes(f) || f.includes(H.desc)))
+        badges.push('<span class="badge fest">' + esc(H.desc) + '</span>');
+    }
     $('pBadges').innerHTML = badges.join('');
     const pd = $('pDay');
     pd.textContent = d;
-    pd.classList.toggle('red', wd === 0 || wd === 6 || inf.isHoliday);
+    pd.classList.toggle('red', H.red);
     $('pLunar').textContent = '農曆 ' + inf.monthText.slice(0,-1) + inf.dayText;
     $('pGZ').textContent = inf.lunarYearGZ + '年（' + inf.animal + '年） ' + inf.pillars.month + '月 ' + inf.pillars.day + '日';
     $('pYi').innerHTML = inf.yi.map(x => '<span>' + x + '</span>').join('');
