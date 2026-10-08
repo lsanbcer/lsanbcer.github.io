@@ -2,27 +2,26 @@
 <html lang="zh-Hant-TW" data-size="1">
 <head>
 <meta charset="UTF-8">
+<meta name="theme-color" content="#FEF7FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141218" media="(prefers-color-scheme: dark)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>我的月曆・農民曆</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ===== Material Design 3（Android）配色 ===== */
 :root{
-  --paper:#EEF1EC;
-  --card:#FFFFFF;
-  --ink:#18211E;
-  --muted:#4B5853;
-  --line:#C9D1CB;
-  --seal:#A8201A;
-  --seal-soft:#FBE9E7;
-  --gold:#80590F;
-  --gold-soft:#F7EED9;
-  --jade:#2B5E50;
-  --jade-soft:#E1EEE8;
-  --outside:#9AA59F;
-  --serif:"Noto Serif TC","Songti TC","PMingLiU","MingLiU",serif;
-  --sans:"PingFang TC","Microsoft JhengHei","Noto Sans TC","Heiti TC",system-ui,sans-serif;
+  --primary:#6750A4; --on-primary:#FFFFFF;
+  --primary-container:#EADDFF; --on-primary-container:#21005D;
+  --secondary-container:#E8DEF8; --on-secondary-container:#1D192B;
+  --tertiary:#7D5260; --tertiary-container:#FFD8E4; --on-tertiary-container:#31111D;
+  --surface:#FEF7FF; --surface-low:#F7F2FA; --surface-cont:#F3EDF7; --surface-high:#ECE6F0; --surface-highest:#E6E0E9;
+  --on-surface:#1D1B20; --on-surface-variant:#49454F;
+  --outline:#79747E; --outline-variant:#CAC4D0;
+  --error:#B3261E; --on-error:#FFFFFF; --error-container:#F9DEDC; --on-error-container:#410E0B;
+  --holiday:#C0261C; --term:#7A5900; --work:#006A60; --work-container:#9EF2E4; --on-work-container:#00201C;
+  --font:"Roboto","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -30,148 +29,168 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#121715; --card:#1C2421; --ink:#EEF3EF; --muted:#B3C0BA; --line:#36433E;
-    --seal:#FF7D70; --seal-soft:#3A1F1C; --gold:#E9BE62; --gold-soft:#332A16;
-    --jade:#86CDB6; --jade-soft:#1D332C; --outside:#66736D; color-scheme:dark;
+    --primary:#D0BCFF; --on-primary:#381E72; --primary-container:#4F378B; --on-primary-container:#EADDFF;
+    --secondary-container:#4A4458; --on-secondary-container:#E8DEF8;
+    --tertiary:#EFB8C8; --tertiary-container:#633B48; --on-tertiary-container:#FFD8E4;
+    --surface:#141218; --surface-low:#1D1B20; --surface-cont:#211F26; --surface-high:#2B2930; --surface-highest:#36343B;
+    --on-surface:#E6E0E9; --on-surface-variant:#CAC4D0; --outline:#938F99; --outline-variant:#49454F;
+    --error:#F2B8B5; --on-error:#601410; --error-container:#8C1D18; --on-error-container:#F9DEDC;
+    --holiday:#FF7A70; --term:#F0C048; --work:#82D5C8; --work-container:#005048; --on-work-container:#9EF2E4;
+    color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#121715; --card:#1C2421; --ink:#EEF3EF; --muted:#B3C0BA; --line:#36433E;
-  --seal:#FF7D70; --seal-soft:#3A1F1C; --gold:#E9BE62; --gold-soft:#332A16;
-  --jade:#86CDB6; --jade-soft:#1D332C; --outside:#66736D; color-scheme:dark;
+  --primary:#D0BCFF; --on-primary:#381E72; --primary-container:#4F378B; --on-primary-container:#EADDFF;
+  --secondary-container:#4A4458; --on-secondary-container:#E8DEF8;
+  --tertiary:#EFB8C8; --tertiary-container:#633B48; --on-tertiary-container:#FFD8E4;
+  --surface:#141218; --surface-low:#1D1B20; --surface-cont:#211F26; --surface-high:#2B2930; --surface-highest:#36343B;
+  --on-surface:#E6E0E9; --on-surface-variant:#CAC4D0; --outline:#938F99; --outline-variant:#49454F;
+  --error:#F2B8B5; --on-error:#601410; --error-container:#8C1D18; --on-error-container:#F9DEDC;
+  --holiday:#FF7A70; --term:#F0C048; --work:#82D5C8; --work-container:#005048; --on-work-container:#9EF2E4;
+  color-scheme:dark;
 }
 html{font-size:20px;scroll-padding-top:env(safe-area-inset-top,0px)}
 html[data-size="2"]{font-size:23px}
 html[data-size="3"]{font-size:26px}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--surface);color:var(--on-surface);font-family:var(--font);line-height:1.6;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 button,select{font:inherit;color:inherit}
-:focus-visible{outline:4px solid var(--jade);outline-offset:3px}
+button{position:relative;overflow:hidden}
+:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+/* Android 觸控回饋（state layer） */
+button::after{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .15s;pointer-events:none;border-radius:inherit}
+button:hover::after{opacity:.08}
+button:active::after{opacity:.14}
 
 .wrap{max-width:1280px;margin:0 auto;padding:1rem clamp(.75rem,3vw,2rem) 2.5rem}
 
-/* ---------- 頂部：即時時鐘 ---------- */
+/* ---------- 頂部：即時時鐘（Android 時鐘風格）---------- */
 .topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.5rem;margin-bottom:1.25rem}
 .now{display:flex;align-items:baseline;flex-wrap:wrap;gap:.25rem 1rem}
-.now-time{font-family:var(--serif);font-weight:900;font-size:2.6rem;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.now-time small{font-size:.45em;font-weight:600;margin-right:.3em;color:var(--muted)}
-.now-sec{font-size:.5em;color:var(--muted);margin-left:.15em}
-.now-date{font-size:1.15rem;font-weight:700}
-.now-date span{color:var(--muted);font-weight:500;margin-left:.5em}
-.tools{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
-.seg{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card)}
-.seg button{border:0;background:none;padding:.35rem .9rem;min-height:48px;cursor:pointer;font-weight:700}
-.seg button + button{border-left:2px solid var(--ink)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
-.switch{display:inline-flex;align-items:center;gap:.6rem;min-height:48px;padding:.3rem .9rem .3rem .4rem;border:2px solid var(--ink);border-radius:999px;background:var(--card);font-weight:700;cursor:pointer}
-.switch-track{position:relative;width:3.1rem;height:1.7rem;border-radius:999px;background:var(--line);transition:background .2s}
-.switch-track::after{content:"";position:absolute;top:.2rem;left:.2rem;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.35);transition:transform .2s}
-.switch[aria-pressed="true"] .switch-track{background:var(--jade)}
-.switch[aria-pressed="true"] .switch-track::after{transform:translateX(1.4rem)}
-.switch-state{min-width:1.2em;color:var(--muted)}
-.switch[aria-pressed="true"] .switch-state{color:var(--jade)}
-@media (prefers-reduced-motion:reduce){.switch-track,.switch-track::after{transition:none}}
-.seg-label{font-size:.9rem;color:var(--muted);margin-right:.25rem}
+.now-time{font-weight:400;font-size:2.8rem;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.01em;color:var(--primary)}
+.now-time small{font-size:.4em;font-weight:500;margin-right:.35em;color:var(--on-surface-variant);letter-spacing:0}
+.now-sec{font-size:.45em;color:var(--on-surface-variant);margin-left:.1em}
+.now-date{font-size:1.1rem;font-weight:500}
+.now-date span{color:var(--on-surface-variant);font-weight:400;margin-left:.5em}
+.tools{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+
+/* M3 分段按鈕 */
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:none;padding:.3rem 1rem;min-height:48px;cursor:pointer;font-weight:500;color:var(--on-surface)}
+.seg button + button{border-left:1px solid var(--outline)}
+.seg button[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
+.seg button[aria-pressed="true"]::before{content:"✓";margin-right:.35em;font-weight:700}
+.seg-label{font-size:.9rem;color:var(--on-surface-variant);margin-right:.1rem}
+
+/* M3 開關 */
+.switch{display:inline-flex;align-items:center;gap:.7rem;min-height:48px;padding:.3rem 1.1rem .3rem .6rem;border:0;border-radius:999px;background:var(--surface-cont);font-weight:500;cursor:pointer}
+.switch-track{position:relative;flex:none;width:2.6rem;height:1.6rem;border-radius:999px;background:var(--surface-highest);border:2px solid var(--outline);transition:background .2s,border-color .2s}
+.switch-track::after{content:"";position:absolute;top:50%;left:.3rem;width:.8rem;height:.8rem;border-radius:50%;background:var(--outline);transform:translateY(-50%);transition:all .2s}
+.switch[aria-pressed="true"] .switch-track{background:var(--primary);border-color:var(--primary)}
+.switch[aria-pressed="true"] .switch-track::after{left:1.1rem;width:1.2rem;height:1.2rem;background:var(--on-primary)}
+.switch-state{min-width:1.2em;color:var(--on-surface-variant)}
+.switch[aria-pressed="true"] .switch-state{color:var(--primary);font-weight:700}
+@media (prefers-reduced-motion:reduce){.switch-track,.switch-track::after,button::after{transition:none}}
 
 /* ---------- 主版面 ---------- */
-.main{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem}
+.main{display:grid;grid-template-columns:minmax(0,1fr);gap:1.25rem}
 @media (min-width:1000px){.main{grid-template-columns:minmax(330px,400px) minmax(0,1fr);align-items:start}}
 .main.no-page{grid-template-columns:minmax(0,1fr)}
 .page[hidden]{display:none}
 
-/* ---------- 撕日曆頁 ---------- */
-.page{position:relative;background:var(--card);border-radius:6px 6px 14px 14px;box-shadow:0 1px 0 var(--line),0 10px 0 -5px var(--card),0 11px 0 -5px var(--line),0 20px 0 -10px var(--card),0 21px 0 -10px var(--line);overflow:hidden}
+/* ---------- 當日農民曆卡片 ---------- */
+.page{background:var(--surface-low);border-radius:28px;overflow:hidden}
 @media (min-width:1000px){.page{position:sticky;top:calc(env(safe-area-inset-top,0px) + 1rem)}}
-.page-head{background:var(--seal);color:#fff;padding:1.1rem 1.25rem .8rem;display:flex;justify-content:space-between;align-items:flex-end;position:relative}
-:root[data-theme="dark"] .page-head{color:#1C0A08}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .page-head{color:#1C0A08}}
-.page-head::before,.page-head::after{content:"";position:absolute;top:.45rem;width:.7rem;height:.7rem;border-radius:50%;background:var(--paper)}
-.page-head::before{left:30%}.page-head::after{right:30%}
-.page-ym{font-family:var(--serif);font-weight:900;font-size:1.35rem}
-.page-wd{font-size:1.2rem;font-weight:700}
+.page-head{background:var(--primary-container);color:var(--on-primary-container);padding:1rem 1.4rem;display:flex;justify-content:space-between;align-items:center}
+.page-ym{font-weight:500;font-size:1.25rem}
+.page-wd{font-size:1.15rem;font-weight:500}
 .page-body{padding:1rem 1.25rem 1.4rem;text-align:center}
-.badge-row{min-height:2.4rem;display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem}
-.badge{display:inline-block;padding:.15rem .8rem;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid currentColor}
-.badge.today{background:var(--seal);border-color:var(--seal);color:var(--card)}
-.badge.fest{color:var(--seal)}
-.badge.term{color:var(--gold)}
-.badge.work{color:var(--jade)}
-.big-day{font-family:var(--serif);font-weight:900;font-size:clamp(6rem,24vw,9rem);line-height:1;margin:.3rem 0 .2rem;font-variant-numeric:tabular-nums}
-.big-day.red{color:var(--seal)}
-.lunar-line{font-family:var(--serif);font-weight:900;font-size:1.7rem;letter-spacing:.08em}
-.gz-line{color:var(--muted);font-size:1.05rem;margin-top:.15rem}
-.yiji{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.1rem;text-align:left}
-.yj{border:2px solid var(--line);border-radius:10px;padding:.6rem .75rem;display:flex;gap:.6rem;align-items:flex-start}
-.yj-mark{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:1.35rem}
-.yj.yi .yj-mark{background:var(--seal);color:var(--card)}
-.yj.ji .yj-mark{background:var(--ink);color:var(--card)}
-.yj-list{font-size:1.05rem;line-height:1.5;font-weight:700;display:flex;flex-wrap:wrap;gap:.1rem .7rem;padding-top:.25rem}
+.badge-row{min-height:2.2rem;display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem}
+.badge{display:inline-flex;align-items:center;padding:.1rem .8rem;min-height:2rem;border-radius:8px;font-weight:500;font-size:.9rem;border:1px solid var(--outline)}
+.badge.today{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.badge.fest{background:var(--error-container);border-color:transparent;color:var(--on-error-container)}
+.badge.term{color:var(--term);border-color:var(--outline-variant)}
+.badge.work{background:var(--work-container);border-color:transparent;color:var(--on-work-container)}
+.big-day{font-weight:400;font-size:clamp(6rem,24vw,8.5rem);line-height:1;margin:.4rem 0 .3rem;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.big-day.red{color:var(--holiday)}
+.lunar-line{font-weight:500;font-size:1.6rem;letter-spacing:.04em}
+.gz-line{color:var(--on-surface-variant);font-size:1rem;margin-top:.15rem}
+.yiji{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.1rem;text-align:left}
+.yj{border-radius:16px;padding:.7rem .8rem;display:flex;gap:.6rem;align-items:flex-start;background:var(--surface-cont)}
+.yj-mark{flex:none;width:2.4rem;height:2.4rem;border-radius:12px;display:grid;place-items:center;font-weight:700;font-size:1.25rem}
+.yj.yi .yj-mark{background:var(--primary);color:var(--on-primary)}
+.yj.ji .yj-mark{background:var(--on-surface-variant);color:var(--surface)}
+.yj-list{font-size:1.05rem;line-height:1.5;font-weight:500;display:flex;flex-wrap:wrap;gap:.1rem .7rem;padding-top:.25rem}
 .meta{display:flex;justify-content:center;flex-wrap:wrap;gap:.3rem 1.2rem;margin-top:.9rem;font-size:1rem}
-.meta b{color:var(--jade)}
-.sc-title{margin:1.1rem 0 .5rem;font-weight:700;text-align:left;font-size:1rem;color:var(--muted)}
-.shichen{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
-.sc{border:1px solid var(--line);border-radius:8px;padding:.3rem .2rem;line-height:1.3;text-align:center}
-.sc b{display:block;font-size:1rem}
-.sc span{font-size:.78rem;color:var(--muted)}
-.sc.cur{background:var(--jade);border-color:var(--jade);color:var(--card)}
-.sc.cur span{color:var(--card)}
-.back-today{margin-top:1rem;width:100%;min-height:56px;border:2px solid var(--seal);color:var(--seal);background:var(--seal-soft);border-radius:10px;font-weight:700;font-size:1.1rem;cursor:pointer}
+.meta b{color:var(--primary);font-weight:500}
+.sc-title{margin:1.1rem 0 .5rem;font-weight:500;text-align:left;font-size:1rem;color:var(--on-surface-variant)}
+.shichen{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.sc{background:var(--surface-cont);border-radius:12px;padding:.35rem .2rem;line-height:1.3;text-align:center}
+.sc b{display:block;font-size:1rem;font-weight:500}
+.sc span{font-size:.78rem;color:var(--on-surface-variant)}
+.sc.cur{background:var(--primary);color:var(--on-primary)}
+.sc.cur span{color:var(--on-primary)}
+.back-today{margin-top:1rem;width:100%;min-height:56px;border:0;color:var(--on-secondary-container);background:var(--secondary-container);border-radius:999px;font-weight:500;font-size:1.1rem;cursor:pointer}
 
-/* ---------- 月曆 ---------- */
-.cal{background:var(--card);border-radius:14px;padding:1rem clamp(.5rem,2vw,1.25rem) 1.25rem;border:1px solid var(--line)}
-.cal-nav{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem}
-.cal-title{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.cal-title select{font-family:var(--serif);font-weight:900;font-size:1.5rem;border:2px solid var(--line);border-radius:10px;background:var(--card);padding:.1rem .4rem;min-height:52px;cursor:pointer}
-.cal-sub{width:100%;color:var(--muted);font-size:1rem}
+/* ---------- 月曆卡片 ---------- */
+.cal{background:var(--surface-low);border-radius:28px;padding:1.1rem clamp(.5rem,2vw,1.4rem) 1.25rem}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-bottom:.9rem}
+.cal-title{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.cal-title select{font-weight:500;font-size:1.35rem;border:1px solid var(--outline);border-radius:8px;background:var(--surface-low);padding:.1rem .5rem;min-height:52px;cursor:pointer}
+.cal-sub{width:100%;color:var(--on-surface-variant);font-size:.95rem}
 .navbtns{display:flex;gap:.5rem}
-.nb{min-height:52px;min-width:52px;padding:0 1rem;border-radius:10px;border:2px solid var(--ink);background:var(--card);font-weight:700;font-size:1.05rem;cursor:pointer}
-.nb.primary{background:var(--seal);border-color:var(--seal);color:var(--card)}
-.nb:active{transform:translateY(1px)}
-.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center;font-weight:700;font-size:1.05rem;padding:.4rem 0;border-bottom:2px solid var(--ink);margin-bottom:.4rem}
-.week .we{color:var(--seal)}
+.nb{min-height:52px;min-width:52px;padding:0 1.2rem;border-radius:999px;border:1px solid var(--outline);background:none;color:var(--primary);font-weight:500;font-size:1.05rem;cursor:pointer}
+.nb.primary{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center;font-weight:500;font-size:1rem;padding:.4rem 0;color:var(--on-surface-variant);border-bottom:1px solid var(--outline-variant);margin-bottom:.4rem}
+.week .we{color:var(--holiday)}
 .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.3rem}
-.day{position:relative;border:2px solid transparent;background:none;border-radius:10px;padding:.4rem .15rem .45rem;min-height:6.2rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.1rem;text-align:center}
-.day:hover{background:var(--jade-soft)}
-.d-num{font-family:var(--serif);font-weight:900;font-size:1.65rem;line-height:1.1;font-variant-numeric:tabular-nums}
-.d-lunar{font-size:.85rem;line-height:1.25;color:var(--muted);font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
-.d-lunar.m1{color:var(--jade);font-weight:700}
-.d-info{display:flex;flex-direction:column;align-items:center;gap:.05rem;font-size:.78rem;line-height:1.2;font-weight:700;word-break:keep-all;overflow-wrap:anywhere;max-width:100%}
-.d-info .fest{color:var(--seal)}
-.d-info .term{color:var(--gold)}
-.d-info .work{color:var(--jade)}
-.d-info .off{color:var(--card);background:var(--seal);border-radius:4px;padding:0 .3em}
-.d-info .work.tagged{color:var(--card);background:var(--jade);border-radius:4px;padding:0 .3em}
-.day.hol .d-num{color:var(--seal)}
-.day.out{opacity:.45}
-.day.sel{border-color:var(--jade);background:var(--jade-soft)}
-.day.today{background:var(--seal);border-color:var(--seal)}
-.day.today .d-num,.day.today .d-lunar,.day.today .d-info span{color:var(--card)}
-.day.today .d-info .off,.day.today .d-info .work.tagged{background:none;border:1px solid var(--card)}
-.day.today.sel{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--jade)}
-.d-tag{position:absolute;top:.15rem;right:.25rem;font-size:.7rem;font-weight:700;color:var(--card);line-height:1}
-.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
-.hol-status{width:100%;font-size:.9rem;color:var(--muted)}
-.hol-status.ok{color:var(--jade);font-weight:700}
-.legend i{display:inline-block;width:1rem;height:1rem;border-radius:4px;vertical-align:-.15rem;margin-right:.35rem}
-.foot{margin-top:1.5rem;font-size:.85rem;color:var(--muted);text-align:center}
+.day{border:2px solid transparent;background:none;border-radius:16px;padding:.4rem .15rem .45rem;min-height:6.2rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.1rem;text-align:center}
+.d-num{display:grid;place-items:center;min-width:2.3rem;height:2.3rem;padding:0 .2rem;border-radius:999px;font-weight:500;font-size:1.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.d-lunar{font-size:.85rem;line-height:1.25;color:var(--on-surface-variant);font-weight:400;word-break:keep-all;overflow-wrap:anywhere}
+.d-lunar.m1{color:var(--primary);font-weight:700}
+.d-info{display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.76rem;line-height:1.25;font-weight:500;word-break:keep-all;overflow-wrap:anywhere;max-width:100%}
+.d-info .fest{color:var(--holiday)}
+.d-info .term{color:var(--term)}
+.d-info .off{color:var(--on-error-container);background:var(--error-container);border-radius:6px;padding:0 .35em}
+.d-info .work.tagged{color:var(--on-work-container);background:var(--work-container);border-radius:6px;padding:0 .35em}
+.day.hol .d-num{color:var(--holiday)}
+.day.out{opacity:.4}
+.day.sel{border-color:var(--primary);background:var(--surface-high)}
+/* 今天：日期數字放進實心圓（Android 日期選擇器風格），整格淡紫底 */
+.day.today{background:var(--primary-container)}
+.day.today .d-num{background:var(--primary);color:var(--on-primary)}
+.day.today .d-lunar{color:var(--on-primary-container);font-weight:500}
+.d-tag{position:absolute;top:.25rem;right:.3rem;font-size:.66rem;font-weight:700;color:var(--primary);line-height:1}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:1rem;font-size:.9rem;color:var(--on-surface-variant);align-items:center}
+.legend i{display:inline-block;width:1rem;height:1rem;border-radius:50%;vertical-align:-.15rem;margin-right:.35rem}
+.lg-today{background:var(--primary)}
+.lg-sel{border:2px solid var(--primary);background:var(--surface-high)}
+.lg-off{background:var(--error-container);border:1px solid var(--error)}
+.lg-work{background:var(--work-container);border:1px solid var(--work)}
+.lg-red{color:var(--holiday);font-weight:500}
+.lg-term{color:var(--term);font-weight:500}
+.hol-status{width:100%;font-size:.9rem;color:var(--on-surface-variant)}
+.hol-status.ok{color:var(--work);font-weight:500}
+.foot{margin-top:1.5rem;font-size:.85rem;color:var(--on-surface-variant);text-align:center}
 
 @media (max-width:640px){
-  .now-time{font-size:2.1rem}
+  .now-time{font-size:2.3rem}
   .now-date span{display:block;margin-left:0}
+  .day{min-height:5.4rem;padding:.3rem .05rem;border-radius:12px}
+  .d-num{font-size:1.2rem;min-width:1.9rem;height:1.9rem}
+  .d-lunar{font-size:.72rem}
   .d-info{font-size:.64rem;letter-spacing:-.03em}
   .d-info span+span{display:none}
-  .day{min-height:5.2rem;padding:.3rem .05rem}
-  .d-num{font-size:1.35rem}
-  .d-lunar{font-size:.72rem}
   .d-tag{display:none}
   .grid{gap:.15rem}
-  .cal-title select{font-size:1.2rem}
-  .nb{padding:0 .7rem}
+  .cal{border-radius:24px}
+  .cal-title select{font-size:1.15rem}
+  .nb{padding:0 .8rem}
   .yiji{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:no-preference){
-  .page-body.flip{animation:flip .35s ease-out}
-  @keyframes flip{from{opacity:.2;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  .page-body.flip{animation:flip .3s cubic-bezier(.2,0,0,1)}
+  @keyframes flip{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
 }
 </style>
 </head>
@@ -243,12 +262,12 @@ button,select{font:inherit;color:inherit}
       </div>
       <div class="grid" id="grid" role="grid" aria-label="日期"></div>
       <div class="legend">
-        <span><i style="background:var(--seal)"></i>今天</span>
-        <span><i style="background:var(--jade-soft);border:2px solid var(--jade)"></i>正在查看</span>
-        <span style="color:var(--seal);font-weight:700">紅色日期：放假日</span>
-        <span><i style="background:var(--jade)"></i>補班（要上班）</span>
-        <span><i style="background:var(--seal)"></i>補假</span>
-        <span style="color:var(--gold);font-weight:700">金字：節氣</span>
+        <span><i class="lg-today"></i>今天</span>
+        <span><i class="lg-sel"></i>正在查看</span>
+        <span class="lg-red">紅色日期：放假日</span>
+        <span><i class="lg-work"></i>補班（要上班）</span>
+        <span><i class="lg-off"></i>補假</span>
+        <span class="lg-term">金色字：節氣</span>
         <span class="hol-status" id="holStatus" aria-live="polite"></span>
       </div>
     </section>
@@ -735,7 +754,7 @@ const Almanac = (() => {
     const list = Almanac.shichen(inf.pillars.dayStem);
     $('pSC').innerHTML = list.map(s =>
       '<div class="sc"><b>' + s.gz + '</b><span>' + pad(s.start) + '–' + pad(s.end) + '</span></div>').join('');
-    $('scTitle').textContent = today ? '十二時辰（綠色為現在時刻）' : '十二時辰';
+    $('scTitle').textContent = today ? '十二時辰（紫色為現在時刻）' : '十二時辰';
     markShichen();
     $('backToday').hidden = today;
 
